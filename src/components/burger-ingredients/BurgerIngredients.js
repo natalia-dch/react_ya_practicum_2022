@@ -22,7 +22,8 @@ function BurgerIngredients({ingredients}){
     </div>
     <div className={styles.ingContainer}>
     {ingredients.map(
-      (el) => (<Ingredient name={el.name} image={el.image} price={el.price} quantity={Math.floor(Math.random()*5)}/>)
+      (el,ind) => (<Ingredient name={el.name} image={el.image} price={el.price} quantity={Math.floor(Math.random()*5)}
+      key={ind} />)
     )}
     </div>
     </>

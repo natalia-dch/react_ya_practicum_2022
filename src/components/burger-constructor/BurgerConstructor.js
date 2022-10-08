@@ -8,13 +8,13 @@ function BurgerConstructor({ingredients}){
     <Ingredient name={bread.name} image={bread.image} price={bread.price} locked/>
     <div className={styles.ingContainer}>
     {ingredients.map(
-      (el,ind) => (<Ingredient name={el.name} image={el.image} price={el.price} />)
+      (el,ind) => (<Ingredient name={el.name} image={el.image} price={el.price} key={ind}/>)
     )}
     </div>
-    <Ingredient name={bread.name} image={bread.image} price={bread.price} locked/>
+    <Ingredient name={bread.name} image={bread.image} price={bread.price} locked />
     <div className={"mt-10 mr-4 "+styles.totalContainer}>
     <p className={"text text_type_digits-default pl-10 pr-10"}>{500}<CurrencyIcon type="primary" /></p>
-    <Button type="primary" size="medium">
+    <Button type="primary"  size="medium">
   Оформить заказ
 </Button>
     </div>
