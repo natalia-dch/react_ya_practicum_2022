@@ -1,6 +1,8 @@
 import React from 'react';
 import styles from './burger-constructor.module.css';
 import { Tab, CurrencyIcon, LockIcon, DeleteIcon, DragIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components';
+import PropTypes from 'prop-types';
+
 function BurgerConstructor({ingredients,showOrderInfo}){
   let bread = ingredients[0];
   return (
@@ -23,6 +25,11 @@ function BurgerConstructor({ingredients,showOrderInfo}){
   )
 }
 
+BurgerConstructor.propTypes = {
+ingredients:PropTypes.array,
+showOrderInfo:PropTypes.func,
+}
+
 function Ingredient({name,image,price,locked}){
   return(
     <div className={"m-4 "+(locked?"pl-6 pr-2 ":"")+styles.ingredient}>
@@ -39,5 +46,11 @@ function Ingredient({name,image,price,locked}){
   )
 }
 
+Ingredient.propTypes = {
+name:PropTypes.string,
+image:PropTypes.string,
+price:PropTypes.number,
+locked:PropTypes.bool,
+}
 
 export default BurgerConstructor;

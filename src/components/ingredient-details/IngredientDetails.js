@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './ingredient-details.module.css';
+import PropTypes from 'prop-types';
 
 function IngredientDetails({name,image,description,cals,proteins,carbs,fats}){
   return (
@@ -17,6 +18,17 @@ function IngredientDetails({name,image,description,cals,proteins,carbs,fats}){
   )
 }
 
+IngredientDetails.propTypes = {
+  name:PropTypes.string,
+  image:PropTypes.string,
+  description:PropTypes.string,
+  cals:PropTypes.number,
+  proteins:PropTypes.number,
+  carbs:PropTypes.number,
+  fats: PropTypes.number,
+};
+
+
 function NutritionInfo({title,info}){
 return (
 <div>
@@ -24,6 +36,11 @@ return (
 <p className="text text_type_digits-default text_color_inactive">{info}</p>
 </div>)
 }
+
+NutritionInfo.propTypes = {
+  title:PropTypes.string,
+  info:PropTypes.number,
+};
 
 
 

@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './order-details.module.css';
 import doneImg from '../../images/done.svg'
 
-function OrderDetails(props){
+function OrderDetails(){
   return (
     <div className={styles.container}>
     <p className="text text_type_digits-large">123456</p>

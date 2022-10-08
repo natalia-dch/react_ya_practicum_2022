@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './burger-ingredients.module.css';
 import { Tab, CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components';
+import PropTypes from 'prop-types';
 
 function BurgerIngredients({ingredients,onItemClick}){
   const [current, setCurrent] = React.useState('buns')
@@ -31,6 +32,11 @@ function BurgerIngredients({ingredients,onItemClick}){
   )
 }
 
+BurgerIngredients.propTypes = {
+  ingredients:PropTypes.array,
+  onItemClick:PropTypes.func,
+}
+
 function Ingredient({name,image,price,quantity,onClick}){
   return(
     <div className={styles.ingredient} onClick={onClick}>
@@ -40,6 +46,14 @@ function Ingredient({name,image,price,quantity,onClick}){
     <p className={"text text_type_main-default"}>{name}</p>
     </div>
   )
+}
+
+Ingredient.propTypes = {
+  name:PropTypes.string,
+  image:PropTypes.string,
+  price:PropTypes.number,
+  quantity:PropTypes.number,
+  onClick:PropTypes.func,
 }
 
 export default BurgerIngredients;
