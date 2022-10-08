@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './burger-constructor.module.css';
 import { Tab, CurrencyIcon, LockIcon, DeleteIcon, DragIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components';
-function BurgerConstructor({ingredients}){
+function BurgerConstructor({ingredients,showOrderInfo}){
   let bread = ingredients[0];
   return (
     <div className={"mt-10 "+styles.mainContainer}>
@@ -14,7 +14,7 @@ function BurgerConstructor({ingredients}){
     <Ingredient name={bread.name} image={bread.image} price={bread.price} locked />
     <div className={"mt-10 mr-4 "+styles.totalContainer}>
     <p className={"text text_type_digits-default pl-10 pr-10"}>{500}<CurrencyIcon type="primary" /></p>
-    <Button type="primary"  size="medium">
+    <Button type="primary"  size="medium" onClick={showOrderInfo}>
   Оформить заказ
 </Button>
     </div>

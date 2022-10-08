@@ -27,7 +27,6 @@ const [modal, setModal] = React.useState({opened:false,content:null,title:null})
 
   const closeModal = () => setModal({opened:false,content:null,title:null});
 
-  const content = (<p>hi</p>);
   const showIngredientInfo = (id) => {
     let item = state.ingredients.find(i=>i._id===id);
     console.log(item)
@@ -42,8 +41,14 @@ const [modal, setModal] = React.useState({opened:false,content:null,title:null})
     fats={item.fat}
     />;
     setModal({opened:true,content:content,title:"Детали ингредиента"})
-
   }
+
+  const showOrderInfo = () => {
+    let content = <OrderDetails
+    />;
+    setModal({opened:true,content:content,title:null})
+  }
+
   return (
     <div className="App">
     {modal.opened && <Modal title={modal.title} content={modal.content} close={closeModal}/>}
@@ -58,7 +63,7 @@ const [modal, setModal] = React.useState({opened:false,content:null,title:null})
     <BurgerIngredients ingredients={state.ingredients} onItemClick={showIngredientInfo}/>
     </section>
     <section>
-    <BurgerConstructor ingredients={state.ingredients}/>
+    <BurgerConstructor ingredients={state.ingredients} showOrderInfo={showOrderInfo}/>
     </section>
     </main>
   }
