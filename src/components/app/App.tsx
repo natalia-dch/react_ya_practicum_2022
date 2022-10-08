@@ -5,6 +5,7 @@ import './App.css';
 import AppHeader from '../app-header/AppHeader';
 import BurgerConstructor from '../burger-constructor/BurgerConstructor';
 import BurgerIngredients from '../burger-ingredients/BurgerIngredients';
+import Modal from '../modal/Modal';
 
 function App() {
   const URL = "https://norma.nomoreparties.space/api/ingredients";
@@ -13,6 +14,7 @@ function App() {
   loading: true,
   error:false
 })
+const [modalOpen, setModalOpen] = React.useState(true);
   React.useEffect(()=>{
   fetch(URL)
   .then(res=>res.json())
@@ -20,8 +22,12 @@ function App() {
   .catch(error=>setState({...state,error:error,loading:false})
   )
   },[])
+
+  const closeModal = () => setModalOpen(false);
+  const content = (<p>hi</p>);
   return (
     <div className="App">
+    {modalOpen && <Modal title="bla" content={content} close={closeModal}/>}
     <header>
     <AppHeader/>
     </header>
