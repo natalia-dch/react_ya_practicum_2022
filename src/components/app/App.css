@@ -7,7 +7,7 @@ main {
 }
 
 section {
-  height: "80vh";
+  width:50%;
 }
 
 div::-webkit-scrollbar {
