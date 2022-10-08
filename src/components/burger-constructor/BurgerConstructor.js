@@ -1,56 +1,79 @@
 import React from 'react';
 import styles from './burger-constructor.module.css';
-import { Tab, CurrencyIcon, LockIcon, DeleteIcon, DragIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components';
+import {
+  Tab,
+  CurrencyIcon,
+  LockIcon,
+  DeleteIcon,
+  DragIcon,
+  Button
+} from '@ya.praktikum/react-developer-burger-ui-components';
 import PropTypes from 'prop-types';
 
-function BurgerConstructor({ingredients,showOrderInfo}){
+function BurgerConstructor({ingredients, showOrderInfo}) {
   let bread = ingredients[0];
-  return (
-    <div className={"mt-10 "+styles.mainContainer}>
-    <Ingredient name={bread.name} image={bread.image} price={bread.price} locked/>
+  return (<div className={"mt-10 " + styles.mainContainer}>
+    <Ingredient name={bread.name} image={bread.image} price={bread.price} locked="locked"/>
     <div className={styles.ingContainer}>
-    {ingredients.map(
-      (el,ind) => (<Ingredient name={el.name} image={el.image} price={el.price} key={ind}/>)
-    )}
+      {ingredients.map((el, ind) => (<Ingredient name={el.name} image={el.image} price={el.price} key={ind}/>))}
     </div>
-    <Ingredient name={bread.name} image={bread.image} price={bread.price} locked />
-    <div className={"mt-10 mr-4 "+styles.totalContainer}>
-    <p className={"text text_type_digits-default pl-10 pr-10"}>{500}<CurrencyIcon type="primary" /></p>
-    <Button type="primary"  size="medium" onClick={showOrderInfo}>
-  Оформить заказ
-</Button>
+    <Ingredient name={bread.name} image={bread.image} price={bread.price} locked="locked"/>
+    <div className={"mt-10 mr-4 " + styles.totalContainer}>
+      <p className={"text text_type_digits-default pl-10 pr-10"}>{500}<CurrencyIcon type="primary"/></p>
+      <Button type="primary" size="medium" onClick={showOrderInfo}>
+        Оформить заказ
+      </Button>
     </div>
-    </div>
-
-  )
+  </div>)
 }
+
+let ingredientType = PropTypes.shape({
+  __v: PropTypes.number,
+  _id: PropTypes.string,
+  calories: PropTypes.number,
+  carbohydrates: PropTypes.number,
+  fat: PropTypes.number,
+  image: PropTypes.string,
+  image_large: PropTypes.string,
+  image_mobile: PropTypes.string,
+  name: PropTypes.string,
+  price: PropTypes.number,
+  proteins: PropTypes.number,
+  type: PropTypes.string,
+  "new entry": PropTypes.string
+})
 
 BurgerConstructor.propTypes = {
-ingredients:PropTypes.array,
-showOrderInfo:PropTypes.func,
+  ingredients: PropTypes.arrayOf(ingredientType),
+  showOrderInfo: PropTypes.func
 }
 
-function Ingredient({name,image,price,locked}){
-  return(
-    <div className={"m-4 "+(locked?"pl-6 pr-2 ":"")+styles.ingredient}>
+function Ingredient({name, image, price, locked}) {
+  return (<div className={"m-4 " + (
+      locked
+      ? "pl-6 pr-2 "
+      : "") + styles.ingredient}>
     <div className={styles.leftContainer}>
-    {!locked && <DragIcon type="primary" />}
-    <img src={image} className={styles.pic}/>
-    <p className={"text text_type_main-default "+styles.name}>{name}</p>
+      {!locked && <DragIcon type="primary"/>}
+      <img src={image} className={styles.pic}/>
+      <p className={"text text_type_main-default " + styles.name}>{name}</p>
     </div>
     <div className={styles.rightContainer}>
-    <p className={"text text_type_digits-default ml-5 mr-5 "+styles.price}>{price}<CurrencyIcon type="primary" /></p>
-    {locked? <LockIcon type="secondary" className={"mr-8 "+styles.icon}/> : <DeleteIcon type="primary" className={styles.icon}/>}
+      <p className={"text text_type_digits-default ml-5 mr-5 " + styles.price}>{price}<CurrencyIcon type="primary"/></p>
+      {
+        locked
+          ? <LockIcon type="secondary" className={"mr-8 " + styles.icon}/>
+          : <DeleteIcon type="primary" className={styles.icon}/>
+      }
     </div>
-    </div>
-  )
+  </div>)
 }
 
 Ingredient.propTypes = {
-name:PropTypes.string,
-image:PropTypes.string,
-price:PropTypes.number,
-locked:PropTypes.bool,
+  name: PropTypes.string,
+  image: PropTypes.string,
+  price: PropTypes.number,
+  locked: PropTypes.bool
 }
 
 export default BurgerConstructor;

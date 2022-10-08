@@ -32,8 +32,24 @@ function BurgerIngredients({ingredients,onItemClick}){
   )
 }
 
+let ingredientType = PropTypes.shape({
+  __v: PropTypes.number,
+  _id: PropTypes.string,
+  calories: PropTypes.number,
+  carbohydrates: PropTypes.number,
+  fat: PropTypes.number,
+  image: PropTypes.string,
+  image_large: PropTypes.string,
+  image_mobile: PropTypes.string,
+  name: PropTypes.string,
+  price: PropTypes.number,
+  proteins: PropTypes.number,
+  type: PropTypes.string,
+  "new entry": PropTypes.string
+})
+
 BurgerIngredients.propTypes = {
-  ingredients:PropTypes.array,
+  ingredients:PropTypes.arrayOf(ingredientType),
   onItemClick:PropTypes.func,
 }
 
@@ -48,6 +64,7 @@ function Ingredient({name,image,price,quantity,onClick}){
   )
 }
 
+
 Ingredient.propTypes = {
   name:PropTypes.string,
   image:PropTypes.string,
@@ -55,5 +72,7 @@ Ingredient.propTypes = {
   quantity:PropTypes.number,
   onClick:PropTypes.func,
 }
+
+
 
 export default BurgerIngredients;
