@@ -9,9 +9,11 @@ function Modal({title,content,close}){
     return ReactDOM.createPortal(
       <>
       <ModalOverlay close={close}/>
-      <div className={styles.modal}>
-      <CloseIcon type="primary" onClick={close} className={styles.closeBtn}/>
-      <p className={"text text_type_main-default "}>{title}</p>
+      <div className={"p-4 m-4 "+styles.modal}>
+      <div className={styles.closeBtn} onClick={close}>
+      <CloseIcon type="primary"/>
+      </div>
+      <p className={"text text_type_main-medium "}>{title}</p>
       {content}
       </div>
       </>,

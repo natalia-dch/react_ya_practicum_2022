@@ -5,6 +5,8 @@ import './App.css';
 import AppHeader from '../app-header/AppHeader';
 import BurgerConstructor from '../burger-constructor/BurgerConstructor';
 import BurgerIngredients from '../burger-ingredients/BurgerIngredients';
+import OrderDetails from '../order-details/OrderDetails';
+import IngredientsDetails from '../ingredient-details/IngredientDetails';
 import Modal from '../modal/Modal';
 
 function App() {
@@ -14,7 +16,7 @@ function App() {
   loading: true,
   error:false
 })
-const [modalOpen, setModalOpen] = React.useState(true);
+const [modal, setModal] = React.useState({opened:false,content:null,title:null});
   React.useEffect(()=>{
   fetch(URL)
   .then(res=>res.json())
@@ -23,11 +25,28 @@ const [modalOpen, setModalOpen] = React.useState(true);
   )
   },[])
 
-  const closeModal = () => setModalOpen(false);
+  const closeModal = () => setModal({opened:false,content:null,title:null});
+
   const content = (<p>hi</p>);
+  const showIngredientInfo = (id) => {
+    let item = state.ingredients.find(i=>i._id===id);
+    console.log(item)
+    if(!item) return;
+    let content = <IngredientsDetails
+    name={item.name}
+    image={item.image}
+    description= {item.description ?? "Описания пока нет"}
+    cals={item.calories}
+    proteins={item.proteins}
+    carbs={item.carbohydrates}
+    fats={item.fat}
+    />;
+    setModal({opened:true,content:content,title:"Детали ингредиента"})
+
+  }
   return (
     <div className="App">
-    {modalOpen && <Modal title="bla" content={content} close={closeModal}/>}
+    {modal.opened && <Modal title={modal.title} content={modal.content} close={closeModal}/>}
     <header>
     <AppHeader/>
     </header>
@@ -36,7 +55,7 @@ const [modalOpen, setModalOpen] = React.useState(true);
     {!state.loading && !state.error &&
     <main>
     <section>
-    <BurgerIngredients ingredients={state.ingredients}/>
+    <BurgerIngredients ingredients={state.ingredients} onItemClick={showIngredientInfo}/>
     </section>
     <section>
     <BurgerConstructor ingredients={state.ingredients}/>
