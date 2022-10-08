@@ -1,0 +1,16 @@
+.ingContainer{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  height:60vh;
+  overflow-y:scroll;
+}
+
+.ingredient{
+  position: relative;
+}
+.subheader{
+text-align: left;
+}
+.pic{
+  width: 10vw;
+}

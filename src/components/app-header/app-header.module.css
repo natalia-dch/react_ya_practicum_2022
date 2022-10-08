@@ -1,0 +1,26 @@
+.container{
+display:flex;
+flex-direction: row;
+justify-content: space-between;
+}
+.leftContainer{
+display:flex;
+flex-direction: row;
+}
+.menuItem{
+  display:flex;
+  flex-direction: row;
+}
+.logo{
+  left:0;
+  right:0;
+
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
+
+  position: absolute;
+  width: 40%;
+
+width: 50%;
+}

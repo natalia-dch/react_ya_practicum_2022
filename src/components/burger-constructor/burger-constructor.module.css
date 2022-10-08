@@ -1,0 +1,36 @@
+
+.totalContainer{
+  display: flex;
+  justify-content: flex-end;
+}
+.ingContainer{
+  height: 40vh;
+  overflow-y:scroll;
+}
+
+.ingredient{
+  display: flex;
+  justify-content: space-between;
+}
+.leftContainer{
+  display: flex;
+  align-items: flex-start;
+}
+.rightContainer{
+  display: flex;
+  align-items: flex-start;
+}
+.pic{
+  width: 5vw;
+}
+.icon{
+  /* align-self: right; */
+}
+.price{
+display: flex;
+align-self: right;
+vertical-align: top;
+}
+.name{
+  text-align: left;
+}
