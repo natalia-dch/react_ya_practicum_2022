@@ -5,8 +5,8 @@
   overflow-y: scroll;
 }
 
-.tabs{
- display: flex;
+.tabs {
+  display: flex;
 }
 
 .ingredient {

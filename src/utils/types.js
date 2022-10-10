@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
 export const ingredientType = PropTypes.shape({
   __v: PropTypes.number,
@@ -13,5 +13,5 @@ export const ingredientType = PropTypes.shape({
   price: PropTypes.number.isRequired,
   proteins: PropTypes.number.isRequired,
   type: PropTypes.string.isRequired,
-  "new entry": PropTypes.string
-})
+  "new entry": PropTypes.string,
+});
