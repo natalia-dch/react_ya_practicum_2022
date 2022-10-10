@@ -2,13 +2,14 @@ import React from 'react';
 import styles from './burger-ingredients.module.css';
 import {Tab, CurrencyIcon, Counter} from '@ya.praktikum/react-developer-burger-ui-components';
 import PropTypes from 'prop-types';
+import {ingredientType} from '../../utils/types.js'
 
 function BurgerIngredients({ingredients, onItemClick}) {
   const [current, setCurrent] = React.useState('bun')
   return (<> < p className = {
     `text text_type_main-medium ml-2 mr-2 ` + styles.subheader
   } > Соберите бургер < /p>
-    <div style={{ display: 'flex'}}>
+    <div className={styles.tabs}>
       <Tab value="bun" active={current === 'bun'} onClick={setCurrent}>
         Булки
       </Tab > <Tab value="sauce" active={current === 'sauce'} onClick={setCurrent}>
@@ -24,48 +25,32 @@ function BurgerIngredients({ingredients, onItemClick}) {
       (el, ind) => el.type === current
       ? (<Ingredient name={el.name} image={el.image} onClick={() => {
           onItemClick(el._id)
-        }} price={el.price} quantity={Math.floor(Math.random() * 5)} key={ind}/>)
+        }} price={el.price} quantity={Math.floor(Math.random() * 5)} key={el._id}/>)
       : null)
   } < /div>
     </ >)
 }
 
-let ingredientType = PropTypes.shape({
-  __v: PropTypes.number,
-  _id: PropTypes.string,
-  calories: PropTypes.number,
-  carbohydrates: PropTypes.number,
-  fat: PropTypes.number,
-  image: PropTypes.string,
-  image_large: PropTypes.string,
-  image_mobile: PropTypes.string,
-  name: PropTypes.string,
-  price: PropTypes.number,
-  proteins: PropTypes.number,
-  type: PropTypes.string,
-  "new entry": PropTypes.string
-})
-
 BurgerIngredients.propTypes = {
-  ingredients: PropTypes.arrayOf(ingredientType),
-  onItemClick: PropTypes.func
+  ingredients: PropTypes.arrayOf(ingredientType).isRequired,
+  onItemClick: PropTypes.func.isRequired
 }
 
 function Ingredient({name, image, price, quantity, onClick}) {
   return (<div className={styles.ingredient} onClick={onClick}>
     {quantity > 0 && <Counter count={quantity} size="default"/>}
-    <img src={image} className={styles.pic}/>
+    <img src={image} className={styles.pic} alt={name}/>
     <p className={"text text_type_digits-default"}>{price}<CurrencyIcon type="primary"/></p>
     <p className={"text text_type_main-default"}>{name}</p>
   </div>)
 }
 
 Ingredient.propTypes = {
-  name: PropTypes.string,
-  image: PropTypes.string,
-  price: PropTypes.number,
-  quantity: PropTypes.number,
-  onClick: PropTypes.func
+  name: PropTypes.string.isRequired,
+  image: PropTypes.string.isRequired,
+  price: PropTypes.number.isRequired,
+  quantity: PropTypes.number.isRequired,
+  onClick: PropTypes.func.isRequired
 }
 
 export default BurgerIngredients;

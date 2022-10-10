@@ -5,6 +5,10 @@
   overflow-y: scroll;
 }
 
+.tabs{
+ display: flex;
+}
+
 .ingredient {
   position: relative;
   cursor: pointer;
@@ -15,5 +19,5 @@
 }
 
 .pic {
-  width: 10vw;
+  width: 70%;
 }

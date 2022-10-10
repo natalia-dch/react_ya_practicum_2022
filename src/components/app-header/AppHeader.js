@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 function AppHeader(props) {
   return (<div className={styles.container}>
     <div className={styles.leftContainer}>
-      <MenuItem logo={<BurgerIcon type = "primary" />} text="Конструктор" active="active"/>
+      <MenuItem logo={<BurgerIcon type = "primary" />} text="Конструктор" active/>
       <MenuItem logo={<ListIcon type = "secondary" />} text="Лента заказов"/>
     </div>
     <div className={styles.logo}>
@@ -28,8 +28,8 @@ function MenuItem({logo, text, active}) {
 }
 
 MenuItem.propTypes = {
-  logo: PropTypes.element,
-  text: PropTypes.string,
+  logo: PropTypes.element.isRequired,
+  text: PropTypes.string.isRequired,
   active: PropTypes.bool
 }
 

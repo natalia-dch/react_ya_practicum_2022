@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 function IngredientDetails({name,image,description,cals,proteins,carbs,fats}){
   return (
     <>
-        <img src={image} className={styles.img}/>
+        <img src={image} className={styles.img} alt={name}/>
     <p className="text text_type_main-medium">{name}</p>
     <p className="text text_type_main-default ">{description}</p>
     <div className={styles.nutritionContainer}>
@@ -19,13 +19,13 @@ function IngredientDetails({name,image,description,cals,proteins,carbs,fats}){
 }
 
 IngredientDetails.propTypes = {
-  name:PropTypes.string,
-  image:PropTypes.string,
+  name:PropTypes.string.isRequired,
+  image:PropTypes.string.isRequired,
   description:PropTypes.string,
-  cals:PropTypes.number,
-  proteins:PropTypes.number,
-  carbs:PropTypes.number,
-  fats: PropTypes.number,
+  cals:PropTypes.number.isRequired,
+  proteins:PropTypes.number.isRequired,
+  carbs:PropTypes.number.isRequired,
+  fats: PropTypes.number.isRequired,
 };
 
 
@@ -38,8 +38,8 @@ return (
 }
 
 NutritionInfo.propTypes = {
-  title:PropTypes.string,
-  info:PropTypes.number,
+  title:PropTypes.string.isRequired,
+  info:PropTypes.number.isRequired,
 };
 
 

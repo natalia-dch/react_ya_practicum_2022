@@ -1,11 +1,20 @@
+.mainContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px
+}
+
 .totalContainer {
   display: flex;
   justify-content: flex-end;
 }
 
 .ingContainer {
-  height: 40vh;
+  height: 25vh;
   overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .ingredient {

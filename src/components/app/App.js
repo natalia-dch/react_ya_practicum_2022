@@ -1,7 +1,7 @@
 import React from 'react';
 import logo from './logo.svg';
 // import {data} from '../../utils/data.js'
-import './App.css';
+import styles from './app.module.css';
 import AppHeader from '../app-header/AppHeader';
 import BurgerConstructor from '../burger-constructor/BurgerConstructor';
 import BurgerIngredients from '../burger-ingredients/BurgerIngredients';
@@ -14,8 +14,12 @@ function App() {
   const [state, setState] = React.useState({ingredients: [], loading: true, error: false})
   const [modal, setModal] = React.useState({opened: false, content: null, title: null});
   React.useEffect(() => {
-    fetch(URL).then(res => res.json()).then(data => {
-      console.log(data);
+    fetch(URL).then(res => {
+      if (!res.ok)
+        throw res.status;
+     return res.json()
+    }).then(data => {
+      // console.log(data);
       setState({
         error: !data.success,
         ingredients: data.data,
@@ -31,20 +35,20 @@ function App() {
   const closeModal = () => setModal({opened: false, content: null, title: null});
 
   const showIngredientInfo = (id) => {
-    let item = state.ingredients.find(i => i._id === id);
+    const item = state.ingredients.find(i => i._id === id);
     console.log(item)
     if (!item)
       return;
-    let content = <IngredientsDetails name={item.name} image={item.image} description={item.description ?? "Описания пока нет"} cals={item.calories} proteins={item.proteins} carbs={item.carbohydrates} fats={item.fat}/>;
+    const content = <IngredientsDetails name={item.name} image={item.image} description={item.description ?? "Описания пока нет"} cals={item.calories} proteins={item.proteins} carbs={item.carbohydrates} fats={item.fat}/>;
     setModal({opened: true, content: content, title: "Детали ингредиента"})
   }
 
   const showOrderInfo = () => {
-    let content = <OrderDetails/>;
+    const content = <OrderDetails/>;
     setModal({opened: true, content: content, title: null})
   }
 
-  return (<div className="App">
+  return (<div className={styles.app}>
     {modal.opened && <Modal title={modal.title} close={closeModal}>{modal.content}</Modal>}
     <header>
       <AppHeader/>
@@ -58,11 +62,11 @@ function App() {
           server error</p>
     }
     {
-      !state.loading && !state.error && <main>
-          <section>
+      !state.loading && !state.error && <main className={styles.main}>
+          <section className={styles.section}>
             <BurgerIngredients ingredients={state.ingredients} onItemClick={showIngredientInfo}/>
           </section>
-          <section>
+          <section className={styles.section}>
             <BurgerConstructor ingredients={state.ingredients} showOrderInfo={showOrderInfo}/>
           </section>
         </main>
