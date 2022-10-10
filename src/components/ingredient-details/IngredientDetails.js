@@ -13,10 +13,9 @@ function IngredientDetails({
 }) {
   return (
     <>
-      <img src={image} className={styles.img} alt={name} />
-      <p className="text text_type_main-medium">{name}</p>
-      <p className="text text_type_main-default ">{description}</p>
-      <div className={styles.nutritionContainer}>
+      <img src={image} className={"mb-4 " + styles.img} alt={name} />
+      <p className="mb-8 text text_type_main-medium">{name}</p>
+      <div className={"mb-15 " + styles.nutritionContainer}>
         <NutritionInfo title={"Калории,ккал"} info={cals} />
         <NutritionInfo title={"Белки,г"} info={proteins} />
         <NutritionInfo title={"Жиры,г"} info={fats} />

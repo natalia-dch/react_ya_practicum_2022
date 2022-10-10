@@ -1,7 +1,9 @@
 .mainContainer {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 16px;
+  margin-left: 16px;
+  margin-right: 16px;
 }
 
 .totalContainer {
@@ -10,11 +12,11 @@
 }
 
 .ingContainer {
-  height: 25vh;
+  height: 43vh;
   overflow-y: scroll;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 16px;
 }
 
 .ingredient {

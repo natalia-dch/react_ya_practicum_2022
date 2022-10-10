@@ -1,12 +1,18 @@
 .ingContainer {
   display: grid;
   grid-template-columns: 1fr 1fr;
+}
+.container {
   height: 60vh;
   overflow-y: scroll;
 }
 
 .tabs {
   display: flex;
+}
+
+.subtitle{
+  text-align: left;
 }
 
 .ingredient {

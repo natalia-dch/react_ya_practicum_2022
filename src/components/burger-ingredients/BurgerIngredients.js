@@ -10,27 +10,46 @@ import { ingredientType } from "../../utils/types.js";
 
 function BurgerIngredients({ ingredients, onItemClick }) {
   const [current, setCurrent] = React.useState("bun");
+  const buns = ingredients.filter((el) => el.type === "bun");
+  const sauces = ingredients.filter((el) => el.type === "sauce");
+  const mains = ingredients.filter((el) => el.type === "main");
   return (
     <>
       {" "}
-      <p className={`text text_type_main-medium ml-2 mr-2 ` + styles.subheader}>
+      <p
+        className={
+          `text text_type_main-medium ml-2 mr-2 mt-10 mb-5 ` + styles.subheader
+        }
+      >
         {" "}
         Соберите бургер{" "}
       </p>
-      <div className={styles.tabs}>
-        <Tab value="bun" active={current === "bun"} onClick={setCurrent}>
-          Булки
-        </Tab>{" "}
-        <Tab value="sauce" active={current === "sauce"} onClick={setCurrent}>
-          Соусы
-        </Tab>
-        <Tab value="main" active={current === "main"} onClick={setCurrent}>
-          Начинки
-        </Tab>
+      <div className={`mb-10 ` + styles.tabs}>
+        <a href="#buns">
+          <Tab value="bun" active={current === "bun"} onClick={setCurrent}>
+            Булки
+          </Tab>
+        </a>
+        <a href="#sauces">
+          <Tab value="sauce" active={current === "sauce"} onClick={setCurrent}>
+            Соусы
+          </Tab>
+        </a>
+        <a href="#mains">
+          <Tab value="main" active={current === "main"} onClick={setCurrent}>
+            Начинки
+          </Tab>
+        </a>
       </div>
-      <div className={styles.ingContainer}>
-        {ingredients.map((el, ind) =>
-          el.type === current ? (
+      <div className={styles.container}>
+        <p
+          id="buns"
+          className={"text text_type_main-medium " + styles.subtitle}
+        >
+          Булки
+        </p>
+        <div className={styles.ingContainer}>
+          {buns.map((el, ind) => (
             <Ingredient
               name={el.name}
               image={el.image}
@@ -41,8 +60,48 @@ function BurgerIngredients({ ingredients, onItemClick }) {
               quantity={Math.floor(Math.random() * 5)}
               key={el._id}
             />
-          ) : null
-        )}{" "}
+          ))}
+        </div>
+        <p
+          id="sauces"
+          className={"text text_type_main-medium " + styles.subtitle}
+        >
+          Соусы
+        </p>
+        <div className={styles.ingContainer}>
+          {sauces.map((el, ind) => (
+            <Ingredient
+              name={el.name}
+              image={el.image}
+              onClick={() => {
+                onItemClick(el._id);
+              }}
+              price={el.price}
+              quantity={Math.floor(Math.random() * 5)}
+              key={el._id}
+            />
+          ))}
+        </div>
+        <p
+          id="mains"
+          className={"text text_type_main-medium " + styles.subtitle}
+        >
+          Начинки
+        </p>
+        <div className={styles.ingContainer}>
+          {mains.map((el, ind) => (
+            <Ingredient
+              name={el.name}
+              image={el.image}
+              onClick={() => {
+                onItemClick(el._id);
+              }}
+              price={el.price}
+              quantity={Math.floor(Math.random() * 5)}
+              key={el._id}
+            />
+          ))}
+        </div>
       </div>
     </>
   );
