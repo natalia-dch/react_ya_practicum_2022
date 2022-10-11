@@ -24,7 +24,7 @@ function BurgerConstructor({ ingredients, showOrderInfo }) {
         thumbnail={bread.image}
       />
       <div className={styles.ingContainer}>
-        {ingredients.map((el, ind) => (
+        {ingredients.filter(el => el.type != "bun").map((el, ind) => (
           <ConstructorElement
             text={el.name}
             price={el.price}
