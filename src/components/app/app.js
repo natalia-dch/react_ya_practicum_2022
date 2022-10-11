@@ -54,7 +54,7 @@ function App() {
     const content = (
       <IngredientsDetails
         name={item.name}
-        image={item.image}
+        image={item.image_large}
         description={item.description ?? "Описания пока нет"}
         cals={item.calories}
         proteins={item.proteins}
