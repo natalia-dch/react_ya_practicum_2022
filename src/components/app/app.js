@@ -77,9 +77,7 @@ function App() {
           {modal.content}
         </Modal>
       )}
-      <header>
         <AppHeader />
-      </header>
       {state.loading && (
         <p className={"text text_type_digits-default"}>loading...</p>
       )}
