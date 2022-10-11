@@ -10,7 +10,7 @@ import PropTypes from "prop-types";
 
 function AppHeader(props) {
   return (
-    <div className={styles.container}>
+    <header className={styles.container}>
       <div className={styles.leftContainer}>
         <MenuItem
           logo={<BurgerIcon type="primary" />}
@@ -23,7 +23,7 @@ function AppHeader(props) {
         <Logo />
       </div>
       <MenuItem logo={<ProfileIcon type="secondary" />} text="Личный кабинет" />
-    </div>
+    </header>
   );
 }
 
