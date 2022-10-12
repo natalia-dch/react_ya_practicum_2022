@@ -16,6 +16,7 @@ function BurgerConstructor({ ingredients, showOrderInfo }) {
   const bread = ingredients[0];
   return (
     <div className={"mt-10 " + styles.mainContainer}>
+      <div className={"ml-6 "}>
       <ConstructorElement
         type="top"
         isLocked={true}
@@ -23,16 +24,21 @@ function BurgerConstructor({ ingredients, showOrderInfo }) {
         price={bread.price}
         thumbnail={bread.image}
       />
+      </div>
       <div className={styles.ingContainer}>
         {ingredients.filter(el => el.type != "bun").map((el, ind) => (
+          <div key={el._id}>
+          <DragIcon type="primary" />
           <ConstructorElement
             text={el.name}
             price={el.price}
             thumbnail={el.image}
-            key={el._id}
+            
           />
+          </div>
         ))}
       </div>
+      <div className={"ml-6 "}>
       <ConstructorElement
         type="bottom"
         isLocked={true}
@@ -40,6 +46,7 @@ function BurgerConstructor({ ingredients, showOrderInfo }) {
         price={bread.price}
         thumbnail={bread.image}
       />
+      </div>
       <div className={"mt-10 mr-4 " + styles.totalContainer}>
         <p className={"text text_type_digits-default pl-10 pr-10"}>
           {500}
