@@ -11,8 +11,17 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
 import { ingredientType } from "../../utils/types.js";
+import { useSelector, useDispatch } from 'react-redux';
+import { order } from '../../services/actions/order';
 
-function BurgerConstructor({ ingredients, showOrderInfo }) {
+
+function BurgerConstructor({ showModal }) {
+  const dispatch = useDispatch();
+  const ingredients = useSelector(state => state.ingredients.items); //TODO: change
+  const makeOrder = () => {
+    showModal();
+    dispatch(order(ingredients.map(i=>i._id)));
+  }
   const bread = ingredients[0];
   return (
     <div className={"mt-10 " + styles.mainContainer}>
@@ -55,7 +64,7 @@ function BurgerConstructor({ ingredients, showOrderInfo }) {
         <Button
           type="primary"
           size="medium"
-          onClick={showOrderInfo}
+          onClick={makeOrder}
           htmlType="button"
         >
           Оформить заказ
@@ -66,8 +75,7 @@ function BurgerConstructor({ ingredients, showOrderInfo }) {
 }
 
 BurgerConstructor.propTypes = {
-  ingredients: PropTypes.arrayOf(ingredientType).isRequired,
-  showOrderInfo: PropTypes.func.isRequired,
+  showModal: PropTypes.func.isRequired,
 };
 
 export default BurgerConstructor;

@@ -16,30 +16,30 @@ import {
 
 const ingredientsInitialState = {
   items: [],
-  itemsRequest: false,
-  itemsFailed: false,
+  loading: true,
+  error: false,
 };
 export const ingredientsReducer = (state = ingredientsInitialState, action) => {
   switch (action.type) {
     case GET_INGREDIENTS_REQUEST: {
       return {
         ...state,
-        itemsRequest: true,
+        loading: true,
       };
     }
     case GET_INGREDIENTS_SUCCESS: {
       return {
         ...state,
-        itemsRequest: false,
-        itemsFailed: false,
-        items: action.items,
+        loading: false,
+        error: false,
+        items: action.ingredients,
       };
     }
     case GET_INGREDIENTS_FAILED: {
       return {
         ...state,
-        itemsRequest: false,
-        itemsFailed: true,
+        loading: false,
+        error: true,
       };
     }
     default: {
@@ -60,7 +60,7 @@ export const constructorIngredientsReducer = (state = [], action) => {
     }
   }
 };
-export const currentIngredientReducer = (state = {}, action) => {
+export const currentIngredientReducer = (state = null, action) => {
   switch (action.type) {
     case CHANGE_CURRENT_INGREDIENT: {
       return action.ingredientData;
@@ -73,13 +73,15 @@ export const currentIngredientReducer = (state = {}, action) => {
 const orderInitialState = {
   order: {},
   orderRequest: false,
-  orderFailed: false,
+  orderSucceeded: false,
 };
-export const orderReducer = (state = {}, action) => {
+export const orderReducer = (state = orderInitialState, action) => {
   switch (action.type) {
     case ORDER_REQUEST: {
       return {
         ...state,
+        order: {},
+        orderSucceeded: false,
         orderRequest: true,
       };
     }
@@ -87,7 +89,7 @@ export const orderReducer = (state = {}, action) => {
       return {
         ...state,
         orderRequest: false,
-        orderFailed: false,
+        orderSucceeded: true,
         order: action.order,
       };
     }
@@ -95,7 +97,7 @@ export const orderReducer = (state = {}, action) => {
       return {
         ...state,
         orderRequest: false,
-        orderFailed: true,
+        orderSucceeded: false,
       };
     }
     default: {

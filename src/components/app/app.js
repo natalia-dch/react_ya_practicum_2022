@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from 'react';
 import logo from "./logo.svg";
 // import {data} from '../../utils/data.js'
 import styles from "./app.module.css";
@@ -8,95 +8,56 @@ import BurgerIngredients from "../burger-ingredients/BurgerIngredients";
 import OrderDetails from "../order-details/OrderDetails";
 import IngredientsDetails from "../ingredient-details/IngredientDetails";
 import Modal from "../modal/Modal";
+import { getIngredients } from "../../services/actions/ingredientsAPI";
+import { CHANGE_CURRENT_INGREDIENT } from "../../services/actions/ingredients";
+import { useDispatch, useSelector } from "react-redux";
+
 
 function App() {
-  const URL = "https://norma.nomoreparties.space/api/ingredients";
-  const [state, setState] = React.useState({
-    ingredients: [],
-    loading: true,
-    error: false,
-  });
-  const [modal, setModal] = React.useState({
-    opened: false,
-    content: null,
-    title: null,
-  });
+  const currentIngredient = useSelector((state) => state.currentIngredient);
+  const orderSucceeded = useSelector((state) => state.order.orderSucceeded);
+  const ingredients = useSelector((state) => state.ingredients);
+  const [modalOpened, setModalOpened] = React.useState(false);
+  const dispatch = useDispatch();
+  const closeModal = () => setModalOpened(false);
+  const openModal = ()  => setModalOpened(true);
+  const closeIngredientModal = () => {
+    dispatch({ type: CHANGE_CURRENT_INGREDIENT, ingredientData: null });
+  }
+
+  const orderModal = (
+    <Modal title={"Детали ингредиента"} close={closeModal}>
+      <OrderDetails />
+    </Modal>
+  );
+  const ingredientModal = <Modal close={closeIngredientModal}><IngredientsDetails /></Modal>;
+
   React.useEffect(() => {
-    fetch(URL)
-      .then((res) => {
-        if (!res.ok) throw res.status;
-        return res.json();
-      })
-      .then((data) => {
-        // console.log(data);
-        setState({
-          error: !data.success,
-          ingredients: data.data,
-          loading: false,
-        });
-      })
-      .catch((error) =>
-        setState({
-          ...state,
-          error: error,
-          loading: false,
-        })
-      );
+    dispatch(getIngredients());
   }, []);
 
-  const closeModal = () =>
-    setModal({ opened: false, content: null, title: null });
-
-  const showIngredientInfo = (id) => {
-    const item = state.ingredients.find((i) => i._id === id);
-    console.log(item);
-    if (!item) return;
-    const content = (
-      <IngredientsDetails
-        name={item.name}
-        image={item.image_large}
-        description={item.description ?? "Описания пока нет"}
-        cals={item.calories}
-        proteins={item.proteins}
-        carbs={item.carbohydrates}
-        fats={item.fat}
-      />
-    );
-    setModal({ opened: true, content: content, title: "Детали ингредиента" });
-  };
-
-  const showOrderInfo = () => {
-    const content = <OrderDetails />;
-    setModal({ opened: true, content: content, title: null });
-  };
+  // const showOrderInfo = () => {
+  //   setModalOpened(true);
+  // };
 
   return (
     <div className={styles.app}>
-      {modal.opened && (
-        <Modal title={modal.title} close={closeModal}>
-          {modal.content}
-        </Modal>
-      )}
-        <AppHeader />
-      {state.loading && (
+      {currentIngredient && ingredientModal}
+      {modalOpened && orderSucceeded && orderModal}
+      <AppHeader />
+      {ingredients.loading && (
         <p className={"text text_type_digits-default"}>loading...</p>
       )}
-      {state.error && (
+      {ingredients.error && (
         <p className={"text text_type_digits-default"}>server error</p>
       )}
-      {!state.loading && !state.error && (
+      {!ingredients.loading && !ingredients.error && (
         <main className={styles.main}>
           <section className={styles.section}>
-            <BurgerIngredients
-              ingredients={state.ingredients}
-              onItemClick={showIngredientInfo}
-            />
+            <BurgerIngredients />
           </section>
           <section className={styles.section}>
-            <BurgerConstructor
-              ingredients={state.ingredients}
-              showOrderInfo={showOrderInfo}
-            />
+            <BurgerConstructor showModal={openModal} />
           </section>
         </main>
       )}

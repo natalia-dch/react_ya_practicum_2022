@@ -7,12 +7,23 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
 import { ingredientType } from "../../utils/types.js";
+import { useSelector, useDispatch } from 'react-redux';
+import { CHANGE_CURRENT_INGREDIENT } from "../../services/actions/ingredients";
 
-function BurgerIngredients({ ingredients, onItemClick }) {
+function BurgerIngredients() {
+  const ingredients = useSelector(state => state.ingredients.items);
+  const dispatch = useDispatch();
+  const showIngredientInfo = (id) => {
+    const item = ingredients.find((i) => i._id === id);
+    if (!item) return;
+    dispatch({ type: CHANGE_CURRENT_INGREDIENT, ingredientData: item });
+  };
+  
   const [current, setCurrent] = React.useState("bun");
   const buns = ingredients.filter((el) => el.type === "bun");
   const sauces = ingredients.filter((el) => el.type === "sauce");
   const mains = ingredients.filter((el) => el.type === "main");
+
   return (
     <>
       {" "}
@@ -54,7 +65,7 @@ function BurgerIngredients({ ingredients, onItemClick }) {
               name={el.name}
               image={el.image}
               onClick={() => {
-                onItemClick(el._id);
+                showIngredientInfo(el._id);
               }}
               price={el.price}
               quantity={Math.floor(Math.random() * 5)}
@@ -74,7 +85,7 @@ function BurgerIngredients({ ingredients, onItemClick }) {
               name={el.name}
               image={el.image}
               onClick={() => {
-                onItemClick(el._id);
+                showIngredientInfo(el._id);
               }}
               price={el.price}
               quantity={Math.floor(Math.random() * 5)}
@@ -94,7 +105,7 @@ function BurgerIngredients({ ingredients, onItemClick }) {
               name={el.name}
               image={el.image}
               onClick={() => {
-                onItemClick(el._id);
+                showIngredientInfo(el._id);
               }}
               price={el.price}
               quantity={Math.floor(Math.random() * 5)}
@@ -106,11 +117,6 @@ function BurgerIngredients({ ingredients, onItemClick }) {
     </>
   );
 }
-
-BurgerIngredients.propTypes = {
-  ingredients: PropTypes.arrayOf(ingredientType).isRequired,
-  onItemClick: PropTypes.func.isRequired,
-};
 
 function Ingredient({ name, image, price, quantity, onClick }) {
   return (
