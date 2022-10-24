@@ -32,12 +32,13 @@ export const ingredientsReducer = (state = ingredientsInitialState, action) => {
         ...state,
         loading: false,
         error: false,
-        items: action.ingredients,
+        items: action.ingredients.map(i=>({...i,qty:0,})),
       };
     }
     case GET_INGREDIENTS_FAILED: {
       return {
         ...state,
+        items: [],
         loading: false,
         error: true,
       };
@@ -96,6 +97,7 @@ export const orderReducer = (state = orderInitialState, action) => {
     case ORDER_FAILED: {
       return {
         ...state,
+        items: [],
         orderRequest: false,
         orderSucceeded: false,
       };

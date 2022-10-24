@@ -68,7 +68,7 @@ function BurgerIngredients() {
                 showIngredientInfo(el._id);
               }}
               price={el.price}
-              quantity={Math.floor(Math.random() * 5)}
+              id={el._id}
               key={el._id}
             />
           ))}
@@ -88,7 +88,7 @@ function BurgerIngredients() {
                 showIngredientInfo(el._id);
               }}
               price={el.price}
-              quantity={Math.floor(Math.random() * 5)}
+              id={el._id}
               key={el._id}
             />
           ))}
@@ -108,7 +108,7 @@ function BurgerIngredients() {
                 showIngredientInfo(el._id);
               }}
               price={el.price}
-              quantity={Math.floor(Math.random() * 5)}
+              id={el._id}
               key={el._id}
             />
           ))}
@@ -118,10 +118,12 @@ function BurgerIngredients() {
   );
 }
 
-function Ingredient({ name, image, price, quantity, onClick }) {
+function Ingredient({ name, image, price, id, onClick }) {
+  const inConstructor = useSelector(state => state.constructorIngredients.find(i=>i._id === id))
+  const qty = inConstructor ? inConstructor.qty : 0;
   return (
     <div className={styles.ingredient} onClick={onClick}>
-      {quantity > 0 && <Counter count={quantity} size="default" />}
+      {qty > 0 && <Counter count={qty} size="default" />}
       <img src={image} className={styles.pic} alt={name} />
       <p className={"text text_type_digits-default"}>
         {price}

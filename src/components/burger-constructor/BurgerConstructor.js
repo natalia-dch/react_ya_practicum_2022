@@ -58,7 +58,7 @@ function BurgerConstructor({ showModal }) {
       </div>
       <div className={"mt-10 mr-4 " + styles.totalContainer}>
         <p className={"text text_type_digits-default pl-10 pr-10"}>
-          {500}
+          {ingredients.reduce((sum,el)=>sum + el.price,0)}
           <CurrencyIcon type="primary" />
         </p>
         <Button
