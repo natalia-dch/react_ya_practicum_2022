@@ -1,0 +1,13 @@
+.app {
+  text-align: center;
+  margin: 0 auto;
+  max-width: 1280px;
+}
+
+.main {
+  display: flex;
+}
+
+.section {
+  width: 50%;
+}

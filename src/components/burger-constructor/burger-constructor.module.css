@@ -1,0 +1,53 @@
+.mainContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-left: 16px;
+  margin-right: 16px;
+}
+
+.totalContainer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.ingContainer {
+  height: 43vh;
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.ingredient {
+  display: flex;
+  justify-content: space-between;
+}
+
+.leftContainer {
+  display: flex;
+  align-items: flex-start;
+}
+
+.rightContainer {
+  display: flex;
+  align-items: flex-start;
+}
+
+.pic {
+  width: 5vw;
+}
+
+.icon {
+  /* align-self: right; */
+}
+
+.price {
+  display: flex;
+  align-self: right;
+  vertical-align: top;
+}
+
+.name {
+  text-align: left;
+}
