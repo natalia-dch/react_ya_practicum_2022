@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "./burger-ingredients.module.css";
 import {
   Tab,
@@ -7,22 +7,71 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
 import { ingredientType } from "../../utils/types.js";
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from "react-redux";
 import { CHANGE_CURRENT_INGREDIENT } from "../../services/actions/ingredients";
 
 function BurgerIngredients() {
-  const ingredients = useSelector(state => state.ingredients.items);
+  const ingredients = useSelector((state) => state.ingredients.items);
   const dispatch = useDispatch();
   const showIngredientInfo = (id) => {
     const item = ingredients.find((i) => i._id === id);
     if (!item) return;
     dispatch({ type: CHANGE_CURRENT_INGREDIENT, ingredientData: item });
   };
-  
+
   const [current, setCurrent] = React.useState("bun");
   const buns = ingredients.filter((el) => el.type === "bun");
   const sauces = ingredients.filter((el) => el.type === "sauce");
   const mains = ingredients.filter((el) => el.type === "main");
+
+  useEffect(() => {
+    const options1 = {
+      root: document.querySelector("#container"),
+      rootMargin: "10px",
+      threshold: 0.0,
+    };
+    const options2 = {
+      root: document.querySelector("#container"),
+      rootMargin: "0px",
+      threshold: 0.0,
+    };
+    const targets = ["bun", "sauce", "main"];
+
+    const changeSectionGoingUp = (entries, observer) => {
+      entries.forEach((entry) => {
+        if (
+          entry.isIntersecting &&
+          entry.boundingClientRect.top < entry.rootBounds.top
+        )
+          setCurrent(entry.target.id.slice(0, -9));
+      });
+    };
+    const changeSectionGoingDown = (entries, observer) => {
+      entries.forEach((entry) => {
+        if (
+          !entry.isIntersecting &&
+          entry.boundingClientRect.top < entry.rootBounds.top
+        ) {
+          const index = targets.findIndex(
+            (e) => e === entry.target.id.slice(0, -9)
+          );
+          const current = targets[(index + 1) % 3];
+          setCurrent(current);
+        }
+      });
+    };
+    const observer1 = new IntersectionObserver(changeSectionGoingUp, options1);
+    const observer2 = new IntersectionObserver(
+      changeSectionGoingDown,
+      options2
+    );
+
+    targets.forEach((target) => {
+      const targetEl = document.querySelector("#" + target + "Container");
+      observer1.observe(targetEl);
+      observer2.observe(targetEl);
+    });
+  }, []);
 
   return (
     <>
@@ -36,82 +85,89 @@ function BurgerIngredients() {
         Соберите бургер{" "}
       </p>
       <div className={`mb-10 ` + styles.tabs}>
-        <a href="#buns">
+        <a href="#bun">
           <Tab value="bun" active={current === "bun"} onClick={setCurrent}>
             Булки
           </Tab>
         </a>
-        <a href="#sauces">
+        <a href="#sauce">
           <Tab value="sauce" active={current === "sauce"} onClick={setCurrent}>
             Соусы
           </Tab>
         </a>
-        <a href="#mains">
+        <a href="#main">
           <Tab value="main" active={current === "main"} onClick={setCurrent}>
             Начинки
           </Tab>
         </a>
       </div>
-      <div className={styles.container}>
-        <p
-          id="buns"
-          className={"text text_type_main-medium " + styles.subtitle}
-        >
-          Булки
-        </p>
-        <div className={styles.ingContainer}>
-          {buns.map((el, ind) => (
-            <Ingredient
-              name={el.name}
-              image={el.image}
-              onClick={() => {
-                showIngredientInfo(el._id);
-              }}
-              price={el.price}
-              id={el._id}
-              key={el._id}
-            />
-          ))}
+      <div className={styles.container} id="container">
+        <div id="bunContainer">
+          <p
+            id="bun"
+            className={"text text_type_main-medium " + styles.subtitle}
+          >
+            Булки
+          </p>
+          <div className={styles.ingContainer}>
+            {buns.map((el, ind) => (
+              <Ingredient
+                name={el.name}
+                image={el.image}
+                onClick={() => {
+                  showIngredientInfo(el._id);
+                }}
+                price={el.price}
+                id={el._id}
+                key={el._id}
+              />
+            ))}
+          </div>
         </div>
-        <p
-          id="sauces"
-          className={"text text_type_main-medium " + styles.subtitle}
-        >
-          Соусы
-        </p>
-        <div className={styles.ingContainer}>
-          {sauces.map((el, ind) => (
-            <Ingredient
-              name={el.name}
-              image={el.image}
-              onClick={() => {
-                showIngredientInfo(el._id);
-              }}
-              price={el.price}
-              id={el._id}
-              key={el._id}
-            />
-          ))}
+        <div id="sauceContainer">
+          {" "}
+          <p
+            id="sauce"
+            className={"text text_type_main-medium " + styles.subtitle}
+          >
+            Соусы
+          </p>
+          <div className={styles.ingContainer}>
+            {sauces.map((el, ind) => (
+              <Ingredient
+                name={el.name}
+                image={el.image}
+                onClick={() => {
+                  showIngredientInfo(el._id);
+                }}
+                price={el.price}
+                id={el._id}
+                key={el._id}
+              />
+            ))}
+          </div>
         </div>
-        <p
-          id="mains"
-          className={"text text_type_main-medium " + styles.subtitle}
-        >
-          Начинки
-        </p>
-        <div className={styles.ingContainer}>
-          {mains.map((el, ind) => (
-            <Ingredient
-              name={el.name}
-              image={el.image}
-              onClick={() => {
-                showIngredientInfo(el._id);
-              }}
-              price={el.price}
-              id={el._id}
-              key={el._id}
-            />
-          ))}
+        <div id="mainContainer">
+          <p
+            id="main"
+            className={"text text_type_main-medium " + styles.subtitle}
+          >
+            Начинки
+          </p>
+          <div className={styles.ingContainer}>
+            {mains.map((el, ind) => (
+              <Ingredient
+                name={el.name}
+                image={el.image}
+                onClick={() => {
+                  showIngredientInfo(el._id);
+                }}
+                price={el.price}
+                id={el._id}
+                key={el._id}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </>
@@ -119,8 +175,9 @@ function BurgerIngredients() {
 }
 
 function Ingredient({ name, image, price, id, onClick }) {
-  const inConstructor = useSelector(state => state.constructorIngredients.find(i=>i._id === id))
-  const qty = inConstructor ? inConstructor.qty : 0;
+  const qty = useSelector((state) =>
+    state.constructorIngredients.filter((i) => i._id === id)
+  ).length;
   return (
     <div className={styles.ingredient} onClick={onClick}>
       {qty > 0 && <Counter count={qty} size="default" />}
@@ -138,7 +195,7 @@ Ingredient.propTypes = {
   name: PropTypes.string.isRequired,
   image: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
-  quantity: PropTypes.number.isRequired,
+  id: PropTypes.string.isRequired,
   onClick: PropTypes.func.isRequired,
 };
 
