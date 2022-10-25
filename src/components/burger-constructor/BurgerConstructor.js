@@ -13,7 +13,7 @@ import PropTypes from "prop-types";
 import { ingredientType } from "../../utils/types.js";
 import { useSelector, useDispatch } from 'react-redux';
 import { order } from '../../services/actions/order';
-import { ADD_INGREDIENT } from '../../services/actions/ingredients';
+import { ADD_INGREDIENT, REMOVE_INGREDIENT } from '../../services/actions/ingredients';
 import { useDrop } from "react-dnd";
 
 function BurgerConstructor({ showModal }) {
@@ -30,13 +30,16 @@ function BurgerConstructor({ showModal }) {
     })
 });
 
-
+  
+  const removeIngredient = (itemId) => {
+    const item = ingredients.filter(element => element._id === itemId.id)
+     dispatch({type:REMOVE_INGREDIENT,id:itemId})}
   
   const onDropHandler = (itemId) => {
-    console.log(constructorIngredients);
-    const draggedItem = ingredients.filter(element => element._id === itemId.id)
-    console.log(draggedItem)
-     dispatch({type:ADD_INGREDIENT,item:draggedItem})
+    const draggedItem = ingredients.filter(element => element._id === itemId.id)[0];
+    const itemToStore = {...draggedItem,listId:Date.now().toString()};
+    console.log(draggedItem);
+     dispatch({type:ADD_INGREDIENT,item:itemToStore});
   }
 
 
@@ -58,13 +61,13 @@ function BurgerConstructor({ showModal }) {
       </div>
       <div className={styles.ingContainer}>
         {constructorIngredients.ingredients.map((el, ind) => (
-          <div key={el._id+ind}>
+          <div key={el.listId}>
           <DragIcon type="primary" />
           <ConstructorElement
             text={el.name}
             price={el.price}
             thumbnail={el.image}
-            
+            handleClose={()=>removeIngredient(el.listId)}
           />
           </div>
         ))}

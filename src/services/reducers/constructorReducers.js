@@ -51,11 +51,11 @@ export const ingredientsReducer = (state = ingredientsInitialState, action) => {
 export const constructorIngredientsReducer = (state = {ingredients:[],bread:null}, action) => {
   switch (action.type) {
     case ADD_INGREDIENT: {
-      if(action.item[0].type === "bun") return {...state,bread:action.item[0]};
-      return {...state,ingredients:[...state.ingredients,...action.item]};
+      if(action.item.type === "bun") return {...state,bread:action.item};
+      return {...state,ingredients:[...state.ingredients,action.item]};
     }
-    case REMOVE_INGREDIENT: {   //TODO    
-      return state.filter(item => item.id !== action.id);
+    case REMOVE_INGREDIENT: {    
+      return {...state,ingredients:state.ingredients.filter(item => item.listId !== action.id)};
     }
     default: {
       return state;
