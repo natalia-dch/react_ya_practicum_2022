@@ -6,7 +6,6 @@ const URL = "https://norma.nomoreparties.space/api/ingredients";
 
 export function getIngredients() {
   return function (dispatch) {
-    console.log("getting ingredients")
     dispatch({ type: GET_INGREDIENTS_REQUEST });
     fetch(URL)
       .then((res) => res.json())

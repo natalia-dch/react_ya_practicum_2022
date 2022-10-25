@@ -47,7 +47,6 @@ function BurgerConstructor({ showModal }) {
       (element) => element._id === itemId.id
     )[0];
     const itemToStore = { ...draggedItem, listId: Date.now().toString() };
-    console.log(draggedItem);
     dispatch({ type: ADD_INGREDIENT, item: itemToStore });
   };
 
@@ -71,7 +70,7 @@ function BurgerConstructor({ showModal }) {
       </div>
       <div className={styles.ingContainer}>
         {constructorIngredients.ingredients.map((el, ind) => (
-          <DraggableElement element={el} deleteItem={removeIngredient} index={ind} />
+          <DraggableElement key={el.listId} element={el} deleteItem={removeIngredient} index={ind} />
         ))}
       </div>
       <div className={"ml-6 "}>
@@ -137,6 +136,10 @@ function Gap({index}) {
   );
 }
 
+Gap.propTypes = {
+  index: PropTypes.number.isRequired,
+};
+
 function DraggableElement({ element, deleteItem, index }) {
   const [{ isDrag }, dragRef] = useDrag({
     type: "draggableIngredient",
@@ -150,7 +153,7 @@ function DraggableElement({ element, deleteItem, index }) {
     !isDrag && (
       <>
         {index == 0 && <Gap index={0}/>}
-        <div key={element.listId} ref={dragRef}>
+        <div  ref={dragRef}>
           <DragIcon type="primary" />
           <ConstructorElement
             text={element.name}
