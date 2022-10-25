@@ -11,6 +11,8 @@ import Modal from "../modal/Modal";
 import { getIngredients } from "../../services/actions/ingredientsAPI";
 import { CHANGE_CURRENT_INGREDIENT } from "../../services/actions/ingredients";
 import { useDispatch, useSelector } from "react-redux";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 
 
 function App() {
@@ -53,12 +55,14 @@ function App() {
       )}
       {!ingredients.loading && !ingredients.error && (
         <main className={styles.main}>
+          <DndProvider backend={HTML5Backend}>
           <section className={styles.section}>
             <BurgerIngredients />
           </section>
           <section className={styles.section}>
             <BurgerConstructor showModal={openModal} />
           </section>
+          </DndProvider>
         </main>
       )}
     </div>

@@ -13,30 +13,52 @@ import PropTypes from "prop-types";
 import { ingredientType } from "../../utils/types.js";
 import { useSelector, useDispatch } from 'react-redux';
 import { order } from '../../services/actions/order';
-
+import { ADD_INGREDIENT } from '../../services/actions/ingredients';
+import { useDrop } from "react-dnd";
 
 function BurgerConstructor({ showModal }) {
+  const ingredients = useSelector(store => store.ingredients.items);
+  const constructorIngredients = useSelector(state => state.constructorIngredients); 
   const dispatch = useDispatch();
-  const ingredients = useSelector(state => state.ingredients.items); //TODO: change
+  const [{isHover}, dropTarget] = useDrop({
+    accept: "ingredient",
+    drop(itemId) {
+        onDropHandler(itemId);
+    },
+    collect: monitor => ({
+        isHover: monitor.isOver(),
+    })
+});
+
+
+  
+  const onDropHandler = (itemId) => {
+    console.log(constructorIngredients);
+    const draggedItem = ingredients.filter(element => element._id === itemId.id)
+    console.log(draggedItem)
+     dispatch({type:ADD_INGREDIENT,item:draggedItem})
+  }
+
+
   const makeOrder = () => {
     showModal();
     dispatch(order(ingredients.map(i=>i._id)));
   }
-  const bread = ingredients[0];
+
   return (
-    <div className={"mt-10 " + styles.mainContainer}>
+    <div className={"mt-10 " + styles.mainContainer} ref={dropTarget}>
       <div className={"ml-6 "}>
-      <ConstructorElement
+      {constructorIngredients.bread && <ConstructorElement
         type="top"
         isLocked={true}
-        text={bread.name + "\n(верх)"}
-        price={bread.price}
-        thumbnail={bread.image}
-      />
+        text={constructorIngredients.bread.name + "\n(верх)"}
+        price={constructorIngredients.bread.price}
+        thumbnail={constructorIngredients.bread.image}
+      />}
       </div>
       <div className={styles.ingContainer}>
-        {ingredients.filter(el => el.type != "bun").map((el, ind) => (
-          <div key={el._id}>
+        {constructorIngredients.ingredients.map((el, ind) => (
+          <div key={el._id+ind}>
           <DragIcon type="primary" />
           <ConstructorElement
             text={el.name}
@@ -48,17 +70,17 @@ function BurgerConstructor({ showModal }) {
         ))}
       </div>
       <div className={"ml-6 "}>
-      <ConstructorElement
+      {constructorIngredients.bread && <ConstructorElement
         type="bottom"
         isLocked={true}
-        text={bread.name + "\n(низ)"}
-        price={bread.price}
-        thumbnail={bread.image}
-      />
+        text={constructorIngredients.bread.name + "\n(низ)"}
+        price={constructorIngredients.bread.price}
+        thumbnail={constructorIngredients.bread.image}
+      />}
       </div>
       <div className={"mt-10 mr-4 " + styles.totalContainer}>
         <p className={"text text_type_digits-default pl-10 pr-10"}>
-          {ingredients.reduce((sum,el)=>sum + el.price,0)}
+          {constructorIngredients.ingredients.reduce((sum,el)=>sum + el.price,0)+2* (constructorIngredients.bread ? constructorIngredients.bread.price : 0)}
           <CurrencyIcon type="primary" />
         </p>
         <Button

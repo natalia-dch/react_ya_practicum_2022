@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import styles from "./burger-ingredients.module.css";
+import { useDrag } from "react-dnd";
 import {
   Tab,
   CurrencyIcon,
@@ -175,11 +176,20 @@ function BurgerIngredients() {
 }
 
 function Ingredient({ name, image, price, id, onClick }) {
+  const [{isDrag}, dragRef] = useDrag({
+    type: "ingredient",
+    item: {id},
+    collect: monitor => ({
+      isDrag: monitor.isDragging()
+  })
+});
   const qty = useSelector((state) =>
-    state.constructorIngredients.filter((i) => i._id === id)
-  ).length;
+    state.constructorIngredients.ingredients.filter((i) => i._id === id).length 
+    + (state.constructorIngredients.bread && state.constructorIngredients.bread._id === id ? 2 : 0)
+  )
   return (
-    <div className={styles.ingredient} onClick={onClick}>
+    // !isDrag && 
+    <div className={styles.ingredient} onClick={onClick} ref={dragRef}>
       {qty > 0 && <Counter count={qty} size="default" />}
       <img src={image} className={styles.pic} alt={name} />
       <p className={"text text_type_digits-default"}>
