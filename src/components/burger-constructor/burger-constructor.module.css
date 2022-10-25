@@ -1,7 +1,6 @@
 .mainContainer {
   display: flex;
   flex-direction: column;
-  gap: 16px;
   margin-left: 16px;
   margin-right: 16px;
 }
@@ -16,7 +15,6 @@
   overflow-y: scroll;
   display: flex;
   flex-direction: column;
-  gap: 16px;
 }
 
 .ingredient {
@@ -50,4 +48,12 @@
 
 .name {
   text-align: left;
+}
+
+.activeGap{
+  background-color: #551A8B;
+  min-height: 16px;
+}
+.gap{
+  min-height: 16px;
 }
