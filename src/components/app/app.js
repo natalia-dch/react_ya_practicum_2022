@@ -13,6 +13,7 @@ import { CHANGE_CURRENT_INGREDIENT } from "../../services/actions/ingredients";
 import { useDispatch, useSelector } from "react-redux";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
+import ClipLoader from "react-spinners/ClipLoader";
 
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
   const orderSucceeded = useSelector((state) => state.order.orderSucceeded);
   const ingredients = useSelector((state) => state.ingredients);
   const [modalOpened, setModalOpened] = React.useState(false);
+  const orderLoading = useSelector((state) => state.order.orderRequest);
   const dispatch = useDispatch();
   const closeModal = () => setModalOpened(false);
   const openModal = ()  => setModalOpened(true);
@@ -28,11 +30,11 @@ function App() {
   }
 
   const orderModal = (
-    <Modal title={"Детали ингредиента"} close={closeModal}>
+    <Modal close={closeModal}>
       <OrderDetails />
     </Modal>
   );
-  const ingredientModal = <Modal close={closeIngredientModal}><IngredientsDetails /></Modal>;
+  const ingredientModal = <Modal close={closeIngredientModal} title={"Детали ингредиента"}><IngredientsDetails /></Modal>;
 
   React.useEffect(() => {
     dispatch(getIngredients());

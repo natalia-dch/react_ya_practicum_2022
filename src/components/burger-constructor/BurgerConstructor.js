@@ -20,9 +20,11 @@ import {
 } from "../../services/actions/ingredients";
 import { useDrop } from "react-dnd";
 import { useDrag } from "react-dnd";
+import ClipLoader from "react-spinners/ClipLoader";
 
 function BurgerConstructor({ showModal }) {
   const ingredients = useSelector((store) => store.ingredients.items);
+  const orderLoading = useSelector((state) => state.order.orderRequest);
   const constructorIngredients = useSelector(
     (state) => state.constructorIngredients
   );
@@ -103,6 +105,12 @@ function BurgerConstructor({ showModal }) {
           htmlType="button"
         >
           Оформить заказ
+          <ClipLoader
+        loading={orderLoading}
+        size={"1.5em"}
+        color={"white"}
+        aria-label="Loading Spinner"
+      />
         </Button>
       </div>
     </div>

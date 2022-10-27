@@ -2,7 +2,8 @@ import {
   CHANGE_CURRENT_INGREDIENT,
   ADD_INGREDIENT,
   REMOVE_INGREDIENT,
-  CHANGE_INGREDIENT_POSITION
+  CHANGE_INGREDIENT_POSITION,
+  RESET_CONSTRUCTOR
 } from "../actions/ingredients";
 import {
   GET_INGREDIENTS_REQUEST,
@@ -49,7 +50,9 @@ export const ingredientsReducer = (state = ingredientsInitialState, action) => {
     }
   }
 };
-export const constructorIngredientsReducer = (state = {ingredients:[],bread:null}, action) => {
+
+const constructorInitialState = {ingredients:[],bread:null};
+export const constructorIngredientsReducer = (state =  constructorInitialState, action) => {
   switch (action.type) {
     case ADD_INGREDIENT: {
       if(action.item.type === "bun") return {...state,bread:action.item};
@@ -65,6 +68,9 @@ export const constructorIngredientsReducer = (state = {ingredients:[],bread:null
     }
     case REMOVE_INGREDIENT: {    
       return {...state,ingredients:state.ingredients.filter(item => item.listId !== action.id)};
+    }
+    case RESET_CONSTRUCTOR: {
+      return constructorInitialState;
     }
     default: {
       return state;
