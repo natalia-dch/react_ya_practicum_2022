@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 // import {data} from '../../utils/data.js'
 import styles from "./styles.module.css";
-import AppHeader from "../../components/app-header/AppHeader";
 import BurgerConstructor from "../../components/burger-constructor/BurgerConstructor";
 import BurgerIngredients from "../../components/burger-ingredients/BurgerIngredients";
 import OrderDetails from "../../components/order-details/OrderDetails";
@@ -47,7 +46,6 @@ export const HomePage = () => {
     <div className={styles.app}>
       {currentIngredient && ingredientModal}
       {modalOpened && orderSucceeded && orderModal}
-      <AppHeader />
       {ingredients.loading && (
         <p className={"text text_type_digits-default"}>loading...</p>
       )}
