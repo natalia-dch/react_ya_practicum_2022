@@ -1,19 +1,39 @@
+// @ts-nocheck
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./components/app/app";
-import reportWebVitals from "./reportWebVitals";
+import { Provider } from 'react-redux';
+import reportWebVitals from './reportWebVitals';
+import {rootReducer} from './services/reducers/rootReducer';
+import { configureStore } from '@reduxjs/toolkit'
+import { GET_INGREDIENTS_REQUEST, GET_INGREDIENTS_SUCCESS, GET_INGREDIENTS_FAILED} from './services/actions/ingredientsAPI'
+import { ORDER_REQUEST, ORDER_SUCCESS, ORDER_FAILED} from './services/actions/order'
+
+const actionLogger = store => next => action => {
+  const APIactions = [ GET_INGREDIENTS_REQUEST, GET_INGREDIENTS_SUCCESS, GET_INGREDIENTS_FAILED,ORDER_REQUEST, ORDER_SUCCESS, ORDER_FAILED]
+if(APIactions.includes(action.type)){
+  console.log(`${new Date().getTime()} | Action: ${action.type}`,action );
+}
+return next(action);
+};
+
+export const store = configureStore({
+  reducer: rootReducer,
+  devTools: process.env.NODE_ENV !== 'production',
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(actionLogger)
+})
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
+
 root.render(
   <React.StrictMode>
-    <App />
+    <Provider store={store}>
+      <App />
+    </Provider>
   </React.StrictMode>
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();

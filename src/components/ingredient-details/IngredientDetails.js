@@ -1,39 +1,24 @@
 import React from "react";
 import styles from "./ingredient-details.module.css";
 import PropTypes from "prop-types";
+import { useSelector } from "react-redux";
+import { currentIngredientReducer } from "../../services/reducers/constructorReducers";
 
-function IngredientDetails({
-  name,
-  image,
-  description,
-  cals,
-  proteins,
-  carbs,
-  fats,
-}) {
+function IngredientDetails() {
+  const ingredientInfo = useSelector(state => state.currentIngredient);
   return (
     <>
-      <img src={image} className={"mb-4 " + styles.img} alt={name} />
-      <p className="mb-8 text text_type_main-medium">{name}</p>
+      <img src={ingredientInfo.image} className={"mb-4 " + styles.img} alt={ingredientInfo.name} />
+      <p className="mb-8 text text_type_main-medium">{ingredientInfo.name}</p>
       <div className={"mb-15 " + styles.nutritionContainer}>
-        <NutritionInfo title={"Калории,ккал"} info={cals} />
-        <NutritionInfo title={"Белки,г"} info={proteins} />
-        <NutritionInfo title={"Жиры,г"} info={fats} />
-        <NutritionInfo title={"Углеводы,г"} info={carbs} />
+        <NutritionInfo title={"Калории,ккал"} info={ingredientInfo.calories} />
+        <NutritionInfo title={"Белки,г"} info={ingredientInfo.proteins} />
+        <NutritionInfo title={"Жиры,г"} info={ingredientInfo.fat} />
+        <NutritionInfo title={"Углеводы,г"} info={ingredientInfo.carbohydrates} />
       </div>
     </>
   );
 }
-
-IngredientDetails.propTypes = {
-  name: PropTypes.string.isRequired,
-  image: PropTypes.string.isRequired,
-  description: PropTypes.string,
-  cals: PropTypes.number.isRequired,
-  proteins: PropTypes.number.isRequired,
-  carbs: PropTypes.number.isRequired,
-  fats: PropTypes.number.isRequired,
-};
 
 function NutritionInfo({ title, info }) {
   return (
