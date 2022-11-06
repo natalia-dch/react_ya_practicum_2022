@@ -19,7 +19,7 @@ export const ResetPasswordPage = () => {
         console.log("reseting"); //TODO
     };
     return(
-    <><h1 className="text text_type_main-medium">Восстановление пароля</h1>
+    <div className={styles.centered}><h1 className="text text_type_main-medium">Восстановление пароля</h1>
         <Input
     type={'text'}
     placeholder={'Введите новый пароль'}
@@ -48,7 +48,7 @@ export const ResetPasswordPage = () => {
   Сохранить
  </Button>
  <p className="text text_type_main-default">Вспомнили пароль? <Link to="/login">Войти</Link></p>
-  </>
+  </div>
       
     )
 }

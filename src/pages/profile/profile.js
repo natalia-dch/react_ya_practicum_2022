@@ -13,7 +13,7 @@ export const ProfilePage = () => {
     const [email, setEmail] = React.useState('')
     const [password, setPassword] = React.useState('')
     return(
-    <div>
+    <div  className={styles.centered}>
     <div>
     <h1 className="text text_type_main-medium">Профиль</h1>
     <h1 className="text text_type_main-medium text_color_inactive">История заказов</h1>
@@ -35,7 +35,7 @@ const Profile = () => {
     const [email, setEmail] = React.useState('')
     const [password, setPassword] = React.useState('')
     return(
-    <>
+    <div>
                 <Input
     type={'text'}
     placeholder={'Имя'}
@@ -72,7 +72,7 @@ const Profile = () => {
     size={'default'}
     extraClass="ml-1"
   />
-  </>
+  </div>
       
     ) 
 }

@@ -22,7 +22,7 @@ export const RegisterPage = () => {
     const passwordIcon = passwordVisible ?   <ShowIcon type="primary" /> :
     <HideIcon type="primary" />;
     return(
-    <><h1 className="text text_type_main-medium">Регистрация</h1>
+    <div className={styles.centered}><h1 className="text text_type_main-medium">Регистрация</h1>
             <Input
     type={'text'}
     placeholder={'Имя'}
@@ -62,7 +62,7 @@ export const RegisterPage = () => {
   Зарегистрироваться
  </Button>
  <p className="text text_type_main-default">Уже зарегистрированы? <Link to="/login">Войти</Link></p>
-  </>
+  </div>
       
     )
 }

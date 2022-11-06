@@ -7,6 +7,7 @@ import { ForgotPasswordPage,
   ProfilePage,
   RegisterPage,
   ResetPasswordPage } from './pages';
+
   import AppHeader from "./components/app-header/AppHeader";
 // import { ProtectedRoute } from './components/protected-route';
 // import { ProvideAuth } from './services/auth';

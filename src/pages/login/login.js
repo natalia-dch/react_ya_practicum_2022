@@ -21,7 +21,7 @@ export const LoginPage = () => {
     const passwordIcon = passwordVisible ?   <ShowIcon type="primary" /> :
     <HideIcon type="primary" />;
     return(
-    <><h1 className="text text_type_main-medium">Вход</h1>
+    <div className={styles.centered}><h1 className="text text_type_main-medium">Вход</h1>
         <Input
     type={'text'}
     placeholder={'E-mail'}
@@ -51,7 +51,7 @@ export const LoginPage = () => {
  </Button>
  <p className="text text_type_main-default">Вы - новый пользователь? <Link to="/register">Зарегистрироваться</Link></p>
  <p className="text text_type_main-default">Забыли пароль? <Link to="/reset-password">Восстановить пароль</Link></p>
-  </>
+  </div>
       
     )
 }
