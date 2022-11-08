@@ -22,7 +22,7 @@ export const RegisterPage = () => {
     const passwordIcon = passwordVisible ?   <ShowIcon type="primary" /> :
     <HideIcon type="primary" />;
     return(
-    <div className={styles.centered}><h1 className="text text_type_main-medium">Регистрация</h1>
+    <div className={styles.centered}><h1 className={`text text_type_main-medium ${styles.centeredText}`}>Регистрация</h1>
             <Input
     type={'text'}
     placeholder={'Имя'}
@@ -32,7 +32,7 @@ export const RegisterPage = () => {
     error={false}
     errorText={'Ошибка'}
     size={'default'}
-    extraClass="ml-1"
+    extraClass="m-6"
   />
         <Input
     type={'text'}
@@ -43,7 +43,7 @@ export const RegisterPage = () => {
     error={false}
     errorText={'Ошибка'}
     size={'default'}
-    extraClass="ml-1"
+    extraClass="m-6"
   />
     <Input
     type={'text'}
@@ -56,12 +56,14 @@ export const RegisterPage = () => {
     onIconClick={togglePasswordVisibility}
     errorText={'Ошибка'}
     size={'default'}
-    extraClass="ml-1"
+    extraClass="m-6"
   />
+  <div className={`${styles.centeredElement} mb-20`}>
   <Button type="primary" size="medium" htmlType="button" onClick={register}>
   Зарегистрироваться
  </Button>
- <p className="text text_type_main-default">Уже зарегистрированы? <Link to="/login">Войти</Link></p>
+ </div>
+ <p className={`text text_type_main-default ${styles.centeredText} m-4`}>Уже зарегистрированы? <Link to="/login">Войти</Link></p>
   </div>
       
     )

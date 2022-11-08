@@ -3,7 +3,13 @@ import {
   constructorIngredientsReducer,
   currentIngredientReducer,
   orderReducer,
-} from "./constructorReducers.js";
+} from "./constructorReducer.js";
+import {
+  authReducer, resetPasswordReducer
+} from "./authReducers.js";
+import {
+  userInfoReducer
+} from "./userInfoReducer.js";
 import { combineReducers } from "redux";
 
 export const rootReducer = combineReducers({
@@ -11,4 +17,7 @@ export const rootReducer = combineReducers({
     constructorIngredients: constructorIngredientsReducer,
     currentIngredient: currentIngredientReducer,
     order: orderReducer,
+    auth: authReducer,
+    resetPassword: resetPasswordReducer,
+    userInfo: userInfoReducer
 });

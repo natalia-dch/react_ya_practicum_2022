@@ -13,13 +13,12 @@ export const ProfilePage = () => {
     const [email, setEmail] = React.useState('')
     const [password, setPassword] = React.useState('')
     return(
-    <div  className={styles.centered}>
+    <div   className={styles.centered}>
     <div>
-    <h1 className="text text_type_main-medium">Профиль</h1>
-    <h1 className="text text_type_main-medium text_color_inactive">История заказов</h1>
-    <h1 className="text text_type_main-medium text_color_inactive">Выход</h1>
-
-    <p className="text text_type_main-default text_color_inactive">В этом разделе вы можете <br/>
+    <h1 className="text text_type_main-medium m-3 mt-6">Профиль</h1>
+    <h1 className="text text_type_main-medium text_color_inactive m-3">История заказов</h1>
+    <h1 className="text text_type_main-medium text_color_inactive m-3">Выход</h1>
+    <p className="text text_type_main-default text_color_inactive mt-20">В этом разделе вы можете <br/>
 изменить свои персональные данные</p>
    </div>
    <div>
@@ -35,7 +34,7 @@ const Profile = () => {
     const [email, setEmail] = React.useState('')
     const [password, setPassword] = React.useState('')
     return(
-    <div>
+    <div className="ml-15">
                 <Input
     type={'text'}
     placeholder={'Имя'}
@@ -46,7 +45,7 @@ const Profile = () => {
     error={false}
     errorText={'Ошибка'}
     size={'default'}
-    extraClass="ml-1"
+    extraClass="m-6"
   />
         <Input
     type={'text'}
@@ -58,7 +57,7 @@ const Profile = () => {
     error={false}
     errorText={'Ошибка'}
     size={'default'}
-    extraClass="ml-1"
+    extraClass="m-6"
   />
     <Input
     type={'text'}
@@ -70,7 +69,7 @@ const Profile = () => {
     error={false}
     errorText={'Ошибка'}
     size={'default'}
-    extraClass="ml-1"
+    extraClass="m-6"
   />
   </div>
       

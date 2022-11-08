@@ -21,7 +21,7 @@ export const LoginPage = () => {
     const passwordIcon = passwordVisible ?   <ShowIcon type="primary" /> :
     <HideIcon type="primary" />;
     return(
-    <div className={styles.centered}><h1 className="text text_type_main-medium">Вход</h1>
+    <div className={styles.centered}><h1 className={`text text_type_main-medium ${styles.centeredText}`}>Вход</h1>
         <Input
     type={'text'}
     placeholder={'E-mail'}
@@ -31,7 +31,7 @@ export const LoginPage = () => {
     error={false}
     errorText={'Ошибка'}
     size={'default'}
-    extraClass="ml-1"
+    extraClass="m-6 "
   />
     <Input
     type={'text'}
@@ -44,13 +44,16 @@ export const LoginPage = () => {
     onIconClick={togglePasswordVisibility}
     errorText={'Ошибка'}
     size={'default'}
-    extraClass="ml-1"
+    extraClass="m-6"
+    cellSpacing={24}
   />
-  <Button type="primary" size="medium" htmlType="button" onClick={login}>
+  <div className={`${styles.centeredElement} mb-20`}>
+    <Button type="primary" size="medium" htmlType="button" onClick={login}>
   Войти
  </Button>
- <p className="text text_type_main-default">Вы - новый пользователь? <Link to="/register">Зарегистрироваться</Link></p>
- <p className="text text_type_main-default">Забыли пароль? <Link to="/reset-password">Восстановить пароль</Link></p>
+ </div>
+ <p className={`text text_type_main-default ${styles.centeredText} m-4`}>Вы - новый пользователь? <Link to="/register">Зарегистрироваться</Link></p>
+ <p className={`text text_type_main-default ${styles.centeredText} m-4`}>Забыли пароль? <Link to="/reset-password">Восстановить пароль</Link></p>
   </div>
       
     )

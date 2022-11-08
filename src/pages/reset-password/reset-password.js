@@ -19,7 +19,7 @@ export const ResetPasswordPage = () => {
         console.log("reseting"); //TODO
     };
     return(
-    <div className={styles.centered}><h1 className="text text_type_main-medium">Восстановление пароля</h1>
+    <div className={styles.centered}><h1  className={`text text_type_main-medium ${styles.centeredText}`}>Восстановление пароля</h1>
         <Input
     type={'text'}
     placeholder={'Введите новый пароль'}
@@ -31,7 +31,7 @@ export const ResetPasswordPage = () => {
     onIconClick={togglePasswordVisibility}
     errorText={'Ошибка'}
     size={'default'}
-    extraClass="ml-1"
+    extraClass="m-6"
   />
         <Input
     type={'text'}
@@ -42,12 +42,14 @@ export const ResetPasswordPage = () => {
     error={false}
     errorText={'Ошибка'}
     size={'default'}
-    extraClass="ml-1"
+    extraClass="m-6"
   />
+  <div  className={`${styles.centeredElement} mb-20`}>
   <Button type="primary" size="medium" htmlType="button" onClick={reset}>
   Сохранить
  </Button>
- <p className="text text_type_main-default">Вспомнили пароль? <Link to="/login">Войти</Link></p>
+ </div>
+ <p  className={`text text_type_main-default ${styles.centeredText}`}>Вспомнили пароль? <Link to="/login">Войти</Link></p>
   </div>
       
     )
