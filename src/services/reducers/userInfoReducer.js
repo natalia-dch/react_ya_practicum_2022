@@ -1,5 +1,3 @@
-
-  import { userInfo } from "os";
 import {
     USER_INFO_REQUEST,
     USER_INFO_SUCCESS,

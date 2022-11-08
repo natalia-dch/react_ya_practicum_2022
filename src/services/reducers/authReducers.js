@@ -30,9 +30,12 @@ import {
   const authInitialState = {
     login_loading: false,
     login_error: false,
+    login_success: false,
     logout_loading: false,
     logout_error: false,
+    logout_success: false,
     register_loading: false,
+    register_success: false,
     register_error: false,
     refresh_token_loading: false,
     refresh_token_error: false,
@@ -42,6 +45,8 @@ import {
       case LOGIN_REQUEST: {
         return {
           ...state,
+          login_error: false,
+          login_success: false,
           login_loading: true,
         };
       }
@@ -49,7 +54,7 @@ import {
         return {
           ...state,
           login_loading: false,
-          login_error: false,
+          login_success: true,
         };
       }
       case LOGIN_FAILED: {
@@ -63,13 +68,15 @@ import {
         return {
           ...state,
           logout_loading: true,
+          logout_success: false,
+          logout_error: false,
         };
       }
       case LOGOUT_SUCCESS: {
         return {
           ...state,
           logout_loading: false,
-          logout_error: false,
+          logout_success: true,
         };
       }
       case LOGOUT_FAILED: {
@@ -82,6 +89,7 @@ import {
       case REGISTER_REQUEST: {
         return {
           ...state,
+          register_error: false,
           register_loading: true,
         };
       }
@@ -90,6 +98,7 @@ import {
           ...state,
           register_loading: false,
           register_error: false,
+          register_success: true,
         };
       }
       case REGISTER_FAILED: {
@@ -97,6 +106,7 @@ import {
           ...state,
           register_loading: false,
           register_error: true,
+          register_success: false,
         };
       }
         case REFRESH_TOKEN_REQUEST: {
@@ -128,8 +138,10 @@ import {
   const resetPasswordInitialState = {
     reset_password_loading: false,
     reset_password_error: false,
+    reset_password_success: false,
     change_password_loading: false,
     change_password_error: false,
+    change_password_success: false,
   };
   export const resetPasswordReducer = (state = resetPasswordInitialState, action) => {
     switch (action.type) {
@@ -137,13 +149,15 @@ import {
         return {
           ...state,
           reset_password_loading: true,
+          reset_password_error: false,
+          reset_password_success: false,
         };
       }
       case RESET_PASSWORD_SUCCESS: {
         return {
           ...state,
           reset_password_loading: false,
-          reset_password_error: false,
+          reset_password_success: true,
         };
       }
       case RESET_PASSWORD_FAILED: {
@@ -157,13 +171,15 @@ import {
         return {
           ...state,
           change_password_loading: true,
+          change_password_error: false,
+          change_password_success: false,
         };
       }
       case CHANGE_PASSWORD_SUCCESS: {
         return {
           ...state,
           change_password_loading: false,
-          change_password_error: false,
+          change_password_success: true,
         };
       }
       case CHANGE_PASSWORD_FAILED: {

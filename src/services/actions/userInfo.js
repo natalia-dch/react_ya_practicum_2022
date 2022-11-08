@@ -1,5 +1,6 @@
-import { checkResponse } from "../../../utils/APIUtils";
-import { BASE_URL } from "../../../utils/data";
+import { checkResponse } from "../../utils/APIUtils";
+import { BASE_URL } from "../../utils/data";
+import { getCookie } from "../../utils/cookies";
 
 const URL = BASE_URL + "auth/user";
 

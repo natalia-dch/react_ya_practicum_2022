@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useHistory } from 'react-router-dom';
 import styles from "./styles.module.css";
 import {
     Input,
@@ -7,16 +7,34 @@ import {
     HideIcon,
     Button
   } from "@ya.praktikum/react-developer-burger-ui-components";
+import { login } from "../../services/actions/auth/login";
+import ClipLoader from "react-spinners/ClipLoader";
+import { useSelector, useDispatch } from "react-redux";
 
 export const LoginPage = () => {
+    const dispatch = useDispatch();
+    const history = useHistory();
     const [email, setEmail] = React.useState('')
     const [password, setPassword] = React.useState('')
     const [passwordVisible, setPasswordVisible] = React.useState(false)
+    const loading = useSelector((store) => store.auth.login_loading);
+    const error = useSelector((store) => store.auth.login_error);
+    const success = useSelector((store) => store.auth.login_success);
     const togglePasswordVisibility = () => {
         setPasswordVisible(!passwordVisible);
     }
-    const login = () => {
+
+    useEffect(()=>{
+      if(!success) return;
+      console.log("login was successful");
+      history.push("/")
+      //go to home page
+      },[success])
+
+    const onLoginClick = () => {
         console.log("loggin in"); //TODO
+        dispatch(login(email,password));
+        
     }
     const passwordIcon = passwordVisible ?   <ShowIcon type="primary" /> :
     <HideIcon type="primary" />;
@@ -34,7 +52,7 @@ export const LoginPage = () => {
     extraClass="m-6 "
   />
     <Input
-    type={'text'}
+    type={passwordVisible ? 'text':'password'}
     placeholder={'Пароль'}
     onChange={e => setPassword(e.target.value)}
     icon={passwordVisible ?   'ShowIcon' : 'HideIcon'}
@@ -47,13 +65,20 @@ export const LoginPage = () => {
     extraClass="m-6"
     cellSpacing={24}
   />
+   {error && <p className={`text text_type_main-default ${styles.centeredText} m-4`}>Ошибка авторизации</p>}
   <div className={`${styles.centeredElement} mb-20`}>
-    <Button type="primary" size="medium" htmlType="button" onClick={login}>
+    <Button type="primary" size="medium" htmlType="button" onClick={onLoginClick}>
   Войти
+  <ClipLoader
+        loading={loading}
+        size={"1.5em"}
+        color={"white"}
+        aria-label="Loading Spinner"
+      />
  </Button>
  </div>
  <p className={`text text_type_main-default ${styles.centeredText} m-4`}>Вы - новый пользователь? <Link to="/register">Зарегистрироваться</Link></p>
- <p className={`text text_type_main-default ${styles.centeredText} m-4`}>Забыли пароль? <Link to="/reset-password">Восстановить пароль</Link></p>
+ <p className={`text text_type_main-default ${styles.centeredText} m-4`}>Забыли пароль? <Link to="/forgot-password">Восстановить пароль</Link></p>
   </div>
       
     )

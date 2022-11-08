@@ -6,7 +6,7 @@ export const REGISTER_REQUEST = "REGISTER_REQUEST";
 export const REGISTER_SUCCESS = "REGISTER_SUCCESS";
 export const REGISTER_FAILED = "REGISTER_FAILED";
 
-const REGISTER_URL = BASE_URL + "auth/register";
+const REGISTER_URL = BASE_URL + "/auth/register";
 
 export function register(email,password,name) {
   return function (dispatch) {

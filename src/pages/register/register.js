@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link, useHistory } from 'react-router-dom';
 import styles from "./styles.module.css";
 import {
     Input,
@@ -7,17 +7,34 @@ import {
     HideIcon,
     Button
   } from "@ya.praktikum/react-developer-burger-ui-components";
+import { register } from "../../services/actions/auth/register";
+import ClipLoader from "react-spinners/ClipLoader";
+import { useSelector, useDispatch } from "react-redux";
 
 export const RegisterPage = () => {
+  const history = useHistory();
+  const dispatch = useDispatch();
     const [name, setName] = React.useState('')
     const [email, setEmail] = React.useState('')
     const [password, setPassword] = React.useState('')
-    const [passwordVisible, setPasswordVisible] = React.useState(false)
+    const [passwordVisible, setPasswordVisible] = React.useState(false);
+    const loading = useSelector((store) => store.auth.register_loading);
+    const error = useSelector((store) => store.auth.register_error);
+    const success = useSelector((store) => store.auth.register_success);
+
+    useEffect(()=>{
+    if(!success) return;
+    console.log("registration was successful");
+    //go to home page
+    history.push("/")
+    },[success])
+
     const togglePasswordVisibility = () => {
         setPasswordVisible(!passwordVisible);
     }
-    const register = () => {
+    const onRegisterClick = () => {
         console.log("registering"); //TODO
+        dispatch(register(email,password,name));
     }
     const passwordIcon = passwordVisible ?   <ShowIcon type="primary" /> :
     <HideIcon type="primary" />;
@@ -46,7 +63,7 @@ export const RegisterPage = () => {
     extraClass="m-6"
   />
     <Input
-    type={'text'}
+    type={passwordVisible ? 'text':'password'}
     placeholder={'Пароль'}
     onChange={e => setPassword(e.target.value)}
     icon={passwordVisible ?   'ShowIcon' : 'HideIcon'}
@@ -58,9 +75,16 @@ export const RegisterPage = () => {
     size={'default'}
     extraClass="m-6"
   />
+   {error && <p className={`text text_type_main-default ${styles.centeredText} m-4`}>Ошибка регистрации</p>}
   <div className={`${styles.centeredElement} mb-20`}>
-  <Button type="primary" size="medium" htmlType="button" onClick={register}>
+  <Button type="primary" size="medium" htmlType="button" onClick={onRegisterClick}>
   Зарегистрироваться
+  <ClipLoader
+        loading={loading}
+        size={"1.5em"}
+        color={"white"}
+        aria-label="Loading Spinner"
+      />
  </Button>
  </div>
  <p className={`text text_type_main-default ${styles.centeredText} m-4`}>Уже зарегистрированы? <Link to="/login">Войти</Link></p>

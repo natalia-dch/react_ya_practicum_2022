@@ -1,16 +1,16 @@
-import { checkResponse } from "../../utils/APIUtils";
-import { BASE_URL } from "../../utils/data";
+import { checkResponse } from "../../../utils/APIUtils";
+import { BASE_URL } from "../../../utils/data";
 
 export const RESET_PASSWORD_REQUEST = "RESET_PASSWORD_REQUEST";
 export const RESET_PASSWORD_SUCCESS = "RESET_PASSWORD_SUCCESS";
 export const RESET_PASSWORD_FAILED = "RESET_PASSWORD_FAILED";
 
-const URL = BASE_URL + "/password-reset";
+const RESET_PASSWORD_URL = BASE_URL + "/password-reset";
 
 export function resetPassword(email) {
   return function (dispatch) {
     dispatch({ type: RESET_PASSWORD_REQUEST });
-    fetch(URL, {
+    fetch(RESET_PASSWORD_URL, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -42,12 +42,12 @@ export const CHANGE_PASSWORD_REQUEST = "CHANGE_PASSWORD_REQUEST";
 export const CHANGE_PASSWORD_SUCCESS = "CHANGE_PASSWORD_SUCCESS";
 export const CHANGE_PASSWORD_FAILED = "CHANGE_PASSWORD_FAILED";
 
-const URL = BASE_URL + "/password-reset";
+const CHANGE_PASSWORD_URL = BASE_URL + "/password-reset/reset";
 
 export function changePassword(token,password) {
   return function (dispatch) {
     dispatch({ type: CHANGE_PASSWORD_REQUEST });
-    fetch(URL, {
+    fetch(CHANGE_PASSWORD_URL, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

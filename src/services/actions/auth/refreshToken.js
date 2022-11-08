@@ -1,12 +1,12 @@
 import { checkResponse } from "../../../utils/APIUtils";
-import { getCookie } from "../../../utils/cookies";
+import { getCookie, setCookie } from "../../../utils/cookies";
 import { BASE_URL } from "../../../utils/data";
 
 export const REFRESH_TOKEN_REQUEST = "REFRESH_TOKEN_REQUEST";
 export const REFRESH_TOKEN_SUCCESS = "REFRESH_TOKEN_SUCCESS";
 export const REFRESH_TOKEN_FAILED = "REFRESH_TOKEN_FAILED";
 
-const URL = BASE_URL + "auth/token";
+const URL = BASE_URL + "/auth/token";
 
 export function refreshToken() {
   return function (dispatch) {

@@ -3,7 +3,7 @@ import {
   constructorIngredientsReducer,
   currentIngredientReducer,
   orderReducer,
-} from "./constructorReducer.js";
+} from "./constructorReducers.js";
 import {
   authReducer, resetPasswordReducer
 } from "./authReducers.js";

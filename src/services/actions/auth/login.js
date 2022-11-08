@@ -1,11 +1,11 @@
 import { checkResponse } from "../../../utils/APIUtils";
 import { BASE_URL } from "../../../utils/data";
-
+import { setCookie } from "../../../utils/cookies";
 export const LOGIN_REQUEST = "LOGIN_REQUEST";
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGIN_FAILED = "LOGIN_FAILED";
 
-const URL = BASE_URL + "auth/login";
+const URL = BASE_URL + "/auth/login";
 
 export function login(email,password) {
   return function (dispatch) {
@@ -24,7 +24,7 @@ export function login(email,password) {
     })
     .then(checkResponse).then(res => {
       if (res) {
-        setCookie("accessToken",res.accessToken)
+        setCookie("accessToken",res.accessToken.split('Bearer ')[1])
         setCookie("refreshToken",res.refreshToken)
         dispatch({
           type: LOGIN_SUCCESS,
