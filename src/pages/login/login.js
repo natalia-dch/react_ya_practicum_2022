@@ -32,7 +32,7 @@ export const LoginPage = () => {
       },[success])
 
     const onLoginClick = () => {
-        console.log("loggin in"); //TODO
+        console.log("loggin in"); 
         dispatch(login(email,password));
         
     }

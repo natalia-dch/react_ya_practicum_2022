@@ -13,6 +13,11 @@
     flex-basis:  content;
 
 }
-.menuText{
+.clickableText{
     cursor: pointer;
+}
+
+.buttonsContainer{
+   display: flex;
+   justify-content: flex-end;
 }

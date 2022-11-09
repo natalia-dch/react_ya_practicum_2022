@@ -38,6 +38,7 @@ import {
     register_success: false,
     register_error: false,
     refresh_token_loading: false,
+    refresh_token_success: false,
     refresh_token_error: false,
   };
   export const authReducer = (state = authInitialState, action) => {
@@ -113,13 +114,15 @@ import {
           return {
             ...state,
             refresh_token_loading: true,
+            refresh_token_error: false,
+            refresh_token_success: false,
           };
         }
         case REFRESH_TOKEN_SUCCESS: {
           return {
             ...state,
             refresh_token_loading: false,
-            refresh_token_error: false,
+            refresh_token_success: true,
           };
         }
         case REFRESH_TOKEN_FAILED: {

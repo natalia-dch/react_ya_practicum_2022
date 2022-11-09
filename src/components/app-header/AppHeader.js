@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./app-header.module.css";
+import { Link } from 'react-router-dom';
 import {
   Logo,
   BurgerIcon,
@@ -12,17 +13,17 @@ function AppHeader(props) {
   return (
     <header className={styles.container}>
       <div className={styles.leftContainer}>
-        <MenuItem
+      <Link to="/"><MenuItem
           logo={<BurgerIcon type="primary" />}
           text="Конструктор"
-          active
         />
+        </Link>
         <MenuItem logo={<ListIcon type="secondary" />} text="Лента заказов" />
       </div>
       <div className={styles.logo}>
         <Logo />
       </div>
-      <MenuItem logo={<ProfileIcon type="secondary" />} text="Личный кабинет" />
+      <Link to="/profile"><MenuItem logo={<ProfileIcon type="secondary" />} text="Личный кабинет" /></Link>
     </header>
   );
 }

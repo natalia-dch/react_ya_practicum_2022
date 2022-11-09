@@ -15,8 +15,8 @@ import { ForgotPasswordPage,
 export default function App() {
   return (
     <>
+    <Router>
     <AppHeader />
-      <Router>
         <Switch>
           <Route path="/login" exact={true}>
             <LoginPage />

@@ -10,8 +10,10 @@ import {
   const initialState = {
     user_info_loading: false,
     user_info_error: false,
+    user_info_success: false,
     change_user_info_loading: false,
     change_user_info_error: false,
+    change_user_info_success: false,
     email: "",
     name: "",
   };
@@ -21,13 +23,15 @@ import {
         return {
           ...state,
           user_info_loading: true,
+          user_info_success: false,
+          user_info_error: false,
         };
       }
       case USER_INFO_SUCCESS: {
         return {
           ...state,
           user_info_loading: false,
-          user_info_error: false,
+          user_info_success: true,
           email: action.userInfo.email,
           name: action.userInfo.name,
         };
@@ -43,13 +47,15 @@ import {
         return {
           ...state,
           change_user_info_loading: true,
+          change_user_info_error: false,
+          change_user_info_success: false,
         };
       }
       case CHANGE_USER_INFO_SUCCESS: {
         return {
           ...state,
           change_user_info_loading: false,
-          change_user_info_error: false,
+          change_user_info_success: true,
           email: action.userInfo.email,
           name: action.userInfo.name,
         };

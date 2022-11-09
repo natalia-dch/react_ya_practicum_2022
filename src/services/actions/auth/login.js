@@ -24,7 +24,7 @@ export function login(email,password) {
     })
     .then(checkResponse).then(res => {
       if (res) {
-        setCookie("accessToken",res.accessToken.split('Bearer ')[1])
+        setCookie("accessToken",res.accessToken.split('Bearer ')[1],{expires:20*60})
         setCookie("refreshToken",res.refreshToken)
         dispatch({
           type: LOGIN_SUCCESS,

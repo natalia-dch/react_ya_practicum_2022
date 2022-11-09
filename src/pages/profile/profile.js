@@ -8,7 +8,7 @@ import {
     Button
   } from "@ya.praktikum/react-developer-burger-ui-components";
   import { logout } from "../../services/actions/auth/logout";
-  import { getUserInfo } from "../../services/actions/userInfo";
+  import { changeUserInfo, getUserInfo } from "../../services/actions/userInfo";
   import ClipLoader from "react-spinners/ClipLoader";
   import { useSelector, useDispatch } from "react-redux";
 
@@ -40,7 +40,7 @@ export const ProfilePage = () => {
     <div>
     <h1 className="text text_type_main-medium m-3 mt-6">Профиль</h1>
     <h1 className="text text_type_main-medium text_color_inactive m-3">История заказов</h1>
-    <h1 className={`text text_type_main-medium text_color_inactive m-3 ${styles.menuText}`} onClick={onLogoutClick}>Выход  <ClipLoader
+    <h1 className={`text text_type_main-medium text_color_inactive m-3 ${styles.clickableText}`} onClick={onLogoutClick}>Выход  <ClipLoader
         loading={logout_loading}
         size={"1.5em"}
         color={"white"}
@@ -59,21 +59,68 @@ export const ProfilePage = () => {
 
 const Profile = () => {
    const dispatch = useDispatch();
-   const user_info_loading = useSelector((store) => store.userInfo.user_info_loading);
+   const loading = useSelector((store) => store.userInfo.user_info_loading);
+   const error = useSelector((store) => store.userInfo.user_info_error);
+   const success = useSelector((store) => store.userInfo.user_info_success);
+
+   const edit_loading = useSelector((store) => store.userInfo.change_user_info_loading);
+   const edit_error = useSelector((store) => store.userInfo.change_user_info_error);
+   const edit_success = useSelector((store) => store.userInfo.change_user_info_success);
+
+   const emailFromAPI = useSelector((store) => store.userInfo.email);
+   const nameFromAPI = useSelector((store) => store.userInfo.name);
+   const tokenSuccess = useSelector((store) => store.auth.refresh_token_success);
+
+   const [name, setName] = React.useState('')
+   const [email, setEmail] = React.useState('')
+   const [password, setPassword] = React.useState('')
+   const [wasEdited, setWasEdited] = React.useState(false)
 
    useEffect(()=>{
+    if (!tokenSuccess) return;
+    console.log("got a new token!")
+    dispatch(getUserInfo())
+  },[tokenSuccess])
+
+  useEffect(()=>{
+    setWasEdited(false);
+  },[edit_success])
+
+   useEffect(()=>{
+    if (emailFromAPI === "") return;
+    setEmail(emailFromAPI);
+  },[emailFromAPI])
+
+  useEffect(()=>{
+    if (nameFromAPI === "") return;
+    setName(nameFromAPI);
+  },[nameFromAPI])
+
+  useEffect(()=>{
     dispatch(getUserInfo())
   },[])
-  const [name, setName] = React.useState('')
-    const [email, setEmail] = React.useState('')
-    const [password, setPassword] = React.useState('')
+
+  const onSaveClick = () => {
+    dispatch(changeUserInfo(name,email, password))
+    
+  }
+
+  const onResetClick = () => {
+  setName(nameFromAPI);
+  setEmail(emailFromAPI);
+  setPassword('');
+  }
+
+
+
     return(
     <div className="ml-15">
                 <Input
     type={'text'}
     placeholder={'Имя'}
-    onChange={e => setName(e.target.value)}
+    onChange={e => {setName(e.target.value);setWasEdited(true);}}
     icon={'EditIcon'}
+    disabled={!success}
     value={name}
     name={'name'}
     error={false}
@@ -84,8 +131,9 @@ const Profile = () => {
         <Input
     type={'text'}
     placeholder={'Логин'}
-    onChange={e => setEmail(e.target.value)}
+    onChange={e => {setEmail(e.target.value);setWasEdited(true);}}
     icon={'EditIcon'}
+    disabled={!success}
     value={email}
     name={'email'}
     error={false}
@@ -96,7 +144,7 @@ const Profile = () => {
     <Input
     type={'text'}
     placeholder={'Пароль'}
-    onChange={e => setPassword(e.target.value)}
+    onChange={e => {setPassword(e.target.value);setWasEdited(true);}}
     icon={'EditIcon'}
     value={password}
     name={'password'}
@@ -105,6 +153,18 @@ const Profile = () => {
     size={'default'}
     extraClass="m-6"
   />
+ {wasEdited && <div className={styles.buttonsContainer}>
+  <p onClick={onResetClick} className={`text text_type_main-default pt-4 ${styles.clickableText}`}>Отмена</p>
+  <Button type="primary" size="medium" htmlType="button" onClick={onSaveClick} extraClass={`mr-6 ml-6`}>
+  Сохранить
+  <ClipLoader
+        loading={edit_loading}
+        size={"1.5em"}
+        color={"white"}
+        aria-label="Loading Spinner"
+      />
+ </Button> 
+  </div>} 
   </div>
       
     ) 
