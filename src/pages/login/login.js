@@ -27,8 +27,8 @@ export const LoginPage = () => {
     useEffect(()=>{
       if(!success) return;
       console.log("login was successful");
-      history.push("/")
-      //go to home page
+      if(history.location?.state?.from) history.push(history.location.state.from.pathname)
+      else history.push("/")
       },[success])
 
     const onLoginClick = () => {

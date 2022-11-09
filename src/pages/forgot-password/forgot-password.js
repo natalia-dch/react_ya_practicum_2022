@@ -28,7 +28,7 @@ export const ForgotPasswordPage = () => {
       if(!success) return;
       console.log("reseting was successful");
       //go to changing password page
-      history.push("/reset-password");
+      history.push("/reset-password", { from: '/forgot-password' });
       },[success])
 
     return(

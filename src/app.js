@@ -9,6 +9,7 @@ import { ForgotPasswordPage,
   ResetPasswordPage } from './pages';
 
   import AppHeader from "./components/app-header/AppHeader";
+import { ProtectedRoute } from './utils/ProtectedRoute';
 // import { ProtectedRoute } from './components/protected-route';
 // import { ProvideAuth } from './services/auth';
 
@@ -18,21 +19,21 @@ export default function App() {
     <Router>
     <AppHeader />
         <Switch>
-          <Route path="/login" exact={true}>
+          <ProtectedRoute fromAuthorized path="/login" exact={true}>
             <LoginPage />
-          </Route>
-          <Route path="/register" exact={true}>
+          </ProtectedRoute>
+          <ProtectedRoute fromAuthorized path="/register" exact={true}>
             <RegisterPage />
-          </Route>
-          <Route path="/forgot-password" exact={true}>
+          </ProtectedRoute>
+          <ProtectedRoute fromAuthorized path="/forgot-password" exact={true}>
             <ForgotPasswordPage />
-          </Route>
-          <Route path="/reset-password" exact={true}>
+          </ProtectedRoute>
+          <ProtectedRoute fromAuthorized path="/reset-password" exact={true}>
             <ResetPasswordPage />
-          </Route>
-          <Route path="/profile" exact={true}>
+          </ProtectedRoute>
+          <ProtectedRoute fromUnauthorized path="/profile" exact={true}>
             <ProfilePage />
-          </Route>
+          </ProtectedRoute>
           <Route path="/ingredient/:id" exact={true}>
             <IngredientPage />
           </Route>
