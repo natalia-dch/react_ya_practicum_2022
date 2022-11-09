@@ -40,3 +40,8 @@ div::-webkit-scrollbar-thumb:active {
 .input__textfield{
   margin-right: 24px !important;
 }
+
+a {
+  color: inherit; 
+  text-decoration: inherit; 
+}

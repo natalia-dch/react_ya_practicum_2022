@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./app-header.module.css";
-import { Link } from 'react-router-dom';
+import { Link, NavLink, useRouteMatch } from "react-router-dom";
 import {
   Logo,
   BurgerIcon,
@@ -13,35 +13,47 @@ function AppHeader(props) {
   return (
     <header className={styles.container}>
       <div className={styles.leftContainer}>
-      <Link to="/"><MenuItem
-          logo={<BurgerIcon type="primary" />}
+        <MenuItem
+          path="/"
+          logo={<BurgerIcon type="secondary" />}
           text="Конструктор"
         />
-        </Link>
-        <MenuItem logo={<ListIcon type="secondary" />} text="Лента заказов" />
+        <MenuItem
+          path="/orders"
+          logo={<ListIcon type="secondary" />}
+          text="Лента заказов"
+        />
       </div>
       <div className={styles.logo}>
         <Logo />
       </div>
-      <Link to="/profile"><MenuItem logo={<ProfileIcon type="secondary" />} text="Личный кабинет" /></Link>
+      <MenuItem
+        path="/profile"
+        logo={<ProfileIcon type="secondary" />}
+        text="Личный кабинет"
+      />
     </header>
   );
 }
 
-function MenuItem({ logo, text, active }) {
+function MenuItem({ logo, text, path }) {
+  const isActive = useRouteMatch(path);
+  console.log(isActive);
   return (
-    <div
-      className={"mt-4 mb-4 lm-2 mr-2 pt-5 pb-5 pl-5 pr-5 " + styles.menuItem}
-    >
-      {logo}
-      <p
-        className={`text text_type_main-default ml-2 mr-2 ${
-          !active ? "text_color_inactive" : null
-        }`}
+    <NavLink to={path}>
+      <div
+        className={"mt-4 mb-4 lm-2 mr-2 pt-5 pb-5 pl-5 pr-5 " + styles.menuItem}
       >
-        {text}
-      </p>
-    </div>
+        {logo}
+        <p
+          className={`text text_type_main-default ml-2 mr-2 ${
+            isActive?.isExact ? "" : "text_color_inactive"
+          }`}
+        >
+          {text}
+        </p>
+      </div>
+    </NavLink>
   );
 }
 
