@@ -33,7 +33,6 @@ export const RegisterPage = () => {
     setPasswordVisible(!passwordVisible);
   };
   const onRegisterClick = () => {
-    console.log("registering"); //TODO
     dispatch(register(email, password, name));
   };
   const passwordIcon = passwordVisible ? (

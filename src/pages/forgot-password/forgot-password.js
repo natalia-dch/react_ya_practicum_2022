@@ -25,7 +25,6 @@ export const ForgotPasswordPage = () => {
     (store) => store.resetPassword.reset_password_success
   );
   const reset = () => {
-    console.log("reseting"); //TODO
     dispatch(resetPassword(email));
   };
 

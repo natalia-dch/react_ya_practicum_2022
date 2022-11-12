@@ -27,7 +27,6 @@ export const ResetPasswordPage = () => {
     (store) => store.resetPassword.change_password_success
   );
   const reset = () => {
-    console.log("reseting");
     dispatch(changePassword(code, password));
   };
 

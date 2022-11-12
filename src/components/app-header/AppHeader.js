@@ -38,7 +38,6 @@ function AppHeader(props) {
 
 function MenuItem({ logo, text, path }) {
   const isActive = useRouteMatch(path);
-  console.log(isActive);
   return (
     <NavLink to={path}>
       <div

@@ -128,7 +128,6 @@ BurgerConstructor.propTypes = {
 function Gap({ index }) {
   const dispatch = useDispatch();
   const onDropHandler = (itemId) => {
-    console.log("aaa");
     dispatch({ type: CHANGE_INGREDIENT_POSITION, id: itemId, index });
   };
 

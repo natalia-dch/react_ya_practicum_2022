@@ -58,14 +58,12 @@ export const constructorIngredientsReducer = (
       return { ...state, ingredients: [action.item, ...state.ingredients] };
     }
     case CHANGE_INGREDIENT_POSITION: {
-      console.log(action.id);
       const item = state.ingredients.filter(
         (item) => item.listId == action.id.id
       )[0];
       let newIngredients = state.ingredients.filter(
         (item) => item.listId != action.id.id
       );
-      console.log(item, newIngredients);
       newIngredients.splice(action.index, 0, item);
       return { ...state, ingredients: newIngredients };
     }

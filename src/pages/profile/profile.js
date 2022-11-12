@@ -11,6 +11,7 @@ import { logout } from "../../services/actions/auth/logout";
 import { changeUserInfo, getUserInfo } from "../../services/actions/userInfo";
 import ClipLoader from "react-spinners/ClipLoader";
 import { useSelector, useDispatch } from "react-redux";
+import { deleteCookie } from "../../utils/cookies";
 
 export const ProfilePage = () => {
   const history = useHistory();
@@ -23,12 +24,14 @@ export const ProfilePage = () => {
   useEffect(() => {
     if (!logout_success) return;
     console.log("logout was successful");
-    history.push("/login");
+    deleteCookie("accessToken")
+    deleteCookie("refreshToken");
+    history.go(0)
+    // history.push("/login");
     //go to login page
   }, [logout_success]);
 
   const onLogoutClick = () => {
-    console.log("logging out");
     dispatch(logout());
   };
   return (
