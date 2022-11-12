@@ -20,21 +20,22 @@ export function order(ingredientIDs) {
         ingredients: ingredientIDs,
       }),
     })
-    .then(checkResponse).then(res => {
-      if (res) {
-        dispatch({
-          type: ORDER_SUCCESS,
-          order: res.order,
-        });
-        dispatch({
-          type: RESET_CONSTRUCTOR,
-        })
-      } else {
-        dispatch({
-          type: ORDER_FAILED,
-        });
-      }
-    })
+      .then(checkResponse)
+      .then((res) => {
+        if (res) {
+          dispatch({
+            type: ORDER_SUCCESS,
+            order: res.order,
+          });
+          dispatch({
+            type: RESET_CONSTRUCTOR,
+          });
+        } else {
+          dispatch({
+            type: ORDER_FAILED,
+          });
+        }
+      })
       .catch((error) => {
         dispatch({
           type: ORDER_FAILED,

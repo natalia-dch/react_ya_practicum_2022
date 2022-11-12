@@ -3,18 +3,14 @@ import {
   ADD_INGREDIENT,
   REMOVE_INGREDIENT,
   CHANGE_INGREDIENT_POSITION,
-  RESET_CONSTRUCTOR
+  RESET_CONSTRUCTOR,
 } from "../actions/ingredients";
 import {
   GET_INGREDIENTS_REQUEST,
   GET_INGREDIENTS_SUCCESS,
   GET_INGREDIENTS_FAILED,
 } from "../actions/ingredientsAPI";
-import {
-  ORDER_REQUEST,
-  ORDER_SUCCESS,
-  ORDER_FAILED,
-} from "../actions/order";
+import { ORDER_REQUEST, ORDER_SUCCESS, ORDER_FAILED } from "../actions/order";
 
 const ingredientsInitialState = {
   items: [],
@@ -34,7 +30,7 @@ export const ingredientsReducer = (state = ingredientsInitialState, action) => {
         ...state,
         loading: false,
         error: false,
-        items: action.ingredients.map(i=>({...i,qty:0,})),
+        items: action.ingredients.map((i) => ({ ...i, qty: 0 })),
       };
     }
     case GET_INGREDIENTS_FAILED: {
@@ -51,23 +47,35 @@ export const ingredientsReducer = (state = ingredientsInitialState, action) => {
   }
 };
 
-const constructorInitialState = {ingredients:[],bread:null};
-export const constructorIngredientsReducer = (state =  constructorInitialState, action) => {
+const constructorInitialState = { ingredients: [], bread: null };
+export const constructorIngredientsReducer = (
+  state = constructorInitialState,
+  action
+) => {
   switch (action.type) {
     case ADD_INGREDIENT: {
-      if(action.item.type === "bun") return {...state,bread:action.item};
-      return {...state,ingredients:[action.item,...state.ingredients]};
+      if (action.item.type === "bun") return { ...state, bread: action.item };
+      return { ...state, ingredients: [action.item, ...state.ingredients] };
     }
     case CHANGE_INGREDIENT_POSITION: {
-      console.log(action.id)
-      const item = state.ingredients.filter(item => item.listId == action.id.id)[0];
-      let newIngredients = state.ingredients.filter(item => item.listId != action.id.id);
-      console.log(item,newIngredients);
+      console.log(action.id);
+      const item = state.ingredients.filter(
+        (item) => item.listId == action.id.id
+      )[0];
+      let newIngredients = state.ingredients.filter(
+        (item) => item.listId != action.id.id
+      );
+      console.log(item, newIngredients);
       newIngredients.splice(action.index, 0, item);
-      return {...state,ingredients:newIngredients};
+      return { ...state, ingredients: newIngredients };
     }
-    case REMOVE_INGREDIENT: {    
-      return {...state,ingredients:state.ingredients.filter(item => item.listId !== action.id)};
+    case REMOVE_INGREDIENT: {
+      return {
+        ...state,
+        ingredients: state.ingredients.filter(
+          (item) => item.listId !== action.id
+        ),
+      };
     }
     case RESET_CONSTRUCTOR: {
       return constructorInitialState;

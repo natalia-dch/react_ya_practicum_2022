@@ -31,44 +31,46 @@ export default function App() {
 
   const closeModal = () => {
     history.push("/");
-  }
+  };
 
   return (
     <>
-        <AppHeader />
-        <Switch>
-          <ProtectedRoute fromAuthorized path="/login" exact={true}>
-            <LoginPage />
-          </ProtectedRoute>
-          <ProtectedRoute fromAuthorized path="/register" exact={true}>
-            <RegisterPage />
-          </ProtectedRoute>
-          <ProtectedRoute fromAuthorized path="/forgot-password" exact={true}>
-            <ForgotPasswordPage />
-          </ProtectedRoute>
-          <ProtectedRoute fromAuthorized path="/reset-password" exact={true}>
-            <ResetPasswordPage />
-          </ProtectedRoute>
-          <ProtectedRoute fromUnauthorized path="/profile" exact={true}>
-            <ProfilePage />
-          </ProtectedRoute>
-          <Route path="/ingredient/:id" exact={true}>
-            <IngredientPage>
-              <IngredientDetails />
-            </IngredientPage>
-          </Route>
-          <Route path="/" exact={true}>
-            <HomePage />
-          </Route>
-          <Route>
-            <NotFound404Page />
-          </Route>
-        </Switch>
-        {(background || PerformanceNavigationTiming.type === "reload") && <Route path="/ingredient/:id" exact={true}>
-            <Modal close={closeModal}>
-              <IngredientDetails />
-            </Modal>
-          </Route>}
+      <AppHeader />
+      <Switch>
+        <ProtectedRoute fromAuthorized path="/login" exact={true}>
+          <LoginPage />
+        </ProtectedRoute>
+        <ProtectedRoute fromAuthorized path="/register" exact={true}>
+          <RegisterPage />
+        </ProtectedRoute>
+        <ProtectedRoute fromAuthorized path="/forgot-password" exact={true}>
+          <ForgotPasswordPage />
+        </ProtectedRoute>
+        <ProtectedRoute fromAuthorized path="/reset-password" exact={true}>
+          <ResetPasswordPage />
+        </ProtectedRoute>
+        <ProtectedRoute fromUnauthorized path="/profile" exact={true}>
+          <ProfilePage />
+        </ProtectedRoute>
+        <Route path="/ingredient/:id" exact={true}>
+          <IngredientPage>
+            <IngredientDetails />
+          </IngredientPage>
+        </Route>
+        <Route path="/" exact={true}>
+          <HomePage />
+        </Route>
+        <Route>
+          <NotFound404Page />
+        </Route>
+      </Switch>
+      {(background || PerformanceNavigationTiming.type === "reload") && (
+        <Route path="/ingredient/:id" exact={true}>
+          <Modal close={closeModal}>
+            <IngredientDetails />
+          </Modal>
+        </Route>
+      )}
     </>
   );
 }

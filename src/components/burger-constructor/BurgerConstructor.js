@@ -16,7 +16,7 @@ import { order } from "../../services/actions/order";
 import {
   ADD_INGREDIENT,
   REMOVE_INGREDIENT,
-  CHANGE_INGREDIENT_POSITION
+  CHANGE_INGREDIENT_POSITION,
 } from "../../services/actions/ingredients";
 import { useDrop } from "react-dnd";
 import { useDrag } from "react-dnd";
@@ -72,7 +72,12 @@ function BurgerConstructor({ showModal }) {
       </div>
       <div className={styles.ingContainer}>
         {constructorIngredients.ingredients.map((el, ind) => (
-          <DraggableElement key={el.listId} element={el} deleteItem={removeIngredient} index={ind} />
+          <DraggableElement
+            key={el.listId}
+            element={el}
+            deleteItem={removeIngredient}
+            index={ind}
+          />
         ))}
       </div>
       <div className={"ml-6 "}>
@@ -106,11 +111,11 @@ function BurgerConstructor({ showModal }) {
         >
           Оформить заказ
           <ClipLoader
-        loading={orderLoading}
-        size={"1.5em"}
-        color={"white"}
-        aria-label="Loading Spinner"
-      />
+            loading={orderLoading}
+            size={"1.5em"}
+            color={"white"}
+            aria-label="Loading Spinner"
+          />
         </Button>
       </div>
     </div>
@@ -120,7 +125,7 @@ function BurgerConstructor({ showModal }) {
 BurgerConstructor.propTypes = {
   showModal: PropTypes.func.isRequired,
 };
-function Gap({index}) {
+function Gap({ index }) {
   const dispatch = useDispatch();
   const onDropHandler = (itemId) => {
     console.log("aaa");
@@ -160,8 +165,8 @@ function DraggableElement({ element, deleteItem, index }) {
   return (
     !isDrag && (
       <>
-        {index == 0 && <Gap index={0}/>}
-        <div  ref={dragRef}>
+        {index == 0 && <Gap index={0} />}
+        <div ref={dragRef}>
           <DragIcon type="primary" />
           <ConstructorElement
             text={element.name}
@@ -170,7 +175,7 @@ function DraggableElement({ element, deleteItem, index }) {
             handleClose={() => deleteItem(element.listId)}
           />
         </div>
-        <Gap index={index+1}/>
+        <Gap index={index + 1} />
       </>
     )
   );

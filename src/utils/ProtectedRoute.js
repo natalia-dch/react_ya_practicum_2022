@@ -16,12 +16,18 @@ export function ProtectedRoute({
         if (isAuth && fromAuthorized) {
           //authorized users  are redirected to home page
           return <Redirect to={{ pathname: "/", state: { from: location } }} />;
-        } else if (!isAuth && rest.path==="/reset-password" && location?.state?.from !== "/forgot-password") {
+        } else if (
+          !isAuth &&
+          rest.path === "/reset-password" &&
+          location?.state?.from !== "/forgot-password"
+        ) {
           //unauthorized user can go to to reset password from "/forgot-password"
           return <Redirect to={{ pathname: "/", state: { from: location } }} />;
         } else if (!isAuth && fromUnauthorized) {
           //unauthorized users are redirected to login
-          return <Redirect to={{ pathname: "/login", state: { from: location } }} />;
+          return (
+            <Redirect to={{ pathname: "/login", state: { from: location } }} />
+          );
         } else if (isAuth && fromAuthorized) {
           //authorized users  are redirected to home page
           return <Redirect to={{ pathname: "/", state: { from: location } }} />;

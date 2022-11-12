@@ -8,7 +8,7 @@ export const REGISTER_FAILED = "REGISTER_FAILED";
 
 const REGISTER_URL = BASE_URL + "/auth/register";
 
-export function register(email,password,name) {
+export function register(email, password, name) {
   return function (dispatch) {
     dispatch({ type: REGISTER_REQUEST });
     fetch(REGISTER_URL, {
@@ -17,26 +17,25 @@ export function register(email,password,name) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        
-          "email": email, 
-          "password": password, 
-          "name": name 
-      
+        email: email,
+        password: password,
+        name: name,
       }),
     })
-    .then(checkResponse).then(res => {
-      if (res) {
-        setCookie("accessToken",res.accessToken)
-        setCookie("refreshToken",res.refreshToken)
-        dispatch({
-          type: REGISTER_SUCCESS,
-        });
-      } else {
-        dispatch({
-          type: REGISTER_FAILED,
-        });
-      }
-    })
+      .then(checkResponse)
+      .then((res) => {
+        if (res) {
+          setCookie("accessToken", res.accessToken);
+          setCookie("refreshToken", res.refreshToken);
+          dispatch({
+            type: REGISTER_SUCCESS,
+          });
+        } else {
+          dispatch({
+            type: REGISTER_FAILED,
+          });
+        }
+      })
       .catch((error) => {
         dispatch({
           type: REGISTER_FAILED,

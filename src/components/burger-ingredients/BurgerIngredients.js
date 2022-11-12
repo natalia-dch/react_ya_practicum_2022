@@ -10,7 +10,7 @@ import PropTypes from "prop-types";
 import { ingredientType } from "../../utils/types.js";
 import { useSelector, useDispatch } from "react-redux";
 import { CHANGE_CURRENT_INGREDIENT } from "../../services/actions/ingredients";
-import { useHistory, useLocation } from 'react-router-dom';
+import { useHistory, useLocation } from "react-router-dom";
 
 function BurgerIngredients() {
   const ingredients = useSelector((state) => state.ingredients.items);
@@ -21,7 +21,7 @@ function BurgerIngredients() {
     const item = ingredients.find((i) => i._id === id);
     if (!item) return;
     dispatch({ type: CHANGE_CURRENT_INGREDIENT, ingredientData: item });
-    history.push(`/ingredient/${id}`,{ background: location })
+    history.push(`/ingredient/${id}`, { background: location });
   };
 
   const [current, setCurrent] = React.useState("bun");
@@ -180,19 +180,24 @@ function BurgerIngredients() {
 }
 
 function Ingredient({ name, image, price, id, onClick }) {
-  const [{isDrag}, dragRef] = useDrag({
+  const [{ isDrag }, dragRef] = useDrag({
     type: "ingredient",
-    item: {id},
-    collect: monitor => ({
-      isDrag: monitor.isDragging()
-  })
-});
-  const qty = useSelector((state) =>
-    state.constructorIngredients.ingredients.filter((i) => i._id === id).length 
-    + (state.constructorIngredients.bread && state.constructorIngredients.bread._id === id ? 2 : 0)
-  )
+    item: { id },
+    collect: (monitor) => ({
+      isDrag: monitor.isDragging(),
+    }),
+  });
+  const qty = useSelector(
+    (state) =>
+      state.constructorIngredients.ingredients.filter((i) => i._id === id)
+        .length +
+      (state.constructorIngredients.bread &&
+      state.constructorIngredients.bread._id === id
+        ? 2
+        : 0)
+  );
   return (
-    // !isDrag && 
+    // !isDrag &&
     <div className={styles.ingredient} onClick={onClick} ref={dragRef}>
       {qty > 0 && <Counter count={qty} size="default" />}
       <img src={image} className={styles.pic} alt={name} />

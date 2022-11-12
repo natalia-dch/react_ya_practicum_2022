@@ -16,20 +16,21 @@ export function resetPassword(email) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-            "email": email
+        email: email,
       }),
     })
-    .then(checkResponse).then(res => {
-      if (res) {
-        dispatch({
-          type: RESET_PASSWORD_SUCCESS,
-        });
-      } else {
-        dispatch({
-          type: RESET_PASSWORD_FAILED,
-        });
-      }
-    })
+      .then(checkResponse)
+      .then((res) => {
+        if (res) {
+          dispatch({
+            type: RESET_PASSWORD_SUCCESS,
+          });
+        } else {
+          dispatch({
+            type: RESET_PASSWORD_FAILED,
+          });
+        }
+      })
       .catch((error) => {
         dispatch({
           type: RESET_PASSWORD_FAILED,
@@ -44,7 +45,7 @@ export const CHANGE_PASSWORD_FAILED = "CHANGE_PASSWORD_FAILED";
 
 const CHANGE_PASSWORD_URL = BASE_URL + "/password-reset/reset";
 
-export function changePassword(token,password) {
+export function changePassword(token, password) {
   return function (dispatch) {
     dispatch({ type: CHANGE_PASSWORD_REQUEST });
     fetch(CHANGE_PASSWORD_URL, {
@@ -53,21 +54,22 @@ export function changePassword(token,password) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        "password": password,
-        "token": token
+        password: password,
+        token: token,
       }),
     })
-    .then(checkResponse).then(res => {
-      if (res) {
-        dispatch({
-          type: CHANGE_PASSWORD_SUCCESS,
-        });
-      } else {
-        dispatch({
-          type: CHANGE_PASSWORD_FAILED,
-        });
-      }
-    })
+      .then(checkResponse)
+      .then((res) => {
+        if (res) {
+          dispatch({
+            type: CHANGE_PASSWORD_SUCCESS,
+          });
+        } else {
+          dispatch({
+            type: CHANGE_PASSWORD_FAILED,
+          });
+        }
+      })
       .catch((error) => {
         dispatch({
           type: CHANGE_PASSWORD_FAILED,

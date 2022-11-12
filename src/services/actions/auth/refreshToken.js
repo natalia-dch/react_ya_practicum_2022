@@ -17,25 +17,23 @@ export function refreshToken() {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        
-          "token": getCookie("refreshToken"), 
-      
+        token: getCookie("refreshToken"),
       }),
     })
-    .then(checkResponse).then(res => {
-      if (res) {
-        setCookie("accessToken",res.accessToken)
-        setCookie("refreshToken",res.refreshToken)
-        dispatch({
-          type: REFRESH_TOKEN_SUCCESS,
-        });
-
-      } else {
-        dispatch({
-          type: REFRESH_TOKEN_FAILED,
-        });
-      }
-    })
+      .then(checkResponse)
+      .then((res) => {
+        if (res) {
+          setCookie("accessToken", res.accessToken);
+          setCookie("refreshToken", res.refreshToken);
+          dispatch({
+            type: REFRESH_TOKEN_SUCCESS,
+          });
+        } else {
+          dispatch({
+            type: REFRESH_TOKEN_FAILED,
+          });
+        }
+      })
       .catch((error) => {
         dispatch({
           type: REFRESH_TOKEN_FAILED,

@@ -17,22 +17,21 @@ export function logout() {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        
-          "token": getCookie("refreshToken"), 
-      
+        token: getCookie("refreshToken"),
       }),
     })
-    .then(checkResponse).then(res => {
-      if (res) {
-        dispatch({
-          type: LOGOUT_SUCCESS,
-        });
-      } else {
-        dispatch({
-          type: LOGOUT_FAILED,
-        });
-      }
-    })
+      .then(checkResponse)
+      .then((res) => {
+        if (res) {
+          dispatch({
+            type: LOGOUT_SUCCESS,
+          });
+        } else {
+          dispatch({
+            type: LOGOUT_FAILED,
+          });
+        }
+      })
       .catch((error) => {
         dispatch({
           type: LOGOUT_FAILED,

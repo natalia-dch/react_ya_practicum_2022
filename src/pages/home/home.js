@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 // import {data} from '../../utils/data.js'
 import styles from "./styles.module.css";
 import BurgerConstructor from "../../components/burger-constructor/BurgerConstructor";
@@ -13,7 +13,6 @@ import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import ClipLoader from "react-spinners/ClipLoader";
 
-
 export const HomePage = () => {
   const currentIngredient = useSelector((state) => state.currentIngredient);
   const orderSucceeded = useSelector((state) => state.order.orderSucceeded);
@@ -22,17 +21,21 @@ export const HomePage = () => {
   const orderLoading = useSelector((state) => state.order.orderRequest);
   const dispatch = useDispatch();
   const closeModal = () => setModalOpened(false);
-  const openModal = ()  => setModalOpened(true);
+  const openModal = () => setModalOpened(true);
   const closeIngredientModal = () => {
     dispatch({ type: CHANGE_CURRENT_INGREDIENT, ingredientData: null });
-  }
+  };
 
   const orderModal = (
     <Modal close={closeModal}>
       <OrderDetails />
     </Modal>
   );
-  const ingredientModal = <Modal close={closeIngredientModal} title={"Детали ингредиента"}><IngredientsDetails /></Modal>;
+  const ingredientModal = (
+    <Modal close={closeIngredientModal} title={"Детали ингредиента"}>
+      <IngredientsDetails />
+    </Modal>
+  );
 
   // const showOrderInfo = () => {
   //   setModalOpened(true);
@@ -50,15 +53,15 @@ export const HomePage = () => {
       {!ingredients.loading && !ingredients.error && (
         <main className={styles.main}>
           <DndProvider backend={HTML5Backend}>
-          <section className={styles.section}>
-            <BurgerIngredients />
-          </section>
-          <section className={styles.section}>
-            <BurgerConstructor showModal={openModal} />
-          </section>
+            <section className={styles.section}>
+              <BurgerIngredients />
+            </section>
+            <section className={styles.section}>
+              <BurgerConstructor showModal={openModal} />
+            </section>
           </DndProvider>
         </main>
       )}
     </div>
   );
-}
+};

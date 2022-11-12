@@ -4,7 +4,7 @@ import doneImg from "../../images/done.svg";
 import { useSelector } from "react-redux";
 
 function OrderDetails() {
-  const orderNum = useSelector(state => state.order.order.number)
+  const orderNum = useSelector((state) => state.order.order.number);
   return (
     <div className={styles.container}>
       <p className="text text_type_digits-large mt-30 mb-8">{orderNum}</p>
