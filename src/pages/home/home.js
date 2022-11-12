@@ -34,10 +34,6 @@ export const HomePage = () => {
   );
   const ingredientModal = <Modal close={closeIngredientModal} title={"Детали ингредиента"}><IngredientsDetails /></Modal>;
 
-  React.useEffect(() => {
-    dispatch(getIngredients());
-  }, []);
-
   // const showOrderInfo = () => {
   //   setModalOpened(true);
   // };

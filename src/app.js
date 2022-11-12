@@ -1,23 +1,34 @@
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import { ForgotPasswordPage,
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import {
+  ForgotPasswordPage,
   HomePage,
   IngredientPage,
   LoginPage,
   NotFound404Page,
   ProfilePage,
   RegisterPage,
-  ResetPasswordPage } from './pages';
+  ResetPasswordPage,
+} from "./pages";
+import { useDispatch } from "react-redux";
+import React, { useEffect } from "react";
 
-  import AppHeader from "./components/app-header/AppHeader";
-import { ProtectedRoute } from './utils/ProtectedRoute';
+import AppHeader from "./components/app-header/AppHeader";
+import { ProtectedRoute } from "./utils/ProtectedRoute";
+import IngredientDetails from "./components/ingredient-details/IngredientDetails";
+import { getIngredients } from "./services/actions/ingredientsAPI";
 // import { ProtectedRoute } from './components/protected-route';
 // import { ProvideAuth } from './services/auth';
 
 export default function App() {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getIngredients());
+  }, []);
+
   return (
     <>
-    <Router>
-    <AppHeader />
+      <Router>
+        <AppHeader />
         <Switch>
           <ProtectedRoute fromAuthorized path="/login" exact={true}>
             <LoginPage />
@@ -35,7 +46,9 @@ export default function App() {
             <ProfilePage />
           </ProtectedRoute>
           <Route path="/ingredient/:id" exact={true}>
-            <IngredientPage />
+            <IngredientPage>
+              <IngredientDetails />
+            </IngredientPage>
           </Route>
           <Route path="/" exact={true}>
             <HomePage />
@@ -45,6 +58,6 @@ export default function App() {
           </Route>
         </Switch>
       </Router>
-      </>
+    </>
   );
 }

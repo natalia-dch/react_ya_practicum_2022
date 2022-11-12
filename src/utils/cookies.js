@@ -27,3 +27,7 @@ export function setCookie(name, value, props) {
     );
     return matches ? decodeURIComponent(matches[1]) : undefined;
   } 
+
+  export function deleteCookie(name) {
+    document.cookie = name +'=; path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+} 
