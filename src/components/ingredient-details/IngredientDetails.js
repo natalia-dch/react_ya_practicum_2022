@@ -14,6 +14,7 @@ function IngredientDetails() {
   const {id} = useParams();
   useEffect(()=>{
     if(!ingredientInfo){
+      if (ingredients.length == 0) return;
       const item = ingredients.find((i) => i._id === id);
       if (!item) {
         history.push("/notFound")

@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { Switch, Route, useLocation, useHistory } from "react-router-dom";
 import {
   ForgotPasswordPage,
   HomePage,
@@ -16,18 +16,25 @@ import AppHeader from "./components/app-header/AppHeader";
 import { ProtectedRoute } from "./utils/ProtectedRoute";
 import IngredientDetails from "./components/ingredient-details/IngredientDetails";
 import { getIngredients } from "./services/actions/ingredientsAPI";
+import Modal from "./components/modal/Modal";
 // import { ProtectedRoute } from './components/protected-route';
 // import { ProvideAuth } from './services/auth';
 
 export default function App() {
+  const location = useLocation();
+  const history = useHistory();
+  let background = location.state && location.state.background;
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getIngredients());
   }, []);
 
+  const closeModal = () => {
+    history.push("/");
+  }
+
   return (
     <>
-      <Router>
         <AppHeader />
         <Switch>
           <ProtectedRoute fromAuthorized path="/login" exact={true}>
@@ -57,7 +64,11 @@ export default function App() {
             <NotFound404Page />
           </Route>
         </Switch>
-      </Router>
+        {(background || PerformanceNavigationTiming.type === "reload") && <Route path="/ingredient/:id" exact={true}>
+            <Modal close={closeModal}>
+              <IngredientDetails />
+            </Modal>
+          </Route>}
     </>
   );
 }

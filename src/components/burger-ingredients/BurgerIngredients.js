@@ -10,17 +10,18 @@ import PropTypes from "prop-types";
 import { ingredientType } from "../../utils/types.js";
 import { useSelector, useDispatch } from "react-redux";
 import { CHANGE_CURRENT_INGREDIENT } from "../../services/actions/ingredients";
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 
 function BurgerIngredients() {
   const ingredients = useSelector((state) => state.ingredients.items);
   const dispatch = useDispatch();
   const history = useHistory();
+  const location = useLocation();
   const showIngredientInfo = (id) => {
     const item = ingredients.find((i) => i._id === id);
     if (!item) return;
     dispatch({ type: CHANGE_CURRENT_INGREDIENT, ingredientData: item });
-    history.push(`/ingredient/${id}`)
+    history.push(`/ingredient/${id}`,{ background: location })
   };
 
   const [current, setCurrent] = React.useState("bun");

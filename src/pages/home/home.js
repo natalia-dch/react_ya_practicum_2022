@@ -40,7 +40,6 @@ export const HomePage = () => {
 
   return (
     <div className={styles.app}>
-      {currentIngredient && ingredientModal}
       {modalOpened && orderSucceeded && orderModal}
       {ingredients.loading && (
         <p className={"text text_type_digits-default"}>loading...</p>
