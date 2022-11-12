@@ -36,6 +36,7 @@ function AppHeader(props) {
   );
 }
 
+
 function MenuItem({ logo, text, path }) {
   const isActive = useRouteMatch(path);
   return (
@@ -59,7 +60,7 @@ function MenuItem({ logo, text, path }) {
 MenuItem.propTypes = {
   logo: PropTypes.element.isRequired,
   text: PropTypes.string.isRequired,
-  active: PropTypes.bool,
+  path: PropTypes.object,
 };
 
 export default AppHeader;
