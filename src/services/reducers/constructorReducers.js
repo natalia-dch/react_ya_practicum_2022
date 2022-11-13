@@ -97,6 +97,7 @@ const orderInitialState = {
   order: {},
   orderRequest: false,
   orderSucceeded: false,
+  orderError: false,
 };
 export const orderReducer = (state = orderInitialState, action) => {
   switch (action.type) {
@@ -105,6 +106,7 @@ export const orderReducer = (state = orderInitialState, action) => {
         ...state,
         order: {},
         orderSucceeded: false,
+        orderError: false,
         orderRequest: true,
       };
     }
@@ -121,7 +123,7 @@ export const orderReducer = (state = orderInitialState, action) => {
         ...state,
         items: [],
         orderRequest: false,
-        orderSucceeded: false,
+        orderError: true,
       };
     }
     default: {

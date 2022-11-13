@@ -11,10 +11,11 @@ import {
 } from "../../pages";
 import { useDispatch } from "react-redux";
 import React, { useEffect } from "react";
-
+import { CHANGE_CURRENT_INGREDIENT } from "../../services/actions/ingredients";
 import AppHeader from "../app-header/AppHeader";
 import { ProtectedRoute } from "../../utils/ProtectedRoute";
 import IngredientDetails from "../ingredient-details/IngredientDetails";
+import OrderDetails from "../order-details/OrderDetails";
 import { getIngredients } from "../../services/actions/ingredientsAPI";
 import Modal from "../modal/Modal";
 // import { ProtectedRoute } from './components/protected-route';
@@ -30,6 +31,11 @@ export default function App() {
   }, []);
 
   const closeModal = () => {
+    history.push("/");
+  };
+
+  const closeIngredientModal = () => {
+    dispatch({ type: CHANGE_CURRENT_INGREDIENT, ingredientData: null });
     history.push("/");
   };
 
@@ -57,6 +63,12 @@ export default function App() {
             <IngredientDetails />
           </IngredientPage>
         </Route>
+        <ProtectedRoute fromUnauthorized path="/order" exact={true}>
+          <HomePage />
+          <Modal close={closeModal}>
+            <OrderDetails />
+          </Modal>
+        </ProtectedRoute>
         <Route path="/" exact={true}>
           <HomePage />
         </Route>
@@ -65,12 +77,14 @@ export default function App() {
         </Route>
       </Switch>
       {(background || PerformanceNavigationTiming.type === "reload") && (
-        <Route path="/ingredient/:id" exact={true}>
-          <HomePage />
-          <Modal close={closeModal} title={"Детали ингредиента"}>
-            <IngredientDetails />
-          </Modal>
-        </Route>
+        <Switch>
+          <Route path="/ingredient/:id" exact={true}>
+            <HomePage />
+            <Modal close={closeModal} title={"Детали ингредиента"}>
+              <IngredientDetails />
+            </Modal>
+          </Route>
+        </Switch>
       )}
     </>
   );

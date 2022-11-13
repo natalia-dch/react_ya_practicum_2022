@@ -12,7 +12,6 @@ import {
 import PropTypes from "prop-types";
 import { ingredientType } from "../../utils/types.js";
 import { useSelector, useDispatch } from "react-redux";
-import { order } from "../../services/actions/order";
 import {
   ADD_INGREDIENT,
   REMOVE_INGREDIENT,
@@ -21,8 +20,11 @@ import {
 import { useDrop } from "react-dnd";
 import { useDrag } from "react-dnd";
 import ClipLoader from "react-spinners/ClipLoader";
+import { useHistory, useLocation } from "react-router-dom";
 
-function BurgerConstructor({ showModal }) {
+function BurgerConstructor() {
+  const location = useLocation();
+  const history = useHistory();
   const ingredients = useSelector((store) => store.ingredients.items);
   const orderLoading = useSelector((state) => state.order.orderRequest);
   const constructorIngredients = useSelector(
@@ -53,8 +55,7 @@ function BurgerConstructor({ showModal }) {
   };
 
   const makeOrder = () => {
-    showModal();
-    dispatch(order(ingredients.map((i) => i._id)));
+    history.push("/order", { background: location });
   };
 
   return (
@@ -122,9 +123,6 @@ function BurgerConstructor({ showModal }) {
   );
 }
 
-BurgerConstructor.propTypes = {
-  showModal: PropTypes.func.isRequired,
-};
 function Gap({ index }) {
   const dispatch = useDispatch();
   const onDropHandler = (itemId) => {
