@@ -24,7 +24,8 @@ export const ForgotPasswordPage = () => {
   const success = useSelector(
     (store) => store.resetPassword.reset_password_success
   );
-  const reset = () => {
+  const reset = (e) => {
+    e.preventDefault();
     dispatch(resetPassword(email));
   };
 
@@ -40,6 +41,7 @@ export const ForgotPasswordPage = () => {
       <h1 className={`text text_type_main-medium ${styles.centeredText}`}>
         Восстановление пароля
       </h1>
+      <form onSubmit={reset}>
       <Input
         type={"text"}
         placeholder={"Укажите e-mail"}
@@ -57,7 +59,7 @@ export const ForgotPasswordPage = () => {
         </p>
       )}
       <div className={`${styles.centeredElement} mb-20`}>
-        <Button type="primary" size="medium" htmlType="button" onClick={reset}>
+        <Button type="primary" size="medium" htmlType="submit" value="Submit">  
           Восстановить
           <ClipLoader
             loading={loading}
@@ -67,6 +69,7 @@ export const ForgotPasswordPage = () => {
           />
         </Button>
       </div>
+      </form>
       <p className={`text text_type_main-default ${styles.centeredText}`}>
         Вспомнили пароль? <Link to="/login">Войти</Link>
       </p>

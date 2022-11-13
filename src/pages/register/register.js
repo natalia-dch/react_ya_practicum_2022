@@ -32,7 +32,9 @@ export const RegisterPage = () => {
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
   };
-  const onRegisterClick = () => {
+  const registerUser = (e) => {
+    console.log("registering")
+    e.preventDefault();
     dispatch(register(email, password, name));
   };
   const passwordIcon = passwordVisible ? (
@@ -45,6 +47,7 @@ export const RegisterPage = () => {
       <h1 className={`text text_type_main-medium ${styles.centeredText}`}>
         Регистрация
       </h1>
+      <form onSubmit={registerUser}>
       <Input
         type={"text"}
         placeholder={"Имя"}
@@ -89,8 +92,7 @@ export const RegisterPage = () => {
         <Button
           type="primary"
           size="medium"
-          htmlType="button"
-          onClick={onRegisterClick}
+          htmlType="submit" value="Submit"
         >
           Зарегистрироваться
           <ClipLoader
@@ -101,6 +103,7 @@ export const RegisterPage = () => {
           />
         </Button>
       </div>
+      </form>
       <p className={`text text_type_main-default ${styles.centeredText} m-4`}>
         Уже зарегистрированы? <Link to="/login">Войти</Link>
       </p>

@@ -32,7 +32,8 @@ export const LoginPage = () => {
     else history.push("/");
   }, [success]);
 
-  const onLoginClick = () => {
+  const logIn = (e) => {
+    e.preventDefault();
     console.log("loggin in");
     dispatch(login(email, password));
   };
@@ -46,6 +47,7 @@ export const LoginPage = () => {
       <h1 className={`text text_type_main-medium ${styles.centeredText}`}>
         Вход
       </h1>
+      <form onSubmit={logIn}> 
       <Input
         type={"text"}
         placeholder={"E-mail"}
@@ -80,8 +82,7 @@ export const LoginPage = () => {
         <Button
           type="primary"
           size="medium"
-          htmlType="button"
-          onClick={onLoginClick}
+          htmlType="submit" value="Submit"
         >
           Войти
           <ClipLoader
@@ -92,6 +93,7 @@ export const LoginPage = () => {
           />
         </Button>
       </div>
+      </form>
       <p className={`text text_type_main-default ${styles.centeredText} m-4`}>
         Вы - новый пользователь? <Link to="/register">Зарегистрироваться</Link>
       </p>

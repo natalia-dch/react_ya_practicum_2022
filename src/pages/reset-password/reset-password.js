@@ -26,7 +26,8 @@ export const ResetPasswordPage = () => {
   const success = useSelector(
     (store) => store.resetPassword.change_password_success
   );
-  const reset = () => {
+  const reset = (e) => {
+    e.preventDefault();
     dispatch(changePassword(code, password));
   };
 
@@ -45,6 +46,7 @@ export const ResetPasswordPage = () => {
       <h1 className={`text text_type_main-medium ${styles.centeredText}`}>
         Восстановление пароля
       </h1>
+      <form onSubmit={reset}>
       <Input
         type={passwordVisible ? "text" : "password"}
         placeholder={"Введите новый пароль"}
@@ -75,7 +77,7 @@ export const ResetPasswordPage = () => {
         </p>
       )}
       <div className={`${styles.centeredElement} mb-20`}>
-        <Button type="primary" size="medium" htmlType="button" onClick={reset}>
+        <Button type="primary" size="medium" htmlType="submit" value="Submit">
           Сохранить
           <ClipLoader
             loading={loading}
@@ -85,6 +87,7 @@ export const ResetPasswordPage = () => {
           />
         </Button>
       </div>
+      </form>
       <p className={`text text_type_main-default ${styles.centeredText}`}>
         Вспомнили пароль? <Link to="/login">Войти</Link>
       </p>

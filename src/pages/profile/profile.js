@@ -114,7 +114,8 @@ const Profile = () => {
     dispatch(getUserInfo());
   }, []);
 
-  const onSaveClick = () => {
+  const save = (e) => {
+    e.preventDefault();
     dispatch(changeUserInfo(name, email, password));
   };
 
@@ -126,6 +127,7 @@ const Profile = () => {
 
   return (
     <div className="ml-15">
+      <form onSubmit={save}>
       <Input
         type={"text"}
         placeholder={"Имя"}
@@ -184,8 +186,7 @@ const Profile = () => {
           <Button
             type="primary"
             size="medium"
-            htmlType="button"
-            onClick={onSaveClick}
+            htmlType="submit" value="Submit"
             extraClass={`mr-6 ml-6`}
           >
             Сохранить
@@ -198,6 +199,7 @@ const Profile = () => {
           </Button>
         </div>
       )}
+      </form>
     </div>
   );
 };
