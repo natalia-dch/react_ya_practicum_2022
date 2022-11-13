@@ -61,7 +61,7 @@ export const constructorIngredientsReducer = (
       const item = state.ingredients.filter(
         (item) => item.listId == action.id.id
       )[0];
-      let newIngredients = state.ingredients.filter(
+      const newIngredients = state.ingredients.filter(
         (item) => item.listId != action.id.id
       );
       newIngredients.splice(action.index, 0, item);

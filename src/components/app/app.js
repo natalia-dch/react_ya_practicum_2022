@@ -8,22 +8,22 @@ import {
   ProfilePage,
   RegisterPage,
   ResetPasswordPage,
-} from "./pages";
+} from "../../pages";
 import { useDispatch } from "react-redux";
 import React, { useEffect } from "react";
 
-import AppHeader from "./components/app-header/AppHeader";
-import { ProtectedRoute } from "./utils/ProtectedRoute";
-import IngredientDetails from "./components/ingredient-details/IngredientDetails";
-import { getIngredients } from "./services/actions/ingredientsAPI";
-import Modal from "./components/modal/Modal";
+import AppHeader from "../app-header/AppHeader";
+import { ProtectedRoute } from "../../utils/ProtectedRoute";
+import IngredientDetails from "../ingredient-details/IngredientDetails";
+import { getIngredients } from "../../services/actions/ingredientsAPI";
+import Modal from "../modal/Modal";
 // import { ProtectedRoute } from './components/protected-route';
 // import { ProvideAuth } from './services/auth';
 
 export default function App() {
   const location = useLocation();
   const history = useHistory();
-  let background = location.state && location.state.background;
+  const background = location.state && location.state.background;
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getIngredients());
@@ -66,7 +66,8 @@ export default function App() {
       </Switch>
       {(background || PerformanceNavigationTiming.type === "reload") && (
         <Route path="/ingredient/:id" exact={true}>
-          <Modal close={closeModal}>
+          <HomePage />
+          <Modal close={closeModal} title={"Детали ингредиента"}>
             <IngredientDetails />
           </Modal>
         </Route>

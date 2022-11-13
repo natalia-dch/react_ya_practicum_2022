@@ -4,7 +4,10 @@ import styles from "./styles.module.css";
 import PropTypes from "prop-types";
 
 export const IngredientPage = ({ children }) => {
-  return <div className={styles.centered}>{children}</div>;
+  return <div className={styles.centered}>
+    <p className={"text text_type_main-large p-2 mt-10"}>Детали ингредиента</p>
+    {children}
+    </div>;
 };
 
 IngredientPage.propTypes = {

@@ -3,7 +3,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-import App from "./app";
+import App from "./components/app/app";
 import { Provider } from 'react-redux';
 import reportWebVitals from './reportWebVitals';
 import {rootReducer} from './services/reducers/rootReducer';

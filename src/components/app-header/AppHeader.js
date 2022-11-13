@@ -60,7 +60,7 @@ function MenuItem({ logo, text, path }) {
 MenuItem.propTypes = {
   logo: PropTypes.element.isRequired,
   text: PropTypes.string.isRequired,
-  path: PropTypes.object,
+  path: PropTypes.string,
 };
 
 export default AppHeader;
