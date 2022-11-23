@@ -12,17 +12,19 @@ import {
 import PropTypes from "prop-types";
 import { ingredientType } from "../../utils/types.js";
 import { useSelector, useDispatch } from "react-redux";
-import { order } from "../../services/actions/order";
 import {
   ADD_INGREDIENT,
   REMOVE_INGREDIENT,
-  CHANGE_INGREDIENT_POSITION
+  CHANGE_INGREDIENT_POSITION,
 } from "../../services/actions/ingredients";
 import { useDrop } from "react-dnd";
 import { useDrag } from "react-dnd";
 import ClipLoader from "react-spinners/ClipLoader";
+import { useHistory, useLocation } from "react-router-dom";
 
-function BurgerConstructor({ showModal }) {
+function BurgerConstructor() {
+  const location = useLocation();
+  const history = useHistory();
   const ingredients = useSelector((store) => store.ingredients.items);
   const orderLoading = useSelector((state) => state.order.orderRequest);
   const constructorIngredients = useSelector(
@@ -53,8 +55,7 @@ function BurgerConstructor({ showModal }) {
   };
 
   const makeOrder = () => {
-    showModal();
-    dispatch(order(ingredients.map((i) => i._id)));
+    history.push("/order", { background: location });
   };
 
   return (
@@ -72,7 +73,12 @@ function BurgerConstructor({ showModal }) {
       </div>
       <div className={styles.ingContainer}>
         {constructorIngredients.ingredients.map((el, ind) => (
-          <DraggableElement key={el.listId} element={el} deleteItem={removeIngredient} index={ind} />
+          <DraggableElement
+            key={el.listId}
+            element={el}
+            deleteItem={removeIngredient}
+            index={ind}
+          />
         ))}
       </div>
       <div className={"ml-6 "}>
@@ -106,24 +112,20 @@ function BurgerConstructor({ showModal }) {
         >
           Оформить заказ
           <ClipLoader
-        loading={orderLoading}
-        size={"1.5em"}
-        color={"white"}
-        aria-label="Loading Spinner"
-      />
+            loading={orderLoading}
+            size={"1.5em"}
+            color={"white"}
+            aria-label="Loading Spinner"
+          />
         </Button>
       </div>
     </div>
   );
 }
 
-BurgerConstructor.propTypes = {
-  showModal: PropTypes.func.isRequired,
-};
-function Gap({index}) {
+function Gap({ index }) {
   const dispatch = useDispatch();
   const onDropHandler = (itemId) => {
-    console.log("aaa");
     dispatch({ type: CHANGE_INGREDIENT_POSITION, id: itemId, index });
   };
 
@@ -160,8 +162,8 @@ function DraggableElement({ element, deleteItem, index }) {
   return (
     !isDrag && (
       <>
-        {index == 0 && <Gap index={0}/>}
-        <div  ref={dragRef}>
+        {index == 0 && <Gap index={0} />}
+        <div ref={dragRef}>
           <DragIcon type="primary" />
           <ConstructorElement
             text={element.name}
@@ -170,7 +172,7 @@ function DraggableElement({ element, deleteItem, index }) {
             handleClose={() => deleteItem(element.listId)}
           />
         </div>
-        <Gap index={index+1}/>
+        <Gap index={index + 1} />
       </>
     )
   );

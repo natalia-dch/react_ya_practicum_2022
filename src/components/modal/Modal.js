@@ -8,7 +8,6 @@ import PropTypes from "prop-types";
 const modalRoot = document.getElementById("react-modals");
 
 function Modal({ title, close, ...props }) {
-
   React.useEffect(() => {
     const keyPressHandler = (event) => {
       if (event.key === "Escape") {

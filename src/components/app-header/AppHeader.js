@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./app-header.module.css";
+import { Link, NavLink, useRouteMatch } from "react-router-dom";
 import {
   Logo,
   BurgerIcon,
@@ -13,41 +14,53 @@ function AppHeader(props) {
     <header className={styles.container}>
       <div className={styles.leftContainer}>
         <MenuItem
-          logo={<BurgerIcon type="primary" />}
+          path="/"
+          logo={<BurgerIcon type="secondary" />}
           text="Конструктор"
-          active
         />
-        <MenuItem logo={<ListIcon type="secondary" />} text="Лента заказов" />
+        <MenuItem
+          path="/orders"
+          logo={<ListIcon type="secondary" />}
+          text="Лента заказов"
+        />
       </div>
       <div className={styles.logo}>
         <Logo />
       </div>
-      <MenuItem logo={<ProfileIcon type="secondary" />} text="Личный кабинет" />
+      <MenuItem
+        path="/profile"
+        logo={<ProfileIcon type="secondary" />}
+        text="Личный кабинет"
+      />
     </header>
   );
 }
 
-function MenuItem({ logo, text, active }) {
+
+function MenuItem({ logo, text, path }) {
+  const isActive = useRouteMatch(path);
   return (
-    <div
-      className={"mt-4 mb-4 lm-2 mr-2 pt-5 pb-5 pl-5 pr-5 " + styles.menuItem}
-    >
-      {logo}
-      <p
-        className={`text text_type_main-default ml-2 mr-2 ${
-          !active ? "text_color_inactive" : null
-        }`}
+    <NavLink to={path}>
+      <div
+        className={"mt-4 mb-4 lm-2 mr-2 pt-5 pb-5 pl-5 pr-5 " + styles.menuItem}
       >
-        {text}
-      </p>
-    </div>
+        {logo}
+        <p
+          className={`text text_type_main-default ml-2 mr-2 ${
+            isActive?.isExact ? "" : "text_color_inactive"
+          }`}
+        >
+          {text}
+        </p>
+      </div>
+    </NavLink>
   );
 }
 
 MenuItem.propTypes = {
   logo: PropTypes.element.isRequired,
   text: PropTypes.string.isRequired,
-  active: PropTypes.bool,
+  path: PropTypes.string,
 };
 
 export default AppHeader;

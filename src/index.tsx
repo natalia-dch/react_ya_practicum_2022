@@ -1,4 +1,5 @@
 // @ts-nocheck
+import { BrowserRouter as Router } from "react-router-dom";
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
@@ -29,11 +30,10 @@ const root = ReactDOM.createRoot(
 );
 
 root.render(
-  <React.StrictMode>
     <Provider store={store}>
-      <App />
+     <Router><App /></Router>
+      
     </Provider>
-  </React.StrictMode>
 );
 
 reportWebVitals();
