@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FC, ReactNode } from "react";
 import ReactDOM from "react-dom";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./modal.module.css";
@@ -7,9 +7,16 @@ import PropTypes from "prop-types";
 
 const modalRoot = document.getElementById("react-modals");
 
-function Modal({ title, close, ...props }) {
+type TModalProps = {
+  title?: string;
+  close: () => void;
+  children: ReactNode;
+}
+
+
+const Modal : FC<TModalProps>= ({ title, close, ...props }) =>  {
   React.useEffect(() => {
-    const keyPressHandler = (event) => {
+    const keyPressHandler = (event : KeyboardEvent) => {
       if (event.key === "Escape") {
         close();
       }
@@ -32,7 +39,7 @@ function Modal({ title, close, ...props }) {
         {props.children}
       </div>
     </>,
-    modalRoot
+    modalRoot!
   );
 }
 

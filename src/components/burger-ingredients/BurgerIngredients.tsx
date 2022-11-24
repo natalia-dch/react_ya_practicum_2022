@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { FC, MouseEventHandler, useEffect } from "react";
 import styles from "./burger-ingredients.module.css";
 import { useDrag } from "react-dnd";
 import {
@@ -7,17 +7,18 @@ import {
   Counter,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
-import { ingredientType } from "../../utils/types.js";
+import { TIngredient } from "../../utils/types.js";
 import { useSelector, useDispatch } from "react-redux";
 import { CHANGE_CURRENT_INGREDIENT } from "../../services/actions/ingredients";
 import { useHistory, useLocation } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../../utils/hooks";
 
 function BurgerIngredients() {
-  const ingredients = useSelector((state) => state.ingredients.items);
-  const dispatch = useDispatch();
+  const ingredients = useAppSelector((state) => state.ingredients.items);
+  const dispatch = useAppDispatch();
   const history = useHistory();
   const location = useLocation();
-  const showIngredientInfo = (id) => {
+  const showIngredientInfo = (id : string) => {
     const item = ingredients.find((i) => i._id === id);
     if (!item) return;
     dispatch({ type: CHANGE_CURRENT_INGREDIENT, ingredientData: item });
@@ -42,19 +43,19 @@ function BurgerIngredients() {
     };
     const targets = ["bun", "sauce", "main"];
 
-    const changeSectionGoingUp = (entries, observer) => {
+    const changeSectionGoingUp = (entries : IntersectionObserverEntry[]) => {
       entries.forEach((entry) => {
         if (
-          entry.isIntersecting &&
+          entry.isIntersecting && entry.rootBounds &&
           entry.boundingClientRect.top < entry.rootBounds.top
         )
           setCurrent(entry.target.id.slice(0, -9));
       });
     };
-    const changeSectionGoingDown = (entries, observer) => {
+    const changeSectionGoingDown = (entries : IntersectionObserverEntry[]) => {
       entries.forEach((entry) => {
         if (
-          !entry.isIntersecting &&
+          !entry.isIntersecting && entry.rootBounds &&
           entry.boundingClientRect.top < entry.rootBounds.top
         ) {
           const index = targets.findIndex(
@@ -72,7 +73,7 @@ function BurgerIngredients() {
     );
 
     targets.forEach((target) => {
-      const targetEl = document.querySelector("#" + target + "Container");
+      const targetEl = document.querySelector("#" + target + "Container")!;
       observer1.observe(targetEl);
       observer2.observe(targetEl);
     });
@@ -179,7 +180,15 @@ function BurgerIngredients() {
   );
 }
 
-function Ingredient({ name, image, price, id, onClick }) {
+type TIngredientProps = {
+  name: string,
+  image: string,
+  price: number,
+  id: string,
+  onClick: MouseEventHandler<HTMLDivElement>,
+};
+
+const Ingredient : FC<TIngredientProps> = ({ name, image, price, id, onClick }) => {
   const [{ isDrag }, dragRef] = useDrag({
     type: "ingredient",
     item: { id },
@@ -187,7 +196,7 @@ function Ingredient({ name, image, price, id, onClick }) {
       isDrag: monitor.isDragging(),
     }),
   });
-  const qty = useSelector(
+  const qty = useAppSelector(
     (state) =>
       state.constructorIngredients.ingredients.filter((i) => i._id === id)
         .length +
@@ -210,12 +219,6 @@ function Ingredient({ name, image, price, id, onClick }) {
   );
 }
 
-Ingredient.propTypes = {
-  name: PropTypes.string.isRequired,
-  image: PropTypes.string.isRequired,
-  price: PropTypes.number.isRequired,
-  id: PropTypes.string.isRequired,
-  onClick: PropTypes.func.isRequired,
-};
+
 
 export default BurgerIngredients;

@@ -27,6 +27,20 @@ import {
   CHANGE_PASSWORD_FAILED,
 } from "../actions/auth/resetPassword";
 
+type TAuth = {
+  login_loading: boolean,
+  login_error: boolean,
+  login_success: boolean,
+  logout_loading: boolean,
+  logout_error: boolean,
+  logout_success: boolean,
+  register_loading: boolean,
+  register_success: boolean,
+  register_error: boolean,
+  refresh_token_loading: boolean,
+  refresh_token_success: boolean,
+  refresh_token_error: boolean, 
+}
 const authInitialState = {
   login_loading: false,
   login_error: false,
@@ -41,7 +55,7 @@ const authInitialState = {
   refresh_token_success: false,
   refresh_token_error: false,
 };
-export const authReducer = (state = authInitialState, action) => {
+export const authReducer = (state : TAuth = authInitialState, action) => {
   switch (action.type) {
     case LOGIN_REQUEST: {
       return {

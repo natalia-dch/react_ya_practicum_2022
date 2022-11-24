@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FC, ReactNode } from "react";
 import styles from "./burger-constructor.module.css";
 import {
   Tab,
@@ -10,7 +10,7 @@ import {
   ConstructorElement,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
-import { ingredientType } from "../../utils/types.js";
+import { TIngredient } from "../../utils/types.js";
 import { useSelector, useDispatch } from "react-redux";
 import {
   ADD_INGREDIENT,
@@ -21,19 +21,20 @@ import { useDrop } from "react-dnd";
 import { useDrag } from "react-dnd";
 import ClipLoader from "react-spinners/ClipLoader";
 import { useHistory, useLocation } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../../utils/hooks";
 
 function BurgerConstructor() {
   const location = useLocation();
   const history = useHistory();
-  const ingredients = useSelector((store) => store.ingredients.items);
-  const orderLoading = useSelector((state) => state.order.orderRequest);
-  const constructorIngredients = useSelector(
+  const ingredients = useAppSelector((store) => store.ingredients.items);
+  const orderLoading = useAppSelector((state) => state.order.orderRequest);
+  const constructorIngredients = useAppSelector(
     (state) => state.constructorIngredients
   );
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const [{ isHover }, dropTarget] = useDrop({
     accept: "ingredient",
-    drop(itemId) {
+    drop(itemId  : {id: string}) {
       onDropHandler(itemId);
     },
     collect: (monitor) => ({
@@ -41,12 +42,12 @@ function BurgerConstructor() {
     }),
   });
 
-  const removeIngredient = (itemId) => {
+  const removeIngredient = (itemId : {id: string}) => {
     const item = ingredients.filter((element) => element._id === itemId.id);
     dispatch({ type: REMOVE_INGREDIENT, id: itemId });
   };
 
-  const onDropHandler = (itemId) => {
+  const onDropHandler = (itemId : {id: string}) => {
     const draggedItem = ingredients.filter(
       (element) => element._id === itemId.id
     )[0];
@@ -95,7 +96,7 @@ function BurgerConstructor() {
       <div className={"mt-10 mr-4 " + styles.totalContainer}>
         <p className={"text text_type_digits-default pl-10 pr-10"}>
           {constructorIngredients.ingredients.reduce(
-            (sum, el) => sum + el.price,
+            (sum : number, el : TIngredient) => sum + el.price,
             0
           ) +
             2 *
@@ -123,9 +124,13 @@ function BurgerConstructor() {
   );
 }
 
-function Gap({ index }) {
+type TGapProps = {
+  index: number,
+};
+
+const Gap : FC<TGapProps> = ({ index }) => {
   const dispatch = useDispatch();
-  const onDropHandler = (itemId) => {
+  const onDropHandler = (itemId: any) => {
     dispatch({ type: CHANGE_INGREDIENT_POSITION, id: itemId, index });
   };
 
@@ -146,11 +151,13 @@ function Gap({ index }) {
   );
 }
 
-Gap.propTypes = {
-  index: PropTypes.number.isRequired,
+type TDraggableElementProps = {
+  element: TIngredient,
+  deleteItem: any,
+  index: number,
 };
 
-function DraggableElement({ element, deleteItem, index }) {
+const DraggableElement : FC<TDraggableElementProps> = ({ element, deleteItem, index }) =>  {
   const [{ isDrag }, dragRef] = useDrag({
     type: "draggableIngredient",
     item: { id: element.listId },
@@ -160,8 +167,9 @@ function DraggableElement({ element, deleteItem, index }) {
   });
 
   return (
-    !isDrag && (
       <>
+          {!isDrag && (
+        <>
         {index == 0 && <Gap index={0} />}
         <div ref={dragRef}>
           <DragIcon type="primary" />
@@ -169,19 +177,14 @@ function DraggableElement({ element, deleteItem, index }) {
             text={element.name}
             price={element.price}
             thumbnail={element.image}
-            handleClose={() => deleteItem(element.listId)}
+            handleClose={() => deleteItem(element.listId!)}
           />
         </div>
         <Gap index={index + 1} />
+        </>
+        )}
       </>
-    )
   );
 }
-
-DraggableElement.propTypes = {
-  element: PropTypes.object.isRequired,
-  deleteItem: PropTypes.func.isRequired,
-  index: PropTypes.number.isRequired,
-};
 
 export default BurgerConstructor;

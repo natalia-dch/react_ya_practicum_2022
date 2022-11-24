@@ -13,5 +13,5 @@ export type TIngredient = {
   proteins: number,
   type: string;
   "new entry"?: string;
-  listId? : number;
+  listId? : string;
 };

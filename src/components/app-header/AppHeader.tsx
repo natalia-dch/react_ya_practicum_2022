@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FC, ReactNode } from "react";
 import styles from "./app-header.module.css";
 import { Link, NavLink, useRouteMatch } from "react-router-dom";
 import {
@@ -9,7 +9,7 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
 
-function AppHeader(props) {
+const AppHeader = () => {
   return (
     <header className={styles.container}>
       <div className={styles.leftContainer}>
@@ -35,9 +35,13 @@ function AppHeader(props) {
     </header>
   );
 }
+type THeaderProps = {
+  logo: ReactNode,
+  text: string,
+  path: string
+}
 
-
-function MenuItem({ logo, text, path }) {
+const MenuItem : FC<THeaderProps> = ({ logo, text, path }) => {
   const isActive = useRouteMatch(path);
   return (
     <NavLink to={path}>
@@ -56,11 +60,5 @@ function MenuItem({ logo, text, path }) {
     </NavLink>
   );
 }
-
-MenuItem.propTypes = {
-  logo: PropTypes.element.isRequired,
-  text: PropTypes.string.isRequired,
-  path: PropTypes.string,
-};
 
 export default AppHeader;

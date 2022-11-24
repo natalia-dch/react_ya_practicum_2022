@@ -1,17 +1,18 @@
-import React, { useEffect } from "react";
+import React, { FC, useEffect } from "react";
 import styles from "./ingredient-details.module.css";
 import PropTypes from "prop-types";
 import { useSelector, useDispatch } from "react-redux";
 import { currentIngredientReducer } from "../../services/reducers/constructorReducers";
 import { useParams, useHistory } from "react-router-dom";
 import { CHANGE_CURRENT_INGREDIENT } from "../../services/actions/ingredients";
+import { useAppDispatch, useAppSelector } from "../../utils/hooks";
 
 function IngredientDetails() {
-  const ingredientInfo = useSelector((state) => state.currentIngredient);
-  const ingredients = useSelector((state) => state.ingredients.items);
-  const dispatch = useDispatch();
+  const ingredientInfo = useAppSelector((state) => state.currentIngredient);
+  const ingredients = useAppSelector((state) => state.ingredients.items);
+  const dispatch = useAppDispatch();
   const history = useHistory();
-  const { id } = useParams();
+  const { id } = useParams<{id?: string}>();
   useEffect(() => {
     if (!ingredientInfo) {
       if (ingredients.length == 0) return;
@@ -49,8 +50,12 @@ function IngredientDetails() {
     )
   );
 }
+type TNutritionInfoProps = {
+  title: string,
+  info: number,
+};
 
-function NutritionInfo({ title, info }) {
+const NutritionInfo : FC<TNutritionInfoProps> = ({ title, info }) =>  {
   return (
     <div>
       <p className="text text_type_main-default text_color_inactive">{title}</p>
@@ -61,9 +66,6 @@ function NutritionInfo({ title, info }) {
   );
 }
 
-NutritionInfo.propTypes = {
-  title: PropTypes.string.isRequired,
-  info: PropTypes.number.isRequired,
-};
+
 
 export default IngredientDetails;
