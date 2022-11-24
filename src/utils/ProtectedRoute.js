@@ -11,7 +11,6 @@ export function ProtectedRoute({
   const isAuth = getCookie("refreshToken");
   return (
     <Route
-      {...rest}
       render={({ location }) => {
         if (
           //authorized users  are redirected to home page
@@ -31,6 +30,7 @@ export function ProtectedRoute({
           return children;
         }
       }}
+      {...rest}
     />
   );
 }

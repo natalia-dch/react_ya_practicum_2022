@@ -55,7 +55,7 @@ const authInitialState = {
   refresh_token_success: false,
   refresh_token_error: false,
 };
-export const authReducer = (state : TAuth = authInitialState, action) => {
+export const authReducer = (state : TAuth = authInitialState, action : any) => {
   switch (action.type) {
     case LOGIN_REQUEST: {
       return {
@@ -162,7 +162,7 @@ const resetPasswordInitialState = {
 };
 export const resetPasswordReducer = (
   state = resetPasswordInitialState,
-  action
+  action : any
 ) => {
   switch (action.type) {
     case RESET_PASSWORD_REQUEST: {

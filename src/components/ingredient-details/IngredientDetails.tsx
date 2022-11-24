@@ -1,6 +1,5 @@
 import React, { FC, useEffect } from "react";
 import styles from "./ingredient-details.module.css";
-import PropTypes from "prop-types";
 import { useSelector, useDispatch } from "react-redux";
 import { currentIngredientReducer } from "../../services/reducers/constructorReducers";
 import { useParams, useHistory } from "react-router-dom";

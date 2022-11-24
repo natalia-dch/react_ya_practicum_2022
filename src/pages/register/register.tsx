@@ -15,10 +15,10 @@ import { useAppDispatch, useAppSelector } from "../../utils/hooks";
 export const RegisterPage = () => {
   const history = useHistory();
   const dispatch = useAppDispatch();
-  const [name, setName] = React.useState("");
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
-  const [passwordVisible, setPasswordVisible] = React.useState(false);
+  const [name, setName] = React.useState<string>("");
+  const [email, setEmail] = React.useState<string>("");
+  const [password, setPassword] = React.useState<string>("");
+  const [passwordVisible, setPasswordVisible] = React.useState<boolean>(false);
   const loading = useAppSelector((store) => store.auth.register_loading);
   const error = useAppSelector((store) => store.auth.register_error);
   const success = useAppSelector((store) => store.auth.register_success);

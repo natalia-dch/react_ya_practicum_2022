@@ -9,7 +9,6 @@ import {
   Button,
   ConstructorElement,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import PropTypes from "prop-types";
 import { TIngredient } from "../../utils/types.js";
 import { useSelector, useDispatch } from "react-redux";
 import {

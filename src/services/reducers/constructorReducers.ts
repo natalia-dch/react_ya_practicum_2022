@@ -1,3 +1,4 @@
+// @ts-nocheck
 import {
   CHANGE_CURRENT_INGREDIENT,
   ADD_INGREDIENT,
@@ -97,7 +98,7 @@ export const constructorIngredientsReducer = (
     }
   }
 };
-export const currentIngredientReducer = (state = null, action) => {
+export const currentIngredientReducer = (state = null, action : any) => {
   switch (action.type) {
     case CHANGE_CURRENT_INGREDIENT: {
       return action.ingredientData;
@@ -113,7 +114,7 @@ const orderInitialState = {
   orderSucceeded: false,
   orderError: false,
 };
-export const orderReducer = (state = orderInitialState, action) => {
+export const orderReducer = (state = orderInitialState, action : any) => {
   switch (action.type) {
     case ORDER_REQUEST: {
       return {

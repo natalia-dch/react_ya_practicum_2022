@@ -28,7 +28,7 @@ const initialState = {
   email: "",
   name: "",
 };
-export const userInfoReducer = (state: TUser = initialState, action) => {
+export const userInfoReducer = (state: TUser = initialState, action : any) => {
   switch (action.type) {
     case USER_INFO_REQUEST: {
       return {

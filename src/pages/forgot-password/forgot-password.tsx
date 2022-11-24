@@ -15,7 +15,7 @@ import { useAppDispatch, useAppSelector } from "../../utils/hooks";
 export const ForgotPasswordPage = () => {
   const history = useHistory();
   const dispatch = useAppDispatch();
-  const [email, setEmail] = React.useState("");
+  const [email, setEmail] = React.useState<string>("");
   const loading = useAppSelector(
     (store) => store.resetPassword.reset_password_loading
   );

@@ -18,14 +18,15 @@ import IngredientDetails from "../ingredient-details/IngredientDetails";
 import OrderDetails from "../order-details/OrderDetails";
 import { getIngredients } from "../../services/actions/ingredientsAPI";
 import Modal from "../modal/Modal";
+import { useAppDispatch } from "../../utils/hooks";
 // import { ProtectedRoute } from './components/protected-route';
 // import { ProvideAuth } from './services/auth';
 
 export default function App() {
-  const location = useLocation();
+  const location = useLocation<{ background: any }>();
   const history = useHistory();
   const background = location.state && location.state.background;
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(getIngredients());
   }, []);
@@ -76,7 +77,7 @@ export default function App() {
           <NotFound404Page />
         </Route>
       </Switch>
-      {(background || PerformanceNavigationTiming.type === "reload") && (
+      {(background || (new PerformanceNavigationTiming).type === "reload") && (
         <Switch>
           <Route path="/ingredient/:id" exact={true}>
             <HomePage />

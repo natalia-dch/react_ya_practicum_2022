@@ -15,9 +15,9 @@ import { useAppDispatch, useAppSelector } from "../../utils/hooks";
 export const LoginPage = () => {
   const dispatch = useAppDispatch();
   const history = useHistory<{ from: {pathname : string} }>();
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
-  const [passwordVisible, setPasswordVisible] = React.useState(false);
+  const [email, setEmail] = React.useState<string>("");
+  const [password, setPassword] = React.useState<string>("");
+  const [passwordVisible, setPasswordVisible] = React.useState<boolean>(false);
   const loading = useAppSelector((store) => store.auth.login_loading);
   const error = useAppSelector((store) => store.auth.login_error);
   const success = useAppSelector((store) => store.auth.login_success);

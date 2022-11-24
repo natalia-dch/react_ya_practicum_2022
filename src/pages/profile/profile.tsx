@@ -86,10 +86,10 @@ const Profile = () => {
   const nameFromAPI = useAppSelector((store) => store.userInfo.name);
   const tokenSuccess = useAppSelector((store) => store.auth.refresh_token_success);
 
-  const [name, setName] = React.useState("");
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
-  const [wasEdited, setWasEdited] = React.useState(false);
+  const [name, setName] = React.useState<string>("");
+  const [email, setEmail] = React.useState<string>("");
+  const [password, setPassword] = React.useState<string>("");
+  const [wasEdited, setWasEdited] = React.useState<boolean>(false);
 
   useEffect(() => {
     if (!tokenSuccess) return;

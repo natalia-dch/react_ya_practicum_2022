@@ -1,7 +1,6 @@
 import React, { FC, ReactNode, useState } from "react";
 import IngredientDetails from "../../components/ingredient-details/IngredientDetails";
 import styles from "./styles.module.css";
-import PropTypes from "prop-types";
 
 type TIngredientPageProps = {
   children: ReactNode
