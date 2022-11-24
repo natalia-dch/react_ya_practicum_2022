@@ -11,13 +11,20 @@ import {
   GET_INGREDIENTS_FAILED,
 } from "../actions/ingredientsAPI";
 import { ORDER_REQUEST, ORDER_SUCCESS, ORDER_FAILED } from "../actions/order";
+import {TIngredient} from "../../utils/types";
 
-const ingredientsInitialState = {
+type TIngredientState = {
+  items: Array<TIngredient>;
+  loading: boolean,
+  error: boolean,
+}
+
+const ingredientsInitialState :  TIngredientState= {
   items: [],
   loading: true,
   error: false,
 };
-export const ingredientsReducer = (state = ingredientsInitialState, action) => {
+export const ingredientsReducer = (state = ingredientsInitialState, action: { type: string; ingredients: Array<TIngredient>; }) => {
   switch (action.type) {
     case GET_INGREDIENTS_REQUEST: {
       return {
@@ -47,10 +54,16 @@ export const ingredientsReducer = (state = ingredientsInitialState, action) => {
   }
 };
 
-const constructorInitialState = { ingredients: [], bread: null };
+type TConstractorState = {
+  ingredients: Array<TIngredient>;
+  bread: TIngredient | null,
+}
+
+const constructorInitialState : TConstractorState = { ingredients: [], bread: null };
+
 export const constructorIngredientsReducer = (
   state = constructorInitialState,
-  action
+  action: { type: any; item: { type: string; }; id: number | undefined; index: number; }
 ) => {
   switch (action.type) {
     case ADD_INGREDIENT: {

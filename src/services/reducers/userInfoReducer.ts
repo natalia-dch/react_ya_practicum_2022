@@ -7,6 +7,17 @@ import {
   CHANGE_USER_INFO_FAILED,
 } from "../actions/userInfo";
 
+type TUser = {
+  user_info_loading: boolean,
+  user_info_error: boolean,
+  user_info_success: boolean,
+  change_user_info_loading: boolean,
+  change_user_info_error: boolean,
+  change_user_info_success: boolean,
+  email: string,
+  name: string,
+};
+
 const initialState = {
   user_info_loading: false,
   user_info_error: false,
@@ -17,7 +28,7 @@ const initialState = {
   email: "",
   name: "",
 };
-export const userInfoReducer = (state = initialState, action) => {
+export const userInfoReducer = (state: TUser = initialState, action) => {
   switch (action.type) {
     case USER_INFO_REQUEST: {
       return {
