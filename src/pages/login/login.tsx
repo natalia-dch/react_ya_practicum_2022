@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect, FormEvent } from "react";
 import { Link, useHistory } from "react-router-dom";
 import styles from "./styles.module.css";
 import {
@@ -7,35 +7,36 @@ import {
   HideIcon,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { register } from "../../services/actions/auth/register";
+import { login } from "../../services/actions/auth/login";
 import ClipLoader from "react-spinners/ClipLoader";
 import { useSelector, useDispatch } from "react-redux";
+import { useAppDispatch, useAppSelector } from "../../utils/hooks";
 
-export const RegisterPage = () => {
-  const history = useHistory();
-  const dispatch = useDispatch();
-  const [name, setName] = React.useState("");
+export const LoginPage = () => {
+  const dispatch = useAppDispatch();
+  const history = useHistory<{ from: {pathname : string} }>();
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [passwordVisible, setPasswordVisible] = React.useState(false);
-  const loading = useSelector((store) => store.auth.register_loading);
-  const error = useSelector((store) => store.auth.register_error);
-  const success = useSelector((store) => store.auth.register_success);
-
-  useEffect(() => {
-    if (!success) return;
-    console.log("registration was successful");
-    //go to home page
-    history.push("/");
-  }, [success]);
-
+  const loading = useAppSelector((store) => store.auth.login_loading);
+  const error = useAppSelector((store) => store.auth.login_error);
+  const success = useAppSelector((store) => store.auth.login_success);
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
   };
-  const registerUser = (e) => {
-    console.log("registering")
+
+  useEffect(() => {
+    if (!success) return;
+    console.log("login was successful");
+    if (history.location?.state?.from)
+      history.push(history.location.state.from.pathname);
+    else history.push("/");
+  }, [success]);
+
+  const logIn = (e : FormEvent) => {
     e.preventDefault();
-    dispatch(register(email, password, name));
+    console.log("loggin in");
+    dispatch(login(email, password));
   };
   const passwordIcon = passwordVisible ? (
     <ShowIcon type="primary" />
@@ -45,20 +46,9 @@ export const RegisterPage = () => {
   return (
     <div className={styles.centered}>
       <h1 className={`text text_type_main-medium ${styles.centeredText}`}>
-        Регистрация
+        Вход
       </h1>
-      <form onSubmit={registerUser}>
-      <Input
-        type={"text"}
-        placeholder={"Имя"}
-        onChange={(e) => setName(e.target.value)}
-        value={name}
-        name={"name"}
-        error={false}
-        errorText={"Ошибка"}
-        size={"default"}
-        extraClass="m-6"
-      />
+      <form onSubmit={logIn}> 
       <Input
         type={"text"}
         placeholder={"E-mail"}
@@ -68,7 +58,7 @@ export const RegisterPage = () => {
         error={false}
         errorText={"Ошибка"}
         size={"default"}
-        extraClass="m-6"
+        extraClass="m-6 "
       />
       <Input
         type={passwordVisible ? "text" : "password"}
@@ -82,10 +72,11 @@ export const RegisterPage = () => {
         errorText={"Ошибка"}
         size={"default"}
         extraClass="m-6"
+        cellSpacing={24}
       />
       {error && (
         <p className={`text text_type_main-default ${styles.centeredText} m-4`}>
-          Ошибка регистрации
+          Ошибка авторизации
         </p>
       )}
       <div className={`${styles.centeredElement} mb-20`}>
@@ -94,7 +85,7 @@ export const RegisterPage = () => {
           size="medium"
           htmlType="submit" value="Submit"
         >
-          Зарегистрироваться
+          Войти
           <ClipLoader
             loading={loading}
             size={"1.5em"}
@@ -105,7 +96,10 @@ export const RegisterPage = () => {
       </div>
       </form>
       <p className={`text text_type_main-default ${styles.centeredText} m-4`}>
-        Уже зарегистрированы? <Link to="/login">Войти</Link>
+        Вы - новый пользователь? <Link to="/register">Зарегистрироваться</Link>
+      </p>
+      <p className={`text text_type_main-default ${styles.centeredText} m-4`}>
+        Забыли пароль? <Link to="/forgot-password">Восстановить пароль</Link>
       </p>
     </div>
   );

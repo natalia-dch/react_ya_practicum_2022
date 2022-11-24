@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, FormEvent } from "react";
 import { Link, useHistory } from "react-router-dom";
 import styles from "./styles.module.css";
 import {
@@ -12,14 +12,15 @@ import { changeUserInfo, getUserInfo } from "../../services/actions/userInfo";
 import ClipLoader from "react-spinners/ClipLoader";
 import { useSelector, useDispatch } from "react-redux";
 import { deleteCookie } from "../../utils/cookies";
+import { useAppDispatch, useAppSelector } from "../../utils/hooks";
 
 export const ProfilePage = () => {
   const history = useHistory();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const logout_loading = useSelector((store) => store.auth.logout_loading);
-  const logout_error = useSelector((store) => store.auth.logout_error);
-  const logout_success = useSelector((store) => store.auth.logout_success);
+  const logout_loading = useAppSelector((store) => store.auth.logout_loading);
+  const logout_error = useAppSelector((store) => store.auth.logout_error);
+  const logout_success = useAppSelector((store) => store.auth.logout_success);
 
   useEffect(() => {
     if (!logout_success) return;
@@ -66,24 +67,24 @@ export const ProfilePage = () => {
 };
 
 const Profile = () => {
-  const dispatch = useDispatch();
-  const loading = useSelector((store) => store.userInfo.user_info_loading);
-  const error = useSelector((store) => store.userInfo.user_info_error);
-  const success = useSelector((store) => store.userInfo.user_info_success);
+  const dispatch = useAppDispatch();
+  const loading = useAppSelector((store) => store.userInfo.user_info_loading);
+  const error = useAppSelector((store) => store.userInfo.user_info_error);
+  const success = useAppSelector((store) => store.userInfo.user_info_success);
 
-  const edit_loading = useSelector(
+  const edit_loading = useAppSelector(
     (store) => store.userInfo.change_user_info_loading
   );
-  const edit_error = useSelector(
+  const edit_error = useAppSelector(
     (store) => store.userInfo.change_user_info_error
   );
-  const edit_success = useSelector(
+  const edit_success = useAppSelector(
     (store) => store.userInfo.change_user_info_success
   );
 
-  const emailFromAPI = useSelector((store) => store.userInfo.email);
-  const nameFromAPI = useSelector((store) => store.userInfo.name);
-  const tokenSuccess = useSelector((store) => store.auth.refresh_token_success);
+  const emailFromAPI = useAppSelector((store) => store.userInfo.email);
+  const nameFromAPI = useAppSelector((store) => store.userInfo.name);
+  const tokenSuccess = useAppSelector((store) => store.auth.refresh_token_success);
 
   const [name, setName] = React.useState("");
   const [email, setEmail] = React.useState("");
@@ -114,7 +115,7 @@ const Profile = () => {
     dispatch(getUserInfo());
   }, []);
 
-  const save = (e) => {
+  const save = (e : FormEvent) => {
     e.preventDefault();
     dispatch(changeUserInfo(name, email, password));
   };

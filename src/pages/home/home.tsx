@@ -6,10 +6,11 @@ import BurgerIngredients from "../../components/burger-ingredients/BurgerIngredi
 import { useDispatch, useSelector } from "react-redux";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
+import { useAppSelector } from "../../utils/hooks";
 
 export const HomePage = () => {
-  const currentIngredient = useSelector((state) => state.currentIngredient);
-  const ingredients = useSelector((state) => state.ingredients);
+  const currentIngredient = useAppSelector((state) => state.currentIngredient);
+  const ingredients = useAppSelector((state) => state.ingredients);
 
   return (
     <div className={styles.app}>

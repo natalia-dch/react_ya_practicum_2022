@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, FormEvent } from "react";
 import { Link, useHistory } from "react-router-dom";
 import styles from "./styles.module.css";
 import {
@@ -10,21 +10,22 @@ import {
 import { resetPassword } from "../../services/actions/auth/resetPassword";
 import ClipLoader from "react-spinners/ClipLoader";
 import { useSelector, useDispatch } from "react-redux";
+import { useAppDispatch, useAppSelector } from "../../utils/hooks";
 
 export const ForgotPasswordPage = () => {
   const history = useHistory();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const [email, setEmail] = React.useState("");
-  const loading = useSelector(
+  const loading = useAppSelector(
     (store) => store.resetPassword.reset_password_loading
   );
-  const error = useSelector(
+  const error = useAppSelector(
     (store) => store.resetPassword.reset_password_error
   );
-  const success = useSelector(
+  const success = useAppSelector(
     (store) => store.resetPassword.reset_password_success
   );
-  const reset = (e) => {
+  const reset = (e : FormEvent) => {
     e.preventDefault();
     dispatch(resetPassword(email));
   };
