@@ -44,16 +44,16 @@ export default function App() {
     <>
       <AppHeader />
       <Switch>
-        <ProtectedRoute fromAuthorized path="/login" exact={true}>
+        <ProtectedRoute fromUnauthorized={false} path="/login" exact={true}>
           <LoginPage />
         </ProtectedRoute>
-        <ProtectedRoute fromAuthorized path="/register" exact={true}>
+        <ProtectedRoute fromUnauthorized={false} path="/register" exact={true}>
           <RegisterPage />
         </ProtectedRoute>
-        <ProtectedRoute fromAuthorized path="/forgot-password" exact={true}>
+        <ProtectedRoute fromUnauthorized={false} path="/forgot-password" exact={true}>
           <ForgotPasswordPage />
         </ProtectedRoute>
-        <ProtectedRoute fromAuthorized path="/reset-password" exact={true}>
+        <ProtectedRoute fromUnauthorized={false} path="/reset-password" exact={true}>
           <ResetPasswordPage />
         </ProtectedRoute>
         <ProtectedRoute fromUnauthorized path="/profile" exact={true}>
@@ -76,17 +76,15 @@ export default function App() {
         <Route>
           <NotFound404Page />
         </Route>
-      </Switch>
-      {(background || (new PerformanceNavigationTiming).type === "reload") && (
-        <Switch>
+      {(background || (window.performance.getEntries()[0] as PerformanceNavigationTiming).type  === 'reload') && (
           <Route path="/ingredient/:id" exact={true}>
             <HomePage />
             <Modal close={closeModal} title={"Детали ингредиента"}>
               <IngredientDetails />
             </Modal>
           </Route>
-        </Switch>
       )}
+        </Switch>
     </>
   );
 }
