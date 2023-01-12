@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, FormEvent } from "react";
 import { Link, useHistory } from "react-router-dom";
 import styles from "./styles.module.css";
 import {
@@ -10,23 +10,24 @@ import {
 import { changePassword } from "../../services/actions/auth/resetPassword";
 import ClipLoader from "react-spinners/ClipLoader";
 import { useSelector, useDispatch } from "react-redux";
+import { useAppDispatch, useAppSelector } from "../../utils/hooks";
 
 export const ResetPasswordPage = () => {
   const history = useHistory();
-  const dispatch = useDispatch();
-  const [password, setPassword] = React.useState("");
-  const [code, setCode] = React.useState("");
-  const [passwordVisible, setPasswordVisible] = React.useState(false);
-  const loading = useSelector(
+  const dispatch = useAppDispatch();
+  const [password, setPassword] = React.useState<string>("");
+  const [code, setCode] = React.useState<string>("");
+  const [passwordVisible, setPasswordVisible] = React.useState<boolean>(false);
+  const loading = useAppSelector(
     (store) => store.resetPassword.change_password_loading
   );
-  const error = useSelector(
+  const error = useAppSelector(
     (store) => store.resetPassword.change_password_error
   );
-  const success = useSelector(
+  const success = useAppSelector(
     (store) => store.resetPassword.change_password_success
   );
-  const reset = (e) => {
+  const reset = (e : FormEvent) => {
     e.preventDefault();
     dispatch(changePassword(code, password));
   };

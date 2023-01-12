@@ -1,3 +1,4 @@
+// @ts-nocheck
 import {
   CHANGE_CURRENT_INGREDIENT,
   ADD_INGREDIENT,
@@ -11,13 +12,21 @@ import {
   GET_INGREDIENTS_FAILED,
 } from "../actions/ingredientsAPI";
 import { ORDER_REQUEST, ORDER_SUCCESS, ORDER_FAILED } from "../actions/order";
+import {TIngredient} from "../../utils/types";
+import { type } from "os";
 
-const ingredientsInitialState = {
+type TIngredientState = {
+  items: Array<TIngredient>;
+  loading: boolean,
+  error: boolean,
+}
+
+const ingredientsInitialState= {
   items: [],
   loading: true,
   error: false,
 };
-export const ingredientsReducer = (state = ingredientsInitialState, action) => {
+export const ingredientsReducer = (state : TIngredientState = ingredientsInitialState, action: { type: string; ingredients: Array<TIngredient>; }) => {
   switch (action.type) {
     case GET_INGREDIENTS_REQUEST: {
       return {
@@ -47,10 +56,16 @@ export const ingredientsReducer = (state = ingredientsInitialState, action) => {
   }
 };
 
-const constructorInitialState = { ingredients: [], bread: null };
+type TConstractorState = {
+  ingredients: Array<TIngredient>;
+  bread: TIngredient | null,
+}
+
+const constructorInitialState  : TConstractorState = { ingredients: [], bread: null };
+
 export const constructorIngredientsReducer = (
-  state = constructorInitialState,
-  action
+  state : TConstractorState = constructorInitialState,
+  action : {type: string; item: TIngredient}
 ) => {
   switch (action.type) {
     case ADD_INGREDIENT: {
@@ -83,7 +98,7 @@ export const constructorIngredientsReducer = (
     }
   }
 };
-export const currentIngredientReducer = (state = null, action) => {
+export const currentIngredientReducer = (state = null, action : any) => {
   switch (action.type) {
     case CHANGE_CURRENT_INGREDIENT: {
       return action.ingredientData;
@@ -99,7 +114,7 @@ const orderInitialState = {
   orderSucceeded: false,
   orderError: false,
 };
-export const orderReducer = (state = orderInitialState, action) => {
+export const orderReducer = (state = orderInitialState, action : any) => {
   switch (action.type) {
     case ORDER_REQUEST: {
       return {

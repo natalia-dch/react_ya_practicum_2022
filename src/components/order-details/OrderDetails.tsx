@@ -4,22 +4,24 @@ import doneImg from "../../images/done.svg";
 import { useSelector, useDispatch } from "react-redux";
 import { order } from "../../services/actions/order";
 import { useHistory } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../../utils/hooks";
 
 function OrderDetails() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const history = useHistory();
-  const ingredients = useSelector((store) => store.ingredients.items);
-  const orderLoading = useSelector((state) => state.order.orderRequest);
-  const orderError = useSelector((state) => state.order.orderError);
+  const ingredients = useAppSelector((store) => store.ingredients.items);
+  const orderLoading = useAppSelector((state) => state.order.orderRequest);
+  const orderError = useAppSelector((state) => state.order.orderError);
   useEffect(() => {
     dispatch(order(ingredients.map((i) => i._id)));
   }, []);
   // useEffect(() => {
   //   if (orderError) history.push("/");
   // }, [orderError]);
-  const orderNum = useSelector((state) => state.order.order.number);
+  const orderNum = useAppSelector((state) => state.order.order.number);
   return (
-    !orderLoading && (
+    <>
+    {!orderLoading && (
       <div className={styles.container}>
         {orderError ? (
           <p className="text text_type_main-default mt-15 mb-15">
@@ -40,8 +42,8 @@ function OrderDetails() {
             </p>
           </>
         )}
-      </div>
-    )
+      </div>)}
+      </>
   );
 }
 

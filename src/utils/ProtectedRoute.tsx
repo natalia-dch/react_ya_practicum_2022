@@ -1,24 +1,31 @@
-import { Route, Redirect } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { Route, Redirect, useLocation } from "react-router-dom";
+import { FC, useEffect, useState } from "react";
 import { getCookie } from "./cookies";
 
-export function ProtectedRoute({
+type RouteProps = {
+  children : any,
+  fromUnauthorized : boolean,
+  path : string,
+  exact : boolean
+};
+
+export const ProtectedRoute : FC<RouteProps> = ({
   children,
   fromUnauthorized,
-  fromAuthorized,
-  ...rest
-}) {
+  path,
+  exact
+}) => {
   const isAuth = getCookie("refreshToken");
+  const location = useLocation<{ from: any }>();
   return (
     <Route
-      {...rest}
-      render={({ location }) => {
+      render={() => {
         if (
           //authorized users  are redirected to home page
-          (isAuth && fromAuthorized) ||
+          (isAuth && !fromUnauthorized) ||
           //unauthorized user can go to to reset password from "/forgot-password"
           (!isAuth &&
-            rest.path === "/reset-password" &&
+            path === "/reset-password" &&
             location?.state?.from !== "/forgot-password")
         ) {
           return <Redirect to={{ pathname: "/", state: { from: location } }} />;
@@ -31,6 +38,8 @@ export function ProtectedRoute({
           return children;
         }
       }}
+      path={path}
+      exact={exact}
     />
   );
 }

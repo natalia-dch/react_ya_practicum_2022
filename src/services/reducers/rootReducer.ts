@@ -3,9 +3,9 @@ import {
   constructorIngredientsReducer,
   currentIngredientReducer,
   orderReducer,
-} from "./constructorReducers.js";
-import { authReducer, resetPasswordReducer } from "./authReducers.js";
-import { userInfoReducer } from "./userInfoReducer.js";
+} from "./constructorReducers";
+import { authReducer, resetPasswordReducer } from "./authReducers";
+import { userInfoReducer } from "./userInfoReducer";
 import { combineReducers } from "redux";
 
 export const rootReducer = combineReducers({

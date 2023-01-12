@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, FormEvent } from "react";
 import { Link, useHistory } from "react-router-dom";
 import styles from "./styles.module.css";
 import {
@@ -10,16 +10,17 @@ import {
 import { login } from "../../services/actions/auth/login";
 import ClipLoader from "react-spinners/ClipLoader";
 import { useSelector, useDispatch } from "react-redux";
+import { useAppDispatch, useAppSelector } from "../../utils/hooks";
 
 export const LoginPage = () => {
-  const dispatch = useDispatch();
-  const history = useHistory();
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
-  const [passwordVisible, setPasswordVisible] = React.useState(false);
-  const loading = useSelector((store) => store.auth.login_loading);
-  const error = useSelector((store) => store.auth.login_error);
-  const success = useSelector((store) => store.auth.login_success);
+  const dispatch = useAppDispatch();
+  const history = useHistory<{ from: {pathname : string} }>();
+  const [email, setEmail] = React.useState<string>("");
+  const [password, setPassword] = React.useState<string>("");
+  const [passwordVisible, setPasswordVisible] = React.useState<boolean>(false);
+  const loading = useAppSelector((store) => store.auth.login_loading);
+  const error = useAppSelector((store) => store.auth.login_error);
+  const success = useAppSelector((store) => store.auth.login_success);
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
   };
@@ -32,7 +33,7 @@ export const LoginPage = () => {
     else history.push("/");
   }, [success]);
 
-  const logIn = (e) => {
+  const logIn = (e : FormEvent) => {
     e.preventDefault();
     console.log("loggin in");
     dispatch(login(email, password));

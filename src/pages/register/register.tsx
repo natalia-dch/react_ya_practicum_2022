@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { FormEvent, useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import styles from "./styles.module.css";
 import {
@@ -10,17 +10,18 @@ import {
 import { register } from "../../services/actions/auth/register";
 import ClipLoader from "react-spinners/ClipLoader";
 import { useSelector, useDispatch } from "react-redux";
+import { useAppDispatch, useAppSelector } from "../../utils/hooks";
 
 export const RegisterPage = () => {
   const history = useHistory();
-  const dispatch = useDispatch();
-  const [name, setName] = React.useState("");
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
-  const [passwordVisible, setPasswordVisible] = React.useState(false);
-  const loading = useSelector((store) => store.auth.register_loading);
-  const error = useSelector((store) => store.auth.register_error);
-  const success = useSelector((store) => store.auth.register_success);
+  const dispatch = useAppDispatch();
+  const [name, setName] = React.useState<string>("");
+  const [email, setEmail] = React.useState<string>("");
+  const [password, setPassword] = React.useState<string>("");
+  const [passwordVisible, setPasswordVisible] = React.useState<boolean>(false);
+  const loading = useAppSelector((store) => store.auth.register_loading);
+  const error = useAppSelector((store) => store.auth.register_error);
+  const success = useAppSelector((store) => store.auth.register_success);
 
   useEffect(() => {
     if (!success) return;
@@ -32,7 +33,7 @@ export const RegisterPage = () => {
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
   };
-  const registerUser = (e) => {
+  const registerUser = (e : FormEvent) => {
     console.log("registering")
     e.preventDefault();
     dispatch(register(email, password, name));
