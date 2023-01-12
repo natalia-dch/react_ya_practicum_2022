@@ -1,0 +1,19 @@
+.mainContainer{
+    display: flex;
+    justify-content: center;
+    gap: 60px;
+}
+.columns{
+    display: flex;
+    gap: 36px;
+}
+.columns > div {
+    flex: 50%;
+  }
+.greenText{
+    color: #00CCCC;
+}
+.feedContainer{
+    overflow-y: scroll;
+    max-height: 75vh;
+}

@@ -19,6 +19,10 @@ import OrderDetails from "../order-details/OrderDetails";
 import { getIngredients } from "../../services/actions/ingredientsAPI";
 import Modal from "../modal/Modal";
 import { useAppDispatch } from "../../utils/hooks";
+import { OrderHistoryPage } from "../../pages/order-history/order-history";
+import { OrderHistoryDetailsPage } from "../../pages/order-history/order-history-details";
+import { OrdersPage } from "../../pages/orders-feed/orders-feed";
+import { OrderDetailsPage } from "../../pages/orders-feed/order-details";
 // import { ProtectedRoute } from './components/protected-route';
 // import { ProvideAuth } from './services/auth';
 
@@ -58,6 +62,21 @@ export default function App() {
         </ProtectedRoute>
         <ProtectedRoute fromUnauthorized path="/profile" exact={true}>
           <ProfilePage />
+        </ProtectedRoute>
+        <ProtectedRoute fromUnauthorized path="/profile/orders" exact={true}>
+          <OrderHistoryPage />
+        </ProtectedRoute>
+        <ProtectedRoute fromUnauthorized path="/profile/orders/:id" exact={true}>
+          <OrderHistoryDetailsPage />
+        </ProtectedRoute>
+        <ProtectedRoute fromUnauthorized={false} path="/feed" exact={true}>
+          <OrdersPage />
+        </ProtectedRoute>
+        <ProtectedRoute fromUnauthorized={false} path="/feed" exact={true}>
+          <OrderDetailsPage />
+        </ProtectedRoute>
+        <ProtectedRoute fromUnauthorized={false} path="/reset-password" exact={true}>
+          <ResetPasswordPage />
         </ProtectedRoute>
         <Route path="/ingredient/:id" exact={true}>
           <IngredientPage>
