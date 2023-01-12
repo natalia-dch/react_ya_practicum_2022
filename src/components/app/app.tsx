@@ -64,15 +64,15 @@ export default function App() {
           <ProfilePage />
         </ProtectedRoute>
         <ProtectedRoute fromUnauthorized path="/profile/orders" exact={true}>
-          <OrderHistoryPage />
+          <ProfilePage />
         </ProtectedRoute>
         <ProtectedRoute fromUnauthorized path="/profile/orders/:id" exact={true}>
           <OrderHistoryDetailsPage />
         </ProtectedRoute>
-        <ProtectedRoute fromUnauthorized={false} path="/feed" exact={true}>
+        <ProtectedRoute fromUnauthorized path="/feed" exact={true}>
           <OrdersPage />
         </ProtectedRoute>
-        <ProtectedRoute fromUnauthorized={false} path="/feed" exact={true}>
+        <ProtectedRoute fromUnauthorized path="/feed" exact={true}>
           <OrderDetailsPage />
         </ProtectedRoute>
         <ProtectedRoute fromUnauthorized={false} path="/reset-password" exact={true}>

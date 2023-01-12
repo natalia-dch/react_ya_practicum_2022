@@ -1,0 +1,4 @@
+   .feedContainer{
+        overflow-y: scroll;
+        max-height: 75vh;
+    }

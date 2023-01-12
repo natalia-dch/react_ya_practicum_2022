@@ -1,5 +1,5 @@
 import React, { useState, useEffect, FormEvent } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link, NavLink, useHistory } from "react-router-dom";
 import styles from "./styles.module.css";
 import {
   Input,
@@ -13,6 +13,7 @@ import ClipLoader from "react-spinners/ClipLoader";
 import { useSelector, useDispatch } from "react-redux";
 import { deleteCookie } from "../../utils/cookies";
 import { useAppDispatch, useAppSelector } from "../../utils/hooks";
+import { OrderHistoryPage } from "../order-history/order-history";
 
 export const ProfilePage = () => {
   const history = useHistory();
@@ -35,11 +36,24 @@ export const ProfilePage = () => {
   const onLogoutClick = () => {
     dispatch(logout());
   };
+
+  const onProfileClick = () => {
+    history.replace("/profile");
+  };
+
+  const onOrderHistoryClick = () => {
+    history.replace("/profile/orders");
+  };
+
   return (
     <div className={styles.centered}>
       <div>
-        <h1 className="text text_type_main-medium m-3 mt-6">Профиль</h1>
-        <h1 className="text text_type_main-medium text_color_inactive m-3">
+      <h1 className={`text text_type_main-medium ${history.location.pathname !== "/profile" &&"text_color_inactive"} m-3 ${styles.clickableText}`}
+      onClick={onProfileClick}
+      >Профиль</h1>
+      <h1 className={`text text_type_main-medium ${history.location.pathname === "/profile" &&"text_color_inactive"} m-3 ${styles.clickableText}`}
+      onClick={onOrderHistoryClick}
+      >
           История заказов
         </h1>
         <h1
@@ -60,7 +74,7 @@ export const ProfilePage = () => {
         </p>
       </div>
       <div>
-        <Profile />
+        {history.location.pathname == "/profile"? <Profile /> : <OrderHistoryPage/>}
       </div>
     </div>
   );
