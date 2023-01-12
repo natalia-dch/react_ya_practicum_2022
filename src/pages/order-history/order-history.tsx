@@ -5,7 +5,7 @@ import styles from "./orders-history.module.css";
 
 export const OrderHistoryPage = () => {
   return (
-    <div className={`${styles.feedContainer} pr-2`}>
+    <div className={`${styles.feedContainer} pr-2 ml-15`}>
       <OrderElement />
       <OrderElement />
       <OrderElement />

@@ -47,7 +47,7 @@ export const ProfilePage = () => {
 
   return (
     <div className={styles.centered}>
-      <div>
+      <div className={styles.sideMenu}>
       <h1 className={`text text_type_main-medium ${history.location.pathname !== "/profile" &&"text_color_inactive"} m-3 ${styles.clickableText}`}
       onClick={onProfileClick}
       >Профиль</h1>
