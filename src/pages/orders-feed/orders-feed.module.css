@@ -17,3 +17,8 @@
     overflow-y: scroll;
     max-height: 75vh;
 }
+.gridContainer{
+    display: grid;
+    grid-auto-flow: column;
+    grid-template: repeat(10, 1fr) / repeat(2, 1fr);
+}
