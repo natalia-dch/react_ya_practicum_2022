@@ -20,6 +20,9 @@ export const OrdersPage = () => {
   useEffect(() => {
     console.log("connecting");
     connect();
+    return () => {
+      disconnect();
+    }
   }, []);
 
   return (
@@ -40,7 +43,7 @@ const Feed = ({orders}) => {
         {orders?.orders?.map((order) => (
           <OrderElement
             number={order.number}
-            createdAt={order.createdAr}
+            createdAt={order.createdAt}
             name={order.name}
             status={order.status}
             ingredients={order.ingredients}
@@ -52,11 +55,6 @@ const Feed = ({orders}) => {
 };
 
 const Statictics = ({ orders }) => {
-  console.log(
-    orders?.orders
-      ?.filter((order) => order.status === "done")
-      ?.map((order) => order.number)
-  );
   const orderIds = orders?.orders
     ?.filter((order) => order.status === "done")
     ?.map((order) => order.number)

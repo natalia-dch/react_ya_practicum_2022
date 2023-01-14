@@ -26,8 +26,8 @@ export const socketMiddleware = (wsActions: TwsActionTypes): Middleware<{}, Root
           onClose, onError, onMessage, wsConnecting } = wsActions;
 
         if (wsConnect.match(action)) {
-          console.log('connect')
           url = action.payload;
+          console.log('connect'+url)
           socket = new WebSocket(url);
           isConnected = true;
           dispatch(wsConnecting());
@@ -50,7 +50,7 @@ export const socketMiddleware = (wsActions: TwsActionTypes): Middleware<{}, Root
   
           socket.onclose = event => {
             if (event.code !== 1000) {
-              console.log('error')
+              console.log('error'+event)
               dispatch(onError(event.code.toString()));
             }
             console.log('close')

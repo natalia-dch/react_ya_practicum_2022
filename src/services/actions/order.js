@@ -1,17 +1,17 @@
 import { checkResponse } from "../../utils/APIUtils";
 import { BASE_URL } from "../../utils/data";
 import { RESET_CONSTRUCTOR } from "./ingredients";
+import { getCookie } from "../../utils/cookies";
 
 export const ORDER_REQUEST = "ORDER_REQUEST";
 export const ORDER_SUCCESS = "ORDER_SUCCESS";
 export const ORDER_FAILED = "ORDER_FAILED";
-
 const URL = BASE_URL + "/orders";
 
 export function order(ingredientIDs) {
   return function (dispatch) {
     dispatch({ type: ORDER_REQUEST });
-    fetch(URL, {
+    fetch(URL+`?token=${getCookie("accessToken").slice(6)}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

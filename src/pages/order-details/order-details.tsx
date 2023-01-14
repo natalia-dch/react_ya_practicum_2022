@@ -1,23 +1,39 @@
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import React, { useState, useEffect } from "react";
-import { useAppSelector } from "../../utils/hooks";
+import { useParams } from "react-router-dom";
+import { getIngredients } from "../../services/actions/ingredientsAPI";
+import { useAppDispatch, useAppSelector } from "../../utils/hooks";
 import styles from "./order-details.module.css";
 
 export const OrderDetailsPage = () => {
+  // const dispatch = useAppDispatch();
+  // useEffect(() => {
+  //   dispatch(getIngredients());
+  // }, []);
+  const { id } = useParams<{id?: string}>();
+  const { orders } = useAppSelector((state) => state.wsOrders);
+  const order = orders?.orders?.filter(o => o.number.toString() === id)[0];
+  const ingredientInfo = useAppSelector((state) => state.ingredients.items);
+  const myIngredientInfo = order.ingredients.map((ingId) =>
+  ingredientInfo.filter((i) => i._id === ingId)[0]);
+  console.log(myIngredientInfo)
+  const images = myIngredientInfo.map((i) => i.image);
+  const cost = myIngredientInfo.map(i=>i.price).reduce((sum,i) => sum + i);
+  
   return (
     <div className={`${styles.mainContainer}`}>
-        <p className={`text text_type_main-medium mb-10 ${styles.centeredText}`}>#024535</p>
-        <p className="text text_type_main-medium mb-3">Interstellar бургер</p>
+        <p className={`text text_type_main-medium mb-10 ${styles.centeredText}`}>#{id}</p>
+        <p className="text text_type_main-medium mb-3">{order.name}</p>
         <p className={`text text_type_main-default mb-15 ${styles.greenText}`}>
-          Выполнен
+          {order.status === "done" ? "Выполнен" : "Выполняется"}
         </p>
-        <Ingredients />
+        <Ingredients info={myIngredientInfo}/>
         <div className={styles.lowerContainer}>
         <p className="text text_type_main-default text_color_inactive">
-          Сегодня, 16:20
+          {new Date(order.createdAt).toLocaleString()}
         </p>
         <div className={`${styles.costContainer} pt-4`}>
-        <p className={"text text_type_digits-default " + styles.text}>480</p>
+        <p className={"text text_type_digits-default " + styles.text}>{cost}</p>
         <CurrencyIcon type="primary" />
       </div>
         </div>
@@ -25,40 +41,36 @@ export const OrderDetailsPage = () => {
   );
 };
 
-export const Ingredients = () => {
+export const Ingredients = ({info}) => {
   return (
     <>
       <p className="text text_type_main-medium mb-6">Состав:</p>
   <div className={`${styles.ingredientsContainer} mb-6`}>
-      <Ingredient/>
-      <Ingredient/>
-      <Ingredient/>
-      <Ingredient/>
-      <Ingredient/>
-      <Ingredient/>
+    {info.map(ingredient =>
+      (<Ingredient info={ingredient}/> ))}
     </div >
     </>
   );
 };
 
-export const Ingredient = () => {
+export const Ingredient = ({info}) => {
+  console.log(info)
   return (
     <div className={`${styles.ingrContainer} mb-4`}>
-      <IngredientPic />
-      <p className="text text_type_main-default ml-4 mr-4">Interstellar бургер</p>
+      <IngredientPic src={info.image}/>
+      <p className="text text_type_main-default ml-4 mr-4">{info.name}</p>
       <div className={`${styles.costContainer} pt-4`}>
-        <p className={"text text_type_digits-default " + styles.text}>2 x 480</p>
+        <p className={"text text_type_digits-default " + styles.text}>{info.price}</p>
         <CurrencyIcon type="primary" />
       </div>
     </div>
   );
 };
 
-const IngredientPic = () => {
-  const ingredientPic = "https://code.s3.yandex.net/react/code/bun-02.png";
+const IngredientPic = ({src}) => {
   return (
     <div className={styles.picContainer}>
-      <img className={styles.pic} src={ingredientPic} />
+      <img className={styles.pic} src={src} />
     </div>
   );
 };
