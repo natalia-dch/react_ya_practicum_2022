@@ -11,10 +11,11 @@ const URL = BASE_URL + "/orders";
 export function order(ingredientIDs) {
   return function (dispatch) {
     dispatch({ type: ORDER_REQUEST });
-    fetch(URL+`?token=${getCookie("accessToken").slice(6)}`, {
+    fetch(URL, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        "Authorization": getCookie("accessToken"),
       },
       body: JSON.stringify({
         ingredients: ingredientIDs,

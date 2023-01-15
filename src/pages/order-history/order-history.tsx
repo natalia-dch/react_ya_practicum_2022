@@ -16,12 +16,12 @@ export const OrderHistoryPage = () => {
   const dispatch = useAppDispatch();
   const { orders, status } = useAppSelector((state) => state.wsOrders);
   const isDisconnected = status !== WebsocketStatus.OFFLINE;
-  const connect = () => dispatch(connectOrder(`${SERVER_URL}?token=${getCookie("accessToken")?.slice(6)}`));
+  const connect = (url) => dispatch(connectOrder(url));
   const disconnect = () => dispatch(disconnectOrder());
 
   useEffect(() => {
-    console.log("connecting");
-    connect();
+    const cookie = getCookie("accessToken");
+     connect(`${SERVER_URL}?token=${cookie?.slice(7)}`);
     return () => {
       disconnect();
     }
