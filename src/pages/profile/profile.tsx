@@ -28,9 +28,7 @@ export const ProfilePage = () => {
     console.log("logout was successful");
     deleteCookie("accessToken")
     deleteCookie("refreshToken");
-    history.go(0)
-    // history.push("/login");
-    //go to login page
+    history.go(0);
   }, [logout_success]);
 
   const onLogoutClick = () => {

@@ -24,6 +24,6 @@ name:string,
 createdAt:string,
 updatedAt:string,
 number:string,
-ingredients: Array<TIngredient>,
+ingredients: Array<string>,
 }
 

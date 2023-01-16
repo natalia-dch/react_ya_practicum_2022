@@ -20,27 +20,31 @@ export const OrdersPage = () => {
 
   useEffect(() => {
     console.log("connecting");
-    if(isDisconnected) connect();
+    if (isDisconnected) connect();
     return () => {
       disconnect();
-    }
+    };
   }, []);
 
   return (
     <>
       <div className={`${styles.mainContainer}`}>
         <Feed orders={orders.orders} />
-        <Statictics orders={orders.orders} total={orders.total} totalToday={orders.totalToday}/>
+        <Statictics
+          orders={orders.orders}
+          total={orders.total}
+          totalToday={orders.totalToday}
+        />
       </div>
     </>
   );
 };
 
 type FeedPropsT = {
-  orders : Array<TOrder>,
-}
+  orders: Array<TOrder>;
+};
 
-const Feed = ({orders} : FeedPropsT) => {
+const Feed = ({ orders }: FeedPropsT) => {
   return (
     <div>
       <p className="text text_type_main-large mb-4">Лента заказов:</p>
@@ -61,12 +65,12 @@ const Feed = ({orders} : FeedPropsT) => {
 };
 
 type StatisticsPropsT = {
-  orders : Array<TOrder>,
-  total: number,
-  totalToday: number,
-}
+  orders: Array<TOrder>;
+  total: number;
+  totalToday: number;
+};
 
-const Statictics = ({ orders, total, totalToday } : StatisticsPropsT) => {
+const Statictics = ({ orders, total, totalToday }: StatisticsPropsT) => {
   const orderIds = orders
     ?.filter((order) => order.status === "done")
     ?.map((order) => order.number)
@@ -82,7 +86,8 @@ const Statictics = ({ orders, total, totalToday } : StatisticsPropsT) => {
           <p className="text text_type_main-medium pb-6">Готовы:</p>
           <div className={styles.gridContainer}>
             {orderIds?.map((id) => (
-              <p key={id}
+              <p
+                key={id}
                 className={
                   "text text_type_digits-default mb-2 " + styles.greenText
                 }
@@ -95,7 +100,9 @@ const Statictics = ({ orders, total, totalToday } : StatisticsPropsT) => {
         <div>
           <p className="text text_type_main-medium pb-6">В работе:</p>
           {orderInProgressIds?.map((id) => (
-            <p key={id} className="text text_type_digits-default mb-2">{id}</p>
+            <p key={id} className="text text_type_digits-default mb-2">
+              {id}
+            </p>
           ))}
         </div>
       </div>

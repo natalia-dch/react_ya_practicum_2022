@@ -1,6 +1,6 @@
 import { checkResponse } from "../../../utils/APIUtils";
 import { BASE_URL } from "../../../utils/data";
-import { getCookie, setCookie } from "../../../utils/cookies";
+import { deleteCookie, getCookie, setCookie } from "../../../utils/cookies";
 import { Dispatch } from "redux";
 
 export const LOGOUT_REQUEST = "LOGOUT_REQUEST";
