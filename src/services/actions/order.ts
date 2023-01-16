@@ -2,14 +2,15 @@ import { checkResponse } from "../../utils/APIUtils";
 import { BASE_URL } from "../../utils/data";
 import { RESET_CONSTRUCTOR } from "./ingredients";
 import { getCookie } from "../../utils/cookies";
+import { Dispatch } from "redux";
 
 export const ORDER_REQUEST = "ORDER_REQUEST";
 export const ORDER_SUCCESS = "ORDER_SUCCESS";
 export const ORDER_FAILED = "ORDER_FAILED";
 const URL = BASE_URL + "/orders";
 
-export function order(ingredientIDs) {
-  return function (dispatch) {
+export function order(ingredientIDs : Array<string>) {
+  return function (dispatch : Dispatch) {
     dispatch({ type: ORDER_REQUEST });
     fetch(URL, {
       method: "POST",

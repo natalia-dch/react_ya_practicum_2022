@@ -39,8 +39,8 @@ export const OrderElement = ({
       <p className="text text_type_main-medium mb-6">{name}</p>
       <div className={styles.lowerContainer}>
         <div className={styles.ingredientsContainer}>
-          {images.map((i) => (
-                        <IngredientPic src={i} />
+          {images.map((i, j) => (
+                        <IngredientPic src={i} key={j} />
           ))}
         </div>
         <div className={`${styles.costContainer} pt-4`}>

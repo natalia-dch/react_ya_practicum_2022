@@ -7,6 +7,7 @@ import {
   connect as connectOrder,
   disconnect as disconnectOrder,
 } from "../../services/actions/wsActions";
+import { TOrder } from "../../utils/types";
 
 export const SERVER_URL = "wss://norma.nomoreparties.space/orders/all";
 
@@ -28,20 +29,25 @@ export const OrdersPage = () => {
   return (
     <>
       <div className={`${styles.mainContainer}`}>
-        <Feed orders={orders} />
-        <Statictics orders={orders} />
+        <Feed orders={orders.orders} />
+        <Statictics orders={orders.orders} />
       </div>
     </>
   );
 };
 
-const Feed = ({orders}) => {
+type FeedPropsT = {
+  orders : Array<TOrder>,
+}
+
+const Feed = ({orders} : FeedPropsT) => {
   return (
     <div>
       <p className="text text_type_main-large mb-4">Лента заказов:</p>
       <div className={`${styles.feedContainer} pr-2`}>
-        {orders?.orders?.map((order) => (
+        {orders?.map((order) => (
           <OrderElement
+            key={order.number}
             number={order.number}
             createdAt={order.createdAt}
             name={order.name}

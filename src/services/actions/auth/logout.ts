@@ -1,6 +1,7 @@
 import { checkResponse } from "../../../utils/APIUtils";
 import { BASE_URL } from "../../../utils/data";
 import { getCookie, setCookie } from "../../../utils/cookies";
+import { Dispatch } from "redux";
 
 export const LOGOUT_REQUEST = "LOGOUT_REQUEST";
 export const LOGOUT_SUCCESS = "LOGOUT_SUCCESS";
@@ -9,7 +10,7 @@ export const LOGOUT_FAILED = "LOGOUT_FAILED";
 const URL = BASE_URL + "/auth/logout";
 
 export function logout() {
-  return function (dispatch) {
+  return function (dispatch  : Dispatch) {
     dispatch({ type: LOGOUT_REQUEST });
     fetch(URL, {
       method: "POST",

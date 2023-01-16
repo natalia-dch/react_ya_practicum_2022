@@ -16,7 +16,7 @@ export const OrderHistoryPage = () => {
   const dispatch = useAppDispatch();
   const { orders, status } = useAppSelector((state) => state.wsOrders);
   const isDisconnected = status !== WebsocketStatus.OFFLINE;
-  const connect = (url) => dispatch(connectOrder(url));
+  const connect = (url : string) => dispatch(connectOrder(url));
   const disconnect = () => dispatch(disconnectOrder());
 
   useEffect(() => {
@@ -31,6 +31,7 @@ export const OrderHistoryPage = () => {
     <div className={`${styles.feedContainer} pr-2 ml-15`}>
         {orders?.orders?.map((order) => (
           <OrderElement
+            key={order.number}
             number={order.number}
             createdAt={order.createdAt}
             name={order.name}

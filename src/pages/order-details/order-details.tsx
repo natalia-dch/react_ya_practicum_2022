@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { getIngredients } from "../../services/actions/ingredientsAPI";
 import { useAppDispatch, useAppSelector } from "../../utils/hooks";
+import { TIngredient, TOrder } from "../../utils/types";
 import styles from "./order-details.module.css";
 
 export const OrderDetailsPage = () => {
@@ -12,9 +13,9 @@ export const OrderDetailsPage = () => {
   // }, []);
   const { id } = useParams<{id?: string}>();
   const { orders } = useAppSelector((state) => state.wsOrders);
-  const order = orders?.orders?.filter(o => o.number.toString() === id)[0];
-  const ingredientInfo = useAppSelector((state) => state.ingredients.items);
-  const myIngredientInfo = order.ingredients.map((ingId) =>
+  const order = orders?.orders?.filter((o :  TOrder) => o.number.toString() === id)[0];
+  const ingredientInfo : Array<TIngredient> = useAppSelector((state) => state.ingredients.items);
+  const myIngredientInfo : Array<TIngredient> = order.ingredients.map((ingId : string) =>
   ingredientInfo.filter((i) => i._id === ingId)[0]);
   console.log(myIngredientInfo)
   const images = myIngredientInfo.map((i) => i.image);
@@ -41,7 +42,7 @@ export const OrderDetailsPage = () => {
   );
 };
 
-export const Ingredients = ({info}) => {
+export const Ingredients = ({info} : {info: Array<TIngredient>}) => {
   return (
     <>
       <p className="text text_type_main-medium mb-6">Состав:</p>
@@ -53,7 +54,11 @@ export const Ingredients = ({info}) => {
   );
 };
 
-export const Ingredient = ({info}) => {
+type IngredientProps = {
+  info: string,
+}
+
+export const Ingredient = ({info} : {info: TIngredient}) => {
   console.log(info)
   return (
     <div className={`${styles.ingrContainer} mb-4`}>
@@ -67,7 +72,11 @@ export const Ingredient = ({info}) => {
   );
 };
 
-const IngredientPic = ({src}) => {
+type IngredientPicProps = {
+  src: string,
+}
+
+const IngredientPic = ({src} : IngredientPicProps) => {
   return (
     <div className={styles.picContainer}>
       <img className={styles.pic} src={src} />

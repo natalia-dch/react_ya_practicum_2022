@@ -1,4 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit'
+import { TOrder } from '../../utils/types';
 import { wsOpen, wsClose, wsMessage, wsError, wsConnecting } from "../actions/wsActions";
 
 export enum WebsocketStatus {
@@ -10,7 +11,7 @@ export enum WebsocketStatus {
 export type orderStore = {
     status: WebsocketStatus,
     connectionError: string,
-    orders: Array<any>
+    orders: Array<TOrder>
 }
 
 const initialState: orderStore = {
