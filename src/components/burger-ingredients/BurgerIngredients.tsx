@@ -22,7 +22,7 @@ function BurgerIngredients() {
     const item = ingredients.find((i : TIngredient) => i._id === id);
     if (!item) return;
     dispatch({ type: CHANGE_CURRENT_INGREDIENT, ingredientData: item });
-    history.push(`/ingredient/${id}`, { background: location });
+    history.push(`/ingredient/${id}`, { modal: true});
   };
 
   const [current, setCurrent] = React.useState("bun");

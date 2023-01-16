@@ -1,4 +1,4 @@
-import { Ingredient } from "../pages/order-details/order-details";
+import { Ingredient } from "../pages/order-details/order-details-page";
 
 export type TIngredient = {
   __v: number;

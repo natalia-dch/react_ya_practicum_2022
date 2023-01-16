@@ -14,13 +14,13 @@ export const SERVER_URL = "wss://norma.nomoreparties.space/orders/all";
 export const OrdersPage = () => {
   const dispatch = useAppDispatch();
   const { orders, status } = useAppSelector((state) => state.wsOrders);
-  const isDisconnected = status !== WebsocketStatus.OFFLINE;
+  const isDisconnected = status === WebsocketStatus.OFFLINE;
   const connect = () => dispatch(connectOrder(SERVER_URL));
   const disconnect = () => dispatch(disconnectOrder());
 
   useEffect(() => {
     console.log("connecting");
-    connect();
+    if(isDisconnected) connect();
     return () => {
       disconnect();
     }
@@ -82,7 +82,7 @@ const Statictics = ({ orders, total, totalToday } : StatisticsPropsT) => {
           <p className="text text_type_main-medium pb-6">Готовы:</p>
           <div className={styles.gridContainer}>
             {orderIds?.map((id) => (
-              <p
+              <p key={id}
                 className={
                   "text text_type_digits-default mb-2 " + styles.greenText
                 }
@@ -95,7 +95,7 @@ const Statictics = ({ orders, total, totalToday } : StatisticsPropsT) => {
         <div>
           <p className="text text_type_main-medium pb-6">В работе:</p>
           {orderInProgressIds?.map((id) => (
-            <p className="text text_type_digits-default mb-2">{id}</p>
+            <p key={id} className="text text_type_digits-default mb-2">{id}</p>
           ))}
         </div>
       </div>

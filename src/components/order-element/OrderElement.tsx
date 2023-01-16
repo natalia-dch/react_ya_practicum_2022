@@ -26,7 +26,8 @@ export const OrderElement = ({
   const cost = myIngredientInfo.map(i=>i.price).reduce((sum,i) => sum + i);
 
   const openDetails = () => {
-    history.push(`feed/${number}`)
+    history.push(`${history.location.pathname}/${number}`, { modal: true})
+    
   }
   return (
     <div className={`${styles.mainContainer} p-6 mb-4`} onClick={openDetails}>
