@@ -8,6 +8,7 @@ import {
   disconnect as disconnectOrder,
 } from "../../services/actions/wsActions";
 import { getCookie } from "../../utils/cookies";
+import { TOrder } from "../../utils/types";
 
 export const SERVER_URL = "wss://norma.nomoreparties.space/orders";
 
@@ -29,7 +30,7 @@ export const OrderHistoryPage = () => {
 
   return (
     <div className={`${styles.feedContainer} pr-2 ml-15`}>
-        {orders?.orders?.map((order) => (
+        {orders?.orders?.map((order : TOrder) => (
           <OrderElement
             key={order.number}
             number={order.number}

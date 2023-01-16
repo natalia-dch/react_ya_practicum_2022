@@ -19,16 +19,16 @@ function BurgerIngredients() {
   const history = useHistory();
   const location = useLocation();
   const showIngredientInfo = (id : string) => {
-    const item = ingredients.find((i) => i._id === id);
+    const item = ingredients.find((i : TIngredient) => i._id === id);
     if (!item) return;
     dispatch({ type: CHANGE_CURRENT_INGREDIENT, ingredientData: item });
     history.push(`/ingredient/${id}`, { background: location });
   };
 
   const [current, setCurrent] = React.useState("bun");
-  const buns = ingredients.filter((el) => el.type === "bun");
-  const sauces = ingredients.filter((el) => el.type === "sauce");
-  const mains = ingredients.filter((el) => el.type === "main");
+  const buns = ingredients.filter((el : TIngredient) => el.type === "bun");
+  const sauces = ingredients.filter((el : TIngredient) => el.type === "sauce");
+  const mains = ingredients.filter((el : TIngredient) => el.type === "main");
 
   useEffect(() => {
     const options1 = {
@@ -116,7 +116,7 @@ function BurgerIngredients() {
             Булки
           </p>
           <div className={styles.ingContainer}>
-            {buns.map((el, ind) => (
+            {buns.map((el  : TIngredient) => (
               <Ingredient
                 name={el.name}
                 image={el.image}
@@ -139,7 +139,7 @@ function BurgerIngredients() {
             Соусы
           </p>
           <div className={styles.ingContainer}>
-            {sauces.map((el, ind) => (
+            {sauces.map((el : TIngredient) => (
               <Ingredient
                 name={el.name}
                 image={el.image}
@@ -161,7 +161,7 @@ function BurgerIngredients() {
             Начинки
           </p>
           <div className={styles.ingContainer}>
-            {mains.map((el, ind) => (
+            {mains.map((el : TIngredient) => (
               <Ingredient
                 name={el.name}
                 image={el.image}
@@ -198,7 +198,7 @@ const Ingredient : FC<TIngredientProps> = ({ name, image, price, id, onClick }) 
   });
   const qty = useAppSelector(
     (state) =>
-      state.constructorIngredients.ingredients.filter((i) => i._id === id)
+      state.constructorIngredients.ingredients.filter((i : TIngredient) => i._id === id)
         .length +
       (state.constructorIngredients.bread &&
       state.constructorIngredients.bread._id === id

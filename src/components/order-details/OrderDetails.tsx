@@ -14,7 +14,7 @@ function OrderDetails() {
   const orderLoading = useAppSelector((state) => state.order.orderRequest);
   const orderError = useAppSelector((state) => state.order.orderError);
   useEffect(() => {
-    dispatch(order([...ingredients.map((i) => i._id),bread._id,bread._id]));
+    dispatch(order([...ingredients.map((i : any) => i._id),bread?._id,bread?._id]));
   }, []);
   // useEffect(() => {
   //   if (orderError) history.push("/");

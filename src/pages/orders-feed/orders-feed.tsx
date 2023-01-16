@@ -30,7 +30,7 @@ export const OrdersPage = () => {
     <>
       <div className={`${styles.mainContainer}`}>
         <Feed orders={orders.orders} />
-        <Statictics orders={orders.orders} />
+        <Statictics orders={orders.orders} total={orders.total} totalToday={orders.totalToday}/>
       </div>
     </>
   );
@@ -60,14 +60,20 @@ const Feed = ({orders} : FeedPropsT) => {
   );
 };
 
-const Statictics = ({ orders }) => {
-  const orderIds = orders?.orders
+type StatisticsPropsT = {
+  orders : Array<TOrder>,
+  total: number,
+  totalToday: number,
+}
+
+const Statictics = ({ orders, total, totalToday } : StatisticsPropsT) => {
+  const orderIds = orders
     ?.filter((order) => order.status === "done")
     ?.map((order) => order.number)
     .slice(0, 20);
-  const orderInProgressIds = orders?.orders
+  const orderInProgressIds = orders
     ?.filter((order) => order.status === "pending")
-    ?.map((order) => order.id)
+    ?.map((order) => order.number)
     .slice(0, 20);
   return (
     <div className="mt-15">
@@ -97,9 +103,9 @@ const Statictics = ({ orders }) => {
       <p className="text text_type_main-medium mt-15">
         Выполнено за всё время:
       </p>
-      <p className="text text_type_digits-large">{orders.total}</p>
+      <p className="text text_type_digits-large">{total}</p>
       <p className="text text_type_main-medium mt-15">Выполнено за сегодня:</p>
-      <p className="text text_type_digits-large">{orders.totalToday}</p>
+      <p className="text text_type_digits-large">{totalToday}</p>
     </div>
   );
 };

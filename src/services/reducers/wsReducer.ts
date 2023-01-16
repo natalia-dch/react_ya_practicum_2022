@@ -11,13 +11,13 @@ export enum WebsocketStatus {
 export type orderStore = {
     status: WebsocketStatus,
     connectionError: string,
-    orders: Array<TOrder>
+    orders: {success: false, orders:Array<TOrder>, total: null, totalToday: null} | any,
 }
 
 const initialState: orderStore = {
     status: WebsocketStatus.OFFLINE,
     connectionError: '',
-    orders: []
+    orders: {success: false, orders:[], total: null, totalToday: null}
 };
 
 export const wsReducer = createReducer(initialState, (builder) => {

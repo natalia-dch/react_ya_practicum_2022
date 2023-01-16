@@ -13,7 +13,7 @@ export type TwsActionTypes = {
     onMessage: ActionCreatorWithPayload<any>,
 }
 
-export const socketMiddleware = (wsActions: TwsActionTypes): Middleware<{}, RootState> => {
+export const socketMiddleware : Function = (wsActions: TwsActionTypes): Middleware<{}, RootState> => {
     return (store) => {
       let socket: WebSocket | null = null;
       let isConnected = false;

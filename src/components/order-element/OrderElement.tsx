@@ -9,7 +9,7 @@ type OrderElementPropsT = {
   createdAt: string;
   name: string;
   status: string;
-  ingredients: Array<string>;
+  ingredients: Array<any>;
 };
 export const OrderElement = ({
   number,
@@ -21,7 +21,7 @@ export const OrderElement = ({
   const history = useHistory();
   const ingredientInfo = useAppSelector((state) => state.ingredients.items);
   const myIngredientInfo = ingredients.map((ingId) =>
-  ingredientInfo.filter((i) => i._id === ingId)[0]);
+  ingredientInfo.filter((i : any) => i._id === ingId)[0]);
   const images = myIngredientInfo.slice(0,10).map((i) => i.image);
   const cost = myIngredientInfo.map(i=>i.price).reduce((sum,i) => sum + i);
 
