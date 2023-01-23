@@ -1,4 +1,5 @@
 import React, { FC, ReactNode, useState } from "react";
+import { useParams } from "react-router-dom";
 import IngredientDetails from "../../components/ingredient-details/IngredientDetails";
 import styles from "./styles.module.css";
 

@@ -1,14 +1,16 @@
 import { checkResponse } from "../../../utils/APIUtils";
 import { BASE_URL } from "../../../utils/data";
 import { setCookie } from "../../../utils/cookies";
+import { Dispatch } from 'redux';
+
 export const LOGIN_REQUEST = "LOGIN_REQUEST";
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGIN_FAILED = "LOGIN_FAILED";
 
 const URL = BASE_URL + "/auth/login";
 
-export function login(email, password) {
-  return function (dispatch) {
+export function login(email : string, password : string) {
+  return function (dispatch : Dispatch) {
     dispatch({ type: LOGIN_REQUEST });
     fetch(URL, {
       method: "POST",

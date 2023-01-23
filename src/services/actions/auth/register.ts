@@ -1,3 +1,4 @@
+import { Dispatch } from "redux";
 import { checkResponse } from "../../../utils/APIUtils";
 import { setCookie } from "../../../utils/cookies";
 import { BASE_URL } from "../../../utils/data";
@@ -8,8 +9,8 @@ export const REGISTER_FAILED = "REGISTER_FAILED";
 
 const REGISTER_URL = BASE_URL + "/auth/register";
 
-export function register(email, password, name) {
-  return function (dispatch) {
+export function register(email : string, password : string, name : string) {
+  return function (dispatch  : Dispatch) {
     dispatch({ type: REGISTER_REQUEST });
     fetch(REGISTER_URL, {
       method: "POST",

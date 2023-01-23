@@ -2,6 +2,7 @@ import { checkResponse } from "../../utils/APIUtils";
 import { BASE_URL } from "../../utils/data";
 import { getCookie } from "../../utils/cookies";
 import { refreshToken } from "./auth/refreshToken";
+import { Dispatch } from "redux";
 
 const URL = BASE_URL + "/auth/user";
 
@@ -10,7 +11,7 @@ export const USER_INFO_SUCCESS = "USER_INFO_SUCCESS";
 export const USER_INFO_FAILED = "USER_INFO_FAILED";
 
 export function getUserInfo() {
-  return function (dispatch) {
+  return function (dispatch: any) {
     dispatch({ type: USER_INFO_REQUEST });
     fetch(URL, {
       method: "GET",
@@ -51,8 +52,8 @@ export const CHANGE_USER_INFO_REQUEST = "CHANGE_USER_INFO_REQUEST";
 export const CHANGE_USER_INFO_SUCCESS = "CHANGE_USER_INFO_SUCCESS";
 export const CHANGE_USER_INFO_FAILED = "CHANGE_USER_INFO_FAILED";
 
-export function changeUserInfo(name, email, password) {
-  return function (dispatch) {
+export function changeUserInfo(name : string, email : string, password : string) {
+  return function (dispatch: Dispatch) {
     dispatch({ type: CHANGE_USER_INFO_REQUEST });
     let body;
     if (password === "")
@@ -67,11 +68,12 @@ export function changeUserInfo(name, email, password) {
         password: password,
       };
     }
+    const token = getCookie("accessToken")? getCookie("accessToken") : "";
     fetch(URL, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
-        Authorization: getCookie("accessToken"),
+        "Authorization": token,
       },
       body: JSON.stringify(body),
     })

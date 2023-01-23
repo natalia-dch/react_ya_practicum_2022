@@ -42,13 +42,13 @@ function BurgerConstructor() {
   });
 
   const removeIngredient = (itemId : {id: string}) => {
-    const item = ingredients.filter((element) => element._id === itemId.id);
+    const item = ingredients.filter((element : TIngredient) => element._id === itemId.id);
     dispatch({ type: REMOVE_INGREDIENT, id: itemId });
   };
 
   const onDropHandler = (itemId : {id: string}) => {
     const draggedItem = ingredients.filter(
-      (element) => element._id === itemId.id
+      (element  : TIngredient) => element._id === itemId.id
     )[0];
     const itemToStore = { ...draggedItem, listId: Date.now().toString() };
     dispatch({ type: ADD_INGREDIENT, item: itemToStore });
@@ -72,7 +72,7 @@ function BurgerConstructor() {
         )}
       </div>
       <div className={styles.ingContainer}>
-        {constructorIngredients.ingredients.map((el, ind) => (
+        {constructorIngredients.ingredients.map((el: TIngredient, ind : number) => (
           <DraggableElement
             key={el.listId}
             element={el}

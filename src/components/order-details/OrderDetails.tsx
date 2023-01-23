@@ -9,11 +9,12 @@ import { useAppDispatch, useAppSelector } from "../../utils/hooks";
 function OrderDetails() {
   const dispatch = useAppDispatch();
   const history = useHistory();
-  const ingredients = useAppSelector((store) => store.ingredients.items);
+  const ingredients = useAppSelector((store) => store.constructorIngredients.ingredients);
+  const bread = useAppSelector((store) => store.constructorIngredients.bread); 
   const orderLoading = useAppSelector((state) => state.order.orderRequest);
   const orderError = useAppSelector((state) => state.order.orderError);
   useEffect(() => {
-    dispatch(order(ingredients.map((i) => i._id)));
+    dispatch(order([...ingredients.map((i : any) => i._id),bread?._id,bread?._id]));
   }, []);
   // useEffect(() => {
   //   if (orderError) history.push("/");

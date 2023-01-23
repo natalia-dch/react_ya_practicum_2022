@@ -1,3 +1,4 @@
+import { Ingredient } from "../pages/order-details/order-details-page";
 
 export type TIngredient = {
   __v: number;
@@ -15,3 +16,14 @@ export type TIngredient = {
   "new entry"?: string;
   listId? : string;
 };
+
+export type TOrder = {
+_id: string,
+status:string,
+name:string,
+createdAt:string,
+updatedAt:string,
+number:string,
+ingredients: Array<string>,
+}
+

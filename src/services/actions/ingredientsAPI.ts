@@ -1,3 +1,4 @@
+import { Dispatch } from "redux";
 import { checkResponse } from "../../utils/APIUtils";
 import { BASE_URL } from "../../utils/data";
 export const GET_INGREDIENTS_REQUEST = "GET_INGREDIENTS_REQUEST";
@@ -7,7 +8,7 @@ export const GET_INGREDIENTS_FAILED = "GET_INGREDIENTS_FAILED";
 const URL = BASE_URL + "/ingredients";
 
 export function getIngredients() {
-  return function (dispatch) {
+  return function (dispatch : Dispatch) {
     dispatch({ type: GET_INGREDIENTS_REQUEST });
     fetch(URL)
       .then(checkResponse)

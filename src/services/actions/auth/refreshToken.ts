@@ -1,3 +1,4 @@
+import { Dispatch } from "redux";
 import { checkResponse } from "../../../utils/APIUtils";
 import { getCookie, setCookie } from "../../../utils/cookies";
 import { BASE_URL } from "../../../utils/data";
@@ -9,7 +10,7 @@ export const REFRESH_TOKEN_FAILED = "REFRESH_TOKEN_FAILED";
 const URL = BASE_URL + "/auth/token";
 
 export function refreshToken() {
-  return function (dispatch) {
+  return function (dispatch : Dispatch) {
     dispatch({ type: REFRESH_TOKEN_REQUEST });
     fetch(URL, {
       method: "POST",

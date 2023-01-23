@@ -7,6 +7,7 @@ import {
 import { authReducer, resetPasswordReducer } from "./authReducers";
 import { userInfoReducer } from "./userInfoReducer";
 import { combineReducers } from "redux";
+import { wsReducer } from "./wsReducer";
 
 export const rootReducer = combineReducers({
   ingredients: ingredientsReducer,
@@ -16,4 +17,5 @@ export const rootReducer = combineReducers({
   auth: authReducer,
   resetPassword: resetPasswordReducer,
   userInfo: userInfoReducer,
+  wsOrders: wsReducer,
 });

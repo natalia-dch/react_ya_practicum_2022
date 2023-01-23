@@ -18,7 +18,7 @@ const AppHeader = () => {
           text="Конструктор"
         />
         <MenuItem
-          path="/orders"
+          path="/feed"
           logo={<ListIcon type="secondary" />}
           text="Лента заказов"
         />
