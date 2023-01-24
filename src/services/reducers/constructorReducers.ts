@@ -12,21 +12,24 @@ import {
   GET_INGREDIENTS_FAILED,
 } from "../actions/ingredientsAPI";
 import { ORDER_REQUEST, ORDER_SUCCESS, ORDER_FAILED } from "../actions/order";
-import {TIngredient} from "../../utils/types";
+import { TIngredient } from "../../utils/types";
 import { type } from "os";
 
 type TIngredientState = {
   items: Array<TIngredient>;
-  loading: boolean,
-  error: boolean,
-}
+  loading: boolean;
+  error: boolean;
+};
 
-const ingredientsInitialState= {
+export const ingredientsInitialState = {
   items: [],
   loading: true,
   error: false,
 };
-export const ingredientsReducer = (state : TIngredientState = ingredientsInitialState, action: { type: string; ingredients: Array<TIngredient>; }) => {
+export const ingredientsReducer = (
+  state: TIngredientState = ingredientsInitialState,
+  action: { type: string; ingredients?: Array<TIngredient> }
+) => {
   switch (action.type) {
     case GET_INGREDIENTS_REQUEST: {
       return {
@@ -58,14 +61,17 @@ export const ingredientsReducer = (state : TIngredientState = ingredientsInitial
 
 type TConstractorState = {
   ingredients: Array<TIngredient>;
-  bread: TIngredient | null,
-}
+  bread: TIngredient | null;
+};
 
-const constructorInitialState  : TConstractorState = { ingredients: [], bread: null };
+export const constructorInitialState: TConstractorState = {
+  ingredients: [],
+  bread: null,
+};
 
 export const constructorIngredientsReducer = (
-  state : TConstractorState = constructorInitialState,
-  action : {type: string; item: TIngredient}
+  state: TConstractorState = constructorInitialState,
+  action: { type: string; item?: TIngredient, id?: {id: string} | string, index?: number }
 ) => {
   switch (action.type) {
     case ADD_INGREDIENT: {
@@ -98,7 +104,7 @@ export const constructorIngredientsReducer = (
     }
   }
 };
-export const currentIngredientReducer = (state = null, action : any) => {
+export const currentIngredientReducer = (state = null, action: any) => {
   switch (action.type) {
     case CHANGE_CURRENT_INGREDIENT: {
       return action.ingredientData;
@@ -108,13 +114,13 @@ export const currentIngredientReducer = (state = null, action : any) => {
     }
   }
 };
-const orderInitialState = {
+export const orderInitialState = {
   order: {},
   orderRequest: false,
   orderSucceeded: false,
   orderError: false,
 };
-export const orderReducer = (state = orderInitialState, action : any) => {
+export const orderReducer = (state = orderInitialState, action: any) => {
   switch (action.type) {
     case ORDER_REQUEST: {
       return {
@@ -136,7 +142,7 @@ export const orderReducer = (state = orderInitialState, action : any) => {
     case ORDER_FAILED: {
       return {
         ...state,
-        items: [],
+        order: {},
         orderRequest: false,
         orderError: true,
       };

@@ -18,7 +18,7 @@ type TUser = {
   name: string,
 };
 
-const initialState = {
+export const initialState = {
   user_info_loading: false,
   user_info_error: false,
   user_info_success: false,

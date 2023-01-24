@@ -41,7 +41,7 @@ type TAuth = {
   refresh_token_success: boolean,
   refresh_token_error: boolean, 
 }
-const authInitialState = {
+export const authInitialState = {
   login_loading: false,
   login_error: false,
   login_success: false,
@@ -152,7 +152,7 @@ export const authReducer = (state : TAuth = authInitialState, action : any) => {
   }
 };
 
-const resetPasswordInitialState = {
+export const resetPasswordInitialState = {
   reset_password_loading: false,
   reset_password_error: false,
   reset_password_success: false,

@@ -14,7 +14,7 @@ export type orderStore = {
     orders: {success: false, orders:Array<TOrder>, total: number, totalToday: number},
 }
 
-const initialState: orderStore = {
+export const initialState: orderStore = {
     status: WebsocketStatus.OFFLINE,
     connectionError: '',
     orders: {success: false, orders:[], total: 0, totalToday: 0},
