@@ -1,5 +1,8 @@
 import { authReducer, authInitialState } from "./authReducers";
-import { resetPasswordReducer, resetPasswordInitialState } from "./authReducers";
+import {
+  resetPasswordReducer,
+  resetPasswordInitialState,
+} from "./authReducers";
 import {
   LOGIN_REQUEST,
   LOGIN_SUCCESS,
@@ -185,82 +188,83 @@ describe("auth reducer", () => {
 });
 
 describe("reset password reducer", () => {
-    test("should return the initial state", () => {
-      expect(resetPasswordReducer(undefined, {})).toEqual(resetPasswordInitialState);
-    });
-  
-    test("should handle RESET_PASSWORD_REQUEST", () => {
-      expect(
-        resetPasswordReducer(undefined, {
-          type: RESET_PASSWORD_REQUEST,
-        })
-      ).toEqual({
-        ...resetPasswordInitialState,
-        reset_password_loading: true,
-        reset_password_error: false,
-        reset_password_success: false,
-      });
-    });
-  
-    test("should handle RESET_PASSWORD_SUCCESS", () => {
-      expect(
-        resetPasswordReducer(undefined, {
-          type: RESET_PASSWORD_SUCCESS,
-        })
-      ).toEqual({
-        ...resetPasswordInitialState,
-        reset_password_loading: false,
-        reset_password_success: true,
-      });
-    });
-  
-    test("should handle RESET_PASSWORD_FAILED", () => {
-      expect(
-        resetPasswordReducer(undefined, {
-          type: RESET_PASSWORD_FAILED,
-        })
-      ).toEqual({
-        ...resetPasswordInitialState,
-        reset_password_loading: false,
-        reset_password_error: true,
-      });
-    });
-
-    test("should handle CHANGE_PASSWORD_REQUEST", () => {
-        expect(
-          resetPasswordReducer(undefined, {
-            type: CHANGE_PASSWORD_REQUEST,
-          })
-        ).toEqual({
-          ...resetPasswordInitialState,
-          change_password_loading: true,
-          change_password_error: false,
-          change_password_success: false,
-        });
-      });
-    
-      test("should handle CHANGE_PASSWORD_SUCCESS", () => {
-        expect(
-          resetPasswordReducer(undefined, {
-            type: CHANGE_PASSWORD_SUCCESS,
-          })
-        ).toEqual({
-          ...resetPasswordInitialState,
-          change_password_loading: false,
-          change_password_success: true,
-        });
-      });
-    
-      test("should handle CHANGE_PASSWORD_FAILED", () => {
-        expect(
-          resetPasswordReducer(undefined, {
-            type: CHANGE_PASSWORD_FAILED,
-          })
-        ).toEqual({
-          ...resetPasswordInitialState,
-          change_password_loading: false,
-          change_password_error: true,
-        });
-      });
-  
+  test("should return the initial state", () => {
+    expect(resetPasswordReducer(undefined, {})).toEqual(
+      resetPasswordInitialState
+    );
   });
+
+  test("should handle RESET_PASSWORD_REQUEST", () => {
+    expect(
+      resetPasswordReducer(undefined, {
+        type: RESET_PASSWORD_REQUEST,
+      })
+    ).toEqual({
+      ...resetPasswordInitialState,
+      reset_password_loading: true,
+      reset_password_error: false,
+      reset_password_success: false,
+    });
+  });
+
+  test("should handle RESET_PASSWORD_SUCCESS", () => {
+    expect(
+      resetPasswordReducer(undefined, {
+        type: RESET_PASSWORD_SUCCESS,
+      })
+    ).toEqual({
+      ...resetPasswordInitialState,
+      reset_password_loading: false,
+      reset_password_success: true,
+    });
+  });
+
+  test("should handle RESET_PASSWORD_FAILED", () => {
+    expect(
+      resetPasswordReducer(undefined, {
+        type: RESET_PASSWORD_FAILED,
+      })
+    ).toEqual({
+      ...resetPasswordInitialState,
+      reset_password_loading: false,
+      reset_password_error: true,
+    });
+  });
+
+  test("should handle CHANGE_PASSWORD_REQUEST", () => {
+    expect(
+      resetPasswordReducer(undefined, {
+        type: CHANGE_PASSWORD_REQUEST,
+      })
+    ).toEqual({
+      ...resetPasswordInitialState,
+      change_password_loading: true,
+      change_password_error: false,
+      change_password_success: false,
+    });
+  });
+
+  test("should handle CHANGE_PASSWORD_SUCCESS", () => {
+    expect(
+      resetPasswordReducer(undefined, {
+        type: CHANGE_PASSWORD_SUCCESS,
+      })
+    ).toEqual({
+      ...resetPasswordInitialState,
+      change_password_loading: false,
+      change_password_success: true,
+    });
+  });
+
+  test("should handle CHANGE_PASSWORD_FAILED", () => {
+    expect(
+      resetPasswordReducer(undefined, {
+        type: CHANGE_PASSWORD_FAILED,
+      })
+    ).toEqual({
+      ...resetPasswordInitialState,
+      change_password_loading: false,
+      change_password_error: true,
+    });
+  });
+});

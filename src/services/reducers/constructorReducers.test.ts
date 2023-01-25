@@ -111,10 +111,10 @@ describe("ingredients reducer", () => {
 });
 
 describe("constructor reducer", () => {
-  const item1 = {...ingredientCreator("bun", 1),listId:"1"};
-  const item2 = {...ingredientCreator("stuffing", 2),listId:"2"};
-  const item3 = {...ingredientCreator("stuffing", 3),listId:"3"};
-  const item4 = {...ingredientCreator("stuffing", 4),listId:"4"};
+  const item1 = { ...ingredientCreator("bun", 1), listId: "1" };
+  const item2 = { ...ingredientCreator("stuffing", 2), listId: "2" };
+  const item3 = { ...ingredientCreator("stuffing", 3), listId: "3" };
+  const item4 = { ...ingredientCreator("stuffing", 4), listId: "4" };
   const initialIngredients = [item1, item2, item3, item4];
   test("should return the initial state", () => {
     expect(constructorIngredientsReducer(undefined, { type: "" })).toEqual(
@@ -156,7 +156,7 @@ describe("constructor reducer", () => {
         },
         {
           type: CHANGE_INGREDIENT_POSITION,
-          id: {id:"2"},
+          id: { id: "2" },
           index: 3,
         }
       )
