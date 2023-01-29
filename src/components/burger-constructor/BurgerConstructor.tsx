@@ -59,7 +59,7 @@ function BurgerConstructor() {
   };
 
   return (
-    <div className={"mt-10 " + styles.mainContainer} ref={dropTarget}>
+    <div className={"mt-10 " + styles.mainContainer} ref={dropTarget} id="dropTarget">
       <div className={"ml-6 "}>
         {constructorIngredients.bread && (
           <ConstructorElement
