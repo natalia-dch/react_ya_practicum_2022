@@ -1,4 +1,3 @@
-// @ts-nocheck
 import {
   CHANGE_CURRENT_INGREDIENT,
   ADD_INGREDIENT,
@@ -14,6 +13,7 @@ import {
 import { ORDER_REQUEST, ORDER_SUCCESS, ORDER_FAILED } from "../actions/order";
 import { TIngredient } from "../../utils/types";
 import { type } from "os";
+import { Ingredients } from "../../pages/order-details/order-details-page";
 
 type TIngredientState = {
   items: Array<TIngredient>;
@@ -28,7 +28,9 @@ export const ingredientsInitialState = {
 };
 export const ingredientsReducer = (
   state: TIngredientState = ingredientsInitialState,
-  action: { type: string; ingredients?: Array<TIngredient> }
+  action:
+    | { type: typeof GET_INGREDIENTS_SUCCESS; ingredients: Array<TIngredient> }
+    | { type: typeof GET_INGREDIENTS_REQUEST | typeof GET_INGREDIENTS_FAILED }
 ) => {
   switch (action.type) {
     case GET_INGREDIENTS_REQUEST: {
@@ -71,7 +73,11 @@ export const constructorInitialState: TConstractorState = {
 
 export const constructorIngredientsReducer = (
   state: TConstractorState = constructorInitialState,
-  action: { type: string; item?: TIngredient, id?: {id: string} | string, index?: number }
+  action: 
+  {type: typeof ADD_INGREDIENT, item: TIngredient} | 
+  {type: typeof CHANGE_INGREDIENT_POSITION, id: { id: string }, index: number} |
+  {type: typeof REMOVE_INGREDIENT, id: string} |
+  {type: typeof RESET_CONSTRUCTOR}
 ) => {
   switch (action.type) {
     case ADD_INGREDIENT: {

@@ -38,11 +38,6 @@ const ingredientCreator = (type: string, id: number) => {
 };
 
 describe("ingredients reducer", () => {
-  test("should return the initial state", () => {
-    expect(ingredientsReducer(undefined, { type: "" })).toEqual(
-      ingredientsInitialState
-    );
-  });
 
   test("should handle GET_INGREDIENTS_REQUEST", () => {
     expect(
@@ -116,11 +111,6 @@ describe("constructor reducer", () => {
   const item3 = { ...ingredientCreator("stuffing", 3), listId: "3" };
   const item4 = { ...ingredientCreator("stuffing", 4), listId: "4" };
   const initialIngredients = [item1, item2, item3, item4];
-  test("should return the initial state", () => {
-    expect(constructorIngredientsReducer(undefined, { type: "" })).toEqual(
-      constructorInitialState
-    );
-  });
 
   test("should handle ADD_INGREDIENT", () => {
     const item1 = ingredientCreator("bun", 1);

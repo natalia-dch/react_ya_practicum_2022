@@ -83,8 +83,10 @@ describe("drag and drop tests", () => {
     cy.get("@name").then((name) => {
       cy.get("@container")
         .find("[class=constructor-element]")
-        .contains(name).as("elemToDelete")
-      cy.get("@elemToDelete").get('*[class^="constructor-element__action"]')
+        .contains(name)
+        .as("elemToDelete");
+      cy.get("@elemToDelete")
+        .get('*[class^="constructor-element__action"]')
         .click();
     });
     //check
@@ -100,11 +102,11 @@ describe("drag and drop tests", () => {
       .find("[class^=burger-ingredients_ingredient]")
       .first()
       .as("item1");
-      cy.get("#mainContainer")
+    cy.get("#mainContainer")
       .find("[class^=burger-ingredients_ingredient]")
       .first()
       .as("item2");
-      cy.get("#mainContainer")
+    cy.get("#mainContainer")
       .find("[class^=burger-ingredients_ingredient]")
       .eq(2)
       .as("item3");
@@ -118,24 +120,29 @@ describe("drag and drop tests", () => {
     cy.get("@item3").drag("@container");
     //rearrange 1st element
     cy.get("@container")
-    .find("[class=constructor-element]")
-    .first().as("elemToRearrange");
+      .find("[class=constructor-element]")
+      .first()
+      .as("elemToRearrange");
 
-    cy.get("@elemToRearrange").find(".constructor-element__text").invoke("text").then((name1) => {
-    //select element and target
-      cy.get("@container")
-        .find("[class=constructor-element]")
-        .first().as("elemToRearrange");
-    cy.get('*[class^="burger-constructor_gap"]').last().as("gap");
-    //rearrange
-    cy.get("@elemToRearrange").drag("@gap");
-    //check
-    cy.get("@container")
-        .find("[class=constructor-element]").last()
-        .contains(name1).should("exist");
-    
-    });
-
+    cy.get("@elemToRearrange")
+      .find(".constructor-element__text")
+      .invoke("text")
+      .then((name1) => {
+        //select element and target
+        cy.get("@container")
+          .find("[class=constructor-element]")
+          .first()
+          .as("elemToRearrange");
+        cy.get('*[class^="burger-constructor_gap"]').last().as("gap");
+        //rearrange
+        cy.get("@elemToRearrange").drag("@gap");
+        //check
+        cy.get("@container")
+          .find("[class=constructor-element]")
+          .last()
+          .contains(name1)
+          .should("exist");
+      });
   });
 
   it("shows ingredient modal on ingredient click", function () {
@@ -146,9 +153,9 @@ describe("drag and drop tests", () => {
     cy.get("@item1").children("p").eq(1).invoke("text").as("name1");
     cy.get("@item1").click();
     cy.contains("Детали ингредиента");
-    cy.get("@name1").then((name)=>{
-        cy.contains(name);   
-    })
+    cy.get("@name1").then((name) => {
+      cy.contains(name);
+    });
   });
 
   it("shows order info modal on order creation", function () {
@@ -157,12 +164,12 @@ describe("drag and drop tests", () => {
       .find("[class^=burger-ingredients_ingredient]")
       .first()
       .as("item1");
-      cy.get("#mainContainer")
+    cy.get("#mainContainer")
       .find("[class^=burger-ingredients_ingredient]")
       .first()
       .as("item2");
     cy.get("#dropTarget").as("mainContainer");
-    
+
     cy.get('*[class^="burger-constructor_ingContainer"]').as("container");
     cy.get("@item1").children("p").eq(1).invoke("text").as("name1");
     cy.get("@item2").children("p").eq(1).invoke("text").as("name2");
