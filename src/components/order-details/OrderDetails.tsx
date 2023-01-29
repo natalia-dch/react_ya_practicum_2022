@@ -22,7 +22,7 @@ function OrderDetails() {
   const orderNum = useAppSelector((state) => state.order.order.number);
   return (
     <>
-    {!orderLoading && (
+    {!orderLoading ? (
       <div className={styles.container}>
         {orderError ? (
           <p className="text text_type_main-default mt-15 mb-15">
@@ -43,7 +43,10 @@ function OrderDetails() {
             </p>
           </>
         )}
-      </div>)}
+      </div>) :           <p className="text text_type_main-default mt-15 mb-15">
+            Загрузка
+          </p>
+      }
       </>
   );
 }
