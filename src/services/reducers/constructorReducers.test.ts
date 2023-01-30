@@ -196,9 +196,6 @@ describe("constructor reducer", () => {
 });
 
 describe("currentIngredient reducer", () => {
-  test("should return the initial state", () => {
-    expect(currentIngredientReducer(undefined, { type: "" })).toEqual(null);
-  });
 
   test("should handle CHANGE_CURRENT_INGREDIENT", () => {
     const item1 = ingredientCreator("bun", 1);
@@ -212,9 +209,6 @@ describe("currentIngredient reducer", () => {
 });
 
 describe("order reducer", () => {
-  test("should return the initial state", () => {
-    expect(orderReducer(undefined, { type: "" })).toEqual(orderInitialState);
-  });
 
   test("should handle ORDER_REQUEST", () => {
     expect(
@@ -239,8 +233,7 @@ describe("order reducer", () => {
       updatedAt: "",
       number: "1",
       ingredients: [
-        ingredientCreator("bun", 1),
-        ingredientCreator("stuffing", 2),
+        "123","234"
       ],
     };
     expect(

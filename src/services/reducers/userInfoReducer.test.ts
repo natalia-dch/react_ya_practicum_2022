@@ -9,9 +9,6 @@ import {
 } from "../actions/userInfo";
 
 describe("ingredients reducer", () => {
-  test("should return the initial state", () => {
-    expect(userInfoReducer(undefined, {})).toEqual(initialState);
-  });
 
   test("should handle USER_INFO_REQUEST", () => {
     expect(

@@ -1,9 +1,9 @@
 import { Route, Redirect, useLocation } from "react-router-dom";
-import { FC, useEffect, useState } from "react";
+import { FC, FunctionComponent, ReactNode, useEffect, useState } from "react";
 import { getCookie } from "./cookies";
 
 type RouteProps = {
-  children : any,
+  children: ReactNode,
   fromUnauthorized : boolean,
   path : string,
   exact : boolean

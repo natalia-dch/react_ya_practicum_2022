@@ -26,7 +26,8 @@ function OrderDetails() {
   // useEffect(() => {
   //   if (orderError) history.push("/");
   // }, [orderError]);
-  const orderNum = useAppSelector((state) => state.order.order.number);
+  const orderInfo = useAppSelector((state) => state.order.order);
+  const orderNum = orderInfo?.number;
   return (
     <>
       {!orderLoading ? (

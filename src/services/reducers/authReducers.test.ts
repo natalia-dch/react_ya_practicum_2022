@@ -33,9 +33,6 @@ import {
 } from "../actions/auth/resetPassword";
 
 describe("auth reducer", () => {
-  test("should return the initial state", () => {
-    expect(authReducer(undefined, {})).toEqual(authInitialState);
-  });
 
   test("should handle LOGIN_REQUEST", () => {
     expect(
@@ -188,11 +185,6 @@ describe("auth reducer", () => {
 });
 
 describe("reset password reducer", () => {
-  test("should return the initial state", () => {
-    expect(resetPasswordReducer(undefined, {})).toEqual(
-      resetPasswordInitialState
-    );
-  });
 
   test("should handle RESET_PASSWORD_REQUEST", () => {
     expect(

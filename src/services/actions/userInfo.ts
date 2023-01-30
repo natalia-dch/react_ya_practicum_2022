@@ -11,7 +11,7 @@ export const USER_INFO_SUCCESS = "USER_INFO_SUCCESS";
 export const USER_INFO_FAILED = "USER_INFO_FAILED";
 
 export function getUserInfo() {
-  return function (dispatch : any) {
+  return function (dispatch :any) {
     dispatch({ type: USER_INFO_REQUEST });
     fetch(URL, {
       method: "GET",

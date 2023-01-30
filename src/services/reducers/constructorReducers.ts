@@ -14,6 +14,7 @@ import { ORDER_REQUEST, ORDER_SUCCESS, ORDER_FAILED } from "../actions/order";
 import { TIngredient, TOrder } from "../../utils/types";
 import { type } from "os";
 import { Ingredients } from "../../pages/order-details/order-details-page";
+import { orderT } from "./wsReducer";
 
 type TIngredientState = {
   items: Array<TIngredient>;
@@ -130,14 +131,21 @@ export const currentIngredientReducer = (
     }
   }
 };
+type orderStateT = {
+  order: TOrder | null,
+  orderRequest: boolean,
+  orderSucceeded: boolean,
+  orderError: boolean,
+};
+
 export const orderInitialState = {
-  order: {},
+  order: null,
   orderRequest: false,
   orderSucceeded: false,
   orderError: false,
 };
 export const orderReducer = (
-  state = orderInitialState,
+  state : orderStateT = orderInitialState,
   action:
     | {
         type: typeof ORDER_REQUEST | typeof ORDER_FAILED;
@@ -151,7 +159,7 @@ export const orderReducer = (
     case ORDER_REQUEST: {
       return {
         ...state,
-        order: {},
+        order: null,
         orderSucceeded: false,
         orderError: false,
         orderRequest: true,
@@ -168,7 +176,7 @@ export const orderReducer = (
     case ORDER_FAILED: {
       return {
         ...state,
-        order: {},
+        order: null,
         orderRequest: false,
         orderError: true,
       };

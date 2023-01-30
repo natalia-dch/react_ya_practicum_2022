@@ -1,4 +1,4 @@
-export function setCookie(name : string, value : string, props? : any) {
+export function setCookie(name : string, value : string, props? : Record<string, any>) {
   console.log("setting cookie",name,value);
   props = props || {};
   let exp = props.expires;
