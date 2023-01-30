@@ -92,7 +92,7 @@ function BurgerConstructor() {
           />
         )}
       </div>
-      <div className={"mt-10 mr-4 " + styles.totalContainer}>
+      <div className={styles.totalContainer+" mt-10 mr-4 "}>
         <p className={"text text_type_digits-default pl-10 pr-10"}>
           {constructorIngredients.ingredients.reduce(
             (sum : number, el : TIngredient) => sum + el.price,

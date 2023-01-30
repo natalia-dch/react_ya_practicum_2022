@@ -1,16 +1,24 @@
 import "@4tw/cypress-drag-drop";
-let email = "natata0303@gmail.com";
-let password = "123456";
+const email = "natata0303@gmail.com";
+const password = "123456";
+const baseUrl = "http://localhost:3000";
+const ingredientContainerSelector = '*[class^="burger-constructor_ingContainer"]';
+const ingredientSelector = "[class^=burger-ingredients_ingredient]";
+const priceLabelSelector = `*[class^="burger-constructor_totalContainer"]`;
+const bunContainerSelector = "#bunContainer";
+const mainContainerSelector = "#mainContainer";
+const sauceContainerSelector = "#sauceContainer" 
+const constructorElementSelector = "[class=constructor-element]";
 
 describe("drag and drop tests", () => {
   beforeEach(() => {
-    cy.visit("http://localhost:3000/login");
+    cy.visit(baseUrl+"/login");
     if (cy.contains("Вход")) {
       //not signed up
       cy.get('input[name="email"]').type(`${email}{enter}`);
       cy.get('input[name="password"]').type(`${password}{enter}`);
     }
-    cy.visit("http://localhost:3000");
+    cy.visit(baseUrl);
   });
 
   it("should be on constructor page", function () {
@@ -19,13 +27,13 @@ describe("drag and drop tests", () => {
 
   it("can DnD bread", function () {
     //select elements
-    cy.get("#bunContainer")
-      .find("[class^=burger-ingredients_ingredient]")
+    cy.get(bunContainerSelector)
+      .find(ingredientSelector)
       .first()
       .as("breadItem");
     cy.get("#dropTarget").as("mainContainer");
-    cy.get('*[class^="burger-constructor_ingContainer"]').as("container");
-    cy.get(".burger-constructor_totalContainer__OeTZ8").as("totalPrice");
+    cy.get(ingredientContainerSelector).as("container");
+    cy.get(priceLabelSelector).as("totalPrice");
     cy.get("@breadItem").children("p").first().invoke("text").as("price");
     cy.get("@breadItem").children("p").eq(1).invoke("text").as("name");
     //drag
@@ -44,13 +52,13 @@ describe("drag and drop tests", () => {
 
   it("can DnD ingredient", function () {
     //select elements
-    cy.get("#sauceContainer")
-      .find("[class^=burger-ingredients_ingredient]")
+    cy.get(sauceContainerSelector)
+      .find(ingredientSelector)
       .first()
       .as("item");
     cy.get("#dropTarget").as("mainContainer");
-    cy.get('*[class^="burger-constructor_ingContainer"]').as("container");
-    cy.get(".burger-constructor_totalContainer__OeTZ8").as("totalPrice");
+    cy.get(ingredientContainerSelector).as("container");
+    cy.get(priceLabelSelector).as("totalPrice");
     cy.get("@item").children("p").first().invoke("text").as("price");
     cy.get("@item").children("p").eq(1).invoke("text").as("name");
     //drag
@@ -68,13 +76,13 @@ describe("drag and drop tests", () => {
 
   it("can remove ingredient", function () {
     //select elements
-    cy.get("#sauceContainer")
-      .find("[class^=burger-ingredients_ingredient]")
+    cy.get(sauceContainerSelector)
+      .find(ingredientSelector)
       .first()
       .as("item");
     cy.get("#dropTarget").as("mainContainer");
-    cy.get('*[class^="burger-constructor_ingContainer"]').as("container");
-    cy.get(".burger-constructor_totalContainer__OeTZ8").as("totalPrice");
+    cy.get(ingredientContainerSelector).as("container");
+    cy.get(priceLabelSelector).as("totalPrice");
     cy.get("@item").children("p").first().invoke("text").as("price");
     cy.get("@item").children("p").eq(1).invoke("text").as("name");
     //drag
@@ -82,7 +90,7 @@ describe("drag and drop tests", () => {
     //remove
     cy.get("@name").then((name) => {
       cy.get("@container")
-        .find("[class=constructor-element]")
+        .find(constructorElementSelector)
         .contains(name)
         .as("elemToDelete");
       cy.get("@elemToDelete")
@@ -98,20 +106,20 @@ describe("drag and drop tests", () => {
 
   it("can rearrrange ingredients", function () {
     //select elements
-    cy.get("#sauceContainer")
-      .find("[class^=burger-ingredients_ingredient]")
+    cy.get(mainContainerSelector)
+      .find(ingredientSelector)
       .first()
       .as("item1");
-    cy.get("#mainContainer")
-      .find("[class^=burger-ingredients_ingredient]")
-      .first()
+    cy.get(mainContainerSelector)
+      .find(ingredientSelector)
+      .eq(1)
       .as("item2");
-    cy.get("#mainContainer")
-      .find("[class^=burger-ingredients_ingredient]")
+    cy.get(mainContainerSelector)
+      .find(ingredientSelector)
       .eq(2)
       .as("item3");
     cy.get("#dropTarget").as("mainContainer");
-    cy.get('*[class^="burger-constructor_ingContainer"]').as("container");
+    cy.get(ingredientContainerSelector).as("container");
     cy.get("@item1").children("p").eq(1).invoke("text").as("name1");
     cy.get("@item2").children("p").eq(1).invoke("text").as("name2");
     //drag
@@ -120,7 +128,7 @@ describe("drag and drop tests", () => {
     cy.get("@item3").drag("@container");
     //rearrange 1st element
     cy.get("@container")
-      .find("[class=constructor-element]")
+      .find(constructorElementSelector)
       .first()
       .as("elemToRearrange");
 
@@ -130,7 +138,7 @@ describe("drag and drop tests", () => {
       .then((name1) => {
         //select element and target
         cy.get("@container")
-          .find("[class=constructor-element]")
+          .find(constructorElementSelector)
           .first()
           .as("elemToRearrange");
         cy.get('*[class^="burger-constructor_gap"]').last().as("gap");
@@ -138,7 +146,7 @@ describe("drag and drop tests", () => {
         cy.get("@elemToRearrange").drag("@gap");
         //check
         cy.get("@container")
-          .find("[class=constructor-element]")
+          .find(constructorElementSelector)
           .last()
           .contains(name1)
           .should("exist");
@@ -146,8 +154,8 @@ describe("drag and drop tests", () => {
   });
 
   it("shows ingredient modal on ingredient click", function () {
-    cy.get("#sauceContainer")
-      .find("[class^=burger-ingredients_ingredient]")
+    cy.get(sauceContainerSelector)
+      .find(ingredientSelector)
       .first()
       .as("item1");
     cy.get("@item1").children("p").eq(1).invoke("text").as("name1");
@@ -160,17 +168,17 @@ describe("drag and drop tests", () => {
 
   it("shows order info modal on order creation", function () {
     //select elements
-    cy.get("#bunContainer")
-      .find("[class^=burger-ingredients_ingredient]")
+    cy.get(bunContainerSelector)
+      .find(ingredientSelector)
       .first()
       .as("item1");
-    cy.get("#mainContainer")
-      .find("[class^=burger-ingredients_ingredient]")
+    cy.get(mainContainerSelector)
+      .find(ingredientSelector)
       .first()
       .as("item2");
-    cy.get("#dropTarget").as("mainContainer");
+    cy.get("#dropTarget").as(mainContainerSelector);
 
-    cy.get('*[class^="burger-constructor_ingContainer"]').as("container");
+    cy.get(ingredientContainerSelector).as("container");
     cy.get("@item1").children("p").eq(1).invoke("text").as("name1");
     cy.get("@item2").children("p").eq(1).invoke("text").as("name2");
     //drag
