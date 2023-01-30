@@ -25,8 +25,6 @@ export const OrderDetailsPage = () => {
 };
 
 export const Ingredients = ({ info, counts }: { info: Array<TIngredient>, counts: Record<string,number> }) => {
-  console.log(counts);
-  console.log(info)
   return (
     <>
       <p className="text text_type_main-medium mb-6">Состав:</p>

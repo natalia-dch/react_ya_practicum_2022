@@ -2,17 +2,18 @@ import "@4tw/cypress-drag-drop";
 const email = "natata0303@gmail.com";
 const password = "123456";
 const baseUrl = "http://localhost:3000";
-const ingredientContainerSelector = '*[class^="burger-constructor_ingContainer"]';
+const ingredientContainerSelector =
+  '*[class^="burger-constructor_ingContainer"]';
 const ingredientSelector = "[class^=burger-ingredients_ingredient]";
 const priceLabelSelector = `*[class^="burger-constructor_totalContainer"]`;
 const bunContainerSelector = "#bunContainer";
 const mainContainerSelector = "#mainContainer";
-const sauceContainerSelector = "#sauceContainer" 
+const sauceContainerSelector = "#sauceContainer";
 const constructorElementSelector = "[class=constructor-element]";
 
 describe("drag and drop tests", () => {
   beforeEach(() => {
-    cy.visit(baseUrl+"/login");
+    cy.visit(baseUrl + "/login");
     if (cy.contains("Вход")) {
       //not signed up
       cy.get('input[name="email"]').type(`${email}{enter}`);
@@ -52,10 +53,7 @@ describe("drag and drop tests", () => {
 
   it("can DnD ingredient", function () {
     //select elements
-    cy.get(sauceContainerSelector)
-      .find(ingredientSelector)
-      .first()
-      .as("item");
+    cy.get(sauceContainerSelector).find(ingredientSelector).first().as("item");
     cy.get("#dropTarget").as("mainContainer");
     cy.get(ingredientContainerSelector).as("container");
     cy.get(priceLabelSelector).as("totalPrice");
@@ -76,10 +74,7 @@ describe("drag and drop tests", () => {
 
   it("can remove ingredient", function () {
     //select elements
-    cy.get(sauceContainerSelector)
-      .find(ingredientSelector)
-      .first()
-      .as("item");
+    cy.get(sauceContainerSelector).find(ingredientSelector).first().as("item");
     cy.get("#dropTarget").as("mainContainer");
     cy.get(ingredientContainerSelector).as("container");
     cy.get(priceLabelSelector).as("totalPrice");
@@ -106,18 +101,9 @@ describe("drag and drop tests", () => {
 
   it("can rearrrange ingredients", function () {
     //select elements
-    cy.get(mainContainerSelector)
-      .find(ingredientSelector)
-      .first()
-      .as("item1");
-    cy.get(mainContainerSelector)
-      .find(ingredientSelector)
-      .eq(1)
-      .as("item2");
-    cy.get(mainContainerSelector)
-      .find(ingredientSelector)
-      .eq(2)
-      .as("item3");
+    cy.get(mainContainerSelector).find(ingredientSelector).first().as("item1");
+    cy.get(mainContainerSelector).find(ingredientSelector).eq(1).as("item2");
+    cy.get(mainContainerSelector).find(ingredientSelector).eq(2).as("item3");
     cy.get("#dropTarget").as("mainContainer");
     cy.get(ingredientContainerSelector).as("container");
     cy.get("@item1").children("p").eq(1).invoke("text").as("name1");
@@ -154,10 +140,7 @@ describe("drag and drop tests", () => {
   });
 
   it("shows ingredient modal on ingredient click", function () {
-    cy.get(sauceContainerSelector)
-      .find(ingredientSelector)
-      .first()
-      .as("item1");
+    cy.get(sauceContainerSelector).find(ingredientSelector).first().as("item1");
     cy.get("@item1").children("p").eq(1).invoke("text").as("name1");
     cy.get("@item1").click();
     cy.contains("Детали ингредиента");
@@ -168,14 +151,8 @@ describe("drag and drop tests", () => {
 
   it("shows order info modal on order creation", function () {
     //select elements
-    cy.get(bunContainerSelector)
-      .find(ingredientSelector)
-      .first()
-      .as("item1");
-    cy.get(mainContainerSelector)
-      .find(ingredientSelector)
-      .first()
-      .as("item2");
+    cy.get(bunContainerSelector).find(ingredientSelector).first().as("item1");
+    cy.get(mainContainerSelector).find(ingredientSelector).first().as("item2");
     cy.get("#dropTarget").as(mainContainerSelector);
 
     cy.get(ingredientContainerSelector).as("container");

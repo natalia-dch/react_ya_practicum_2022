@@ -33,12 +33,10 @@ export const OrderHistory = () => {
   const { id } = useParams<{ id?: string }>();
   const order = orders?.orders?.filter(
     (o: TOrder) => {
-      console.log(o.number,id);
       return o.number.toString() === id
     
     }
   )[0];
-  console.log(orders?.orders);
   let orderIngredients = order?.ingredients ? order.ingredients : [];
   const counts: Record<string, number> = {};
   orderIngredients.forEach((i) => {counts[i] = (counts[i] || 0) + 1;})
@@ -88,8 +86,6 @@ export const OrderHistory = () => {
 };
 
 export const Ingredients = ({ info, counts }: { info: Array<TIngredient>, counts: Record<string,number> }) => {
-  console.log(counts);
-  console.log(info)
   return (
     <>
       <p className="text text_type_main-medium mb-6">Состав:</p>

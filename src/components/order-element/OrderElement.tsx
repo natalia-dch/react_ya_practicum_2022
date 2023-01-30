@@ -6,7 +6,7 @@ import { TIngredient } from "../../utils/types";
 import styles from "./order-element.module.css";
 
 type OrderElementPropsT = {
-  number: string;
+  number: number;
   createdAt: string;
   name: string;
   status: string;
@@ -23,7 +23,6 @@ export const OrderElement = ({
   const ingredientInfo = useAppSelector((state) => state.ingredients.items);
   const myIngredientInfo = ingredients.filter(i=>i!=undefined).map((ingId) =>
   ingredientInfo.filter((i : TIngredient) => i._id === ingId)[0]);
-  console.log(ingredients,myIngredientInfo);
   const images = myIngredientInfo.slice(0,10).map((i) => i.image);
   const cost = myIngredientInfo.map(i=>i.price).reduce((sum,i) => sum + i);
 

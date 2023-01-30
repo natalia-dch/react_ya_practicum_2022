@@ -35,9 +35,6 @@ export default function App() {
     dispatch(getIngredients());
   }, []);
 
-  // useEffect(() => {
-  //   console.log(location);
-  // }, [modal]);
 
   const closeModal = () => {
     history.go(-1);
