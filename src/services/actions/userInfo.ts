@@ -2,7 +2,7 @@ import { checkResponse } from "../../utils/APIUtils";
 import { BASE_URL } from "../../utils/data";
 import { getCookie } from "../../utils/cookies";
 import { refreshToken } from "./auth/refreshToken";
-import { Dispatch } from "redux";
+import { AnyAction, Dispatch } from "redux";
 
 const URL = BASE_URL + "/auth/user";
 
@@ -11,7 +11,7 @@ export const USER_INFO_SUCCESS = "USER_INFO_SUCCESS";
 export const USER_INFO_FAILED = "USER_INFO_FAILED";
 
 export function getUserInfo() {
-  return function (dispatch: any) {
+  return function (dispatch :any) {
     dispatch({ type: USER_INFO_REQUEST });
     fetch(URL, {
       method: "GET",

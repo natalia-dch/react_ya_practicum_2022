@@ -10,7 +10,6 @@ import {
   ConstructorElement,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { TIngredient } from "../../utils/types.js";
-import { useSelector, useDispatch } from "react-redux";
 import {
   ADD_INGREDIENT,
   REMOVE_INGREDIENT,
@@ -59,7 +58,7 @@ function BurgerConstructor() {
   };
 
   return (
-    <div className={"mt-10 " + styles.mainContainer} ref={dropTarget}>
+    <div className={"mt-10 " + styles.mainContainer} ref={dropTarget} id="dropTarget">
       <div className={"ml-6 "}>
         {constructorIngredients.bread && (
           <ConstructorElement
@@ -92,7 +91,7 @@ function BurgerConstructor() {
           />
         )}
       </div>
-      <div className={"mt-10 mr-4 " + styles.totalContainer}>
+      <div className={styles.totalContainer+" mt-10 mr-4 "}>
         <p className={"text text_type_digits-default pl-10 pr-10"}>
           {constructorIngredients.ingredients.reduce(
             (sum : number, el : TIngredient) => sum + el.price,
@@ -128,14 +127,14 @@ type TGapProps = {
 };
 
 const Gap : FC<TGapProps> = ({ index }) => {
-  const dispatch = useDispatch();
-  const onDropHandler = (itemId: any) => {
+  const dispatch = useAppDispatch();
+  const onDropHandler = (itemId: {id: string}) => {
     dispatch({ type: CHANGE_INGREDIENT_POSITION, id: itemId, index });
   };
 
   const [{ isHover }, dropTarget] = useDrop({
     accept: "draggableIngredient",
-    drop(itemId) {
+    drop(itemId: {id: string}) {
       onDropHandler(itemId);
     },
     collect: (monitor) => ({
@@ -152,7 +151,7 @@ const Gap : FC<TGapProps> = ({ index }) => {
 
 type TDraggableElementProps = {
   element: TIngredient,
-  deleteItem: any,
+  deleteItem: Function,
   index: number,
 };
 

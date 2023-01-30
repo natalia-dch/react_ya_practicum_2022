@@ -10,92 +10,41 @@ import {
   connect as connectOrder,
   disconnect as disconnectOrder,
 } from "../../services/actions/wsActions";
+import { stringify } from "querystring";
+import { OrderHistory } from "../../components/order-history/order-history";
 
 export const SERVER_URL = "wss://norma.nomoreparties.space/orders/all";
 
 export const OrderDetailsPage = () => {
-  const dispatch = useAppDispatch();
-  const { orders, status } = useAppSelector((state) => state.wsOrders);
-  const isDisconnected = status === WebsocketStatus.OFFLINE;
-  const connect = () => dispatch(connectOrder(SERVER_URL));
-  const disconnect = () => dispatch(disconnectOrder());
-
-  useEffect(() => {
-    dispatch(getIngredients());
-    console.log("connecting");
-    if (isDisconnected) connect();
-    return () => {
-      disconnect();
-    };
-  }, []);
-
-  const { id } = useParams<{ id?: string }>();
-  const order = orders?.orders?.filter(
-    (o: TOrder) => o.number.toString() === id
-  )[0];
-  const orderIngredients = order?.ingredients ? order.ingredients : [];
-  const ingredientInfo: Array<TIngredient> = useAppSelector(
-    (state) => state.ingredients.items
-  );
-  const myIngredientInfo: Array<TIngredient> = orderIngredients.map(
-    (ingId: string) => ingredientInfo.filter((i) => i._id === ingId)[0]
-  );
-  const images = myIngredientInfo.map((i) => i.image);
-  const cost = myIngredientInfo
-    .map((i) => i.price)
-    .reduce((sum, i) => sum + i, 0);
 
   return (
-    <div className={`${styles.mainContaine}`}>
-      {order && (
-        <>
-          <p
-            className={`text text_type_main-medium mb-10 ${styles.centeredText}`}
-          >
-            #{id}
-          </p>
-          <p className="text text_type_main-medium mb-3">{order.name}</p>
-          <p
-            className={`text text_type_main-default mb-15 ${styles.greenText}`}
-          >
-            {order.status === "done" ? "Выполнен" : "Выполняется"}
-          </p>
-          <Ingredients info={myIngredientInfo} />
-          <div className={styles.lowerContainer}>
-            <p className="text text_type_main-default text_color_inactive">
-              {new Date(order.createdAt).toLocaleString()}
-            </p>
-            <div className={`${styles.costContainer} pt-4`}>
-              <p className={"text text_type_digits-default " + styles.text}>
-                {cost}
-              </p>
-              <CurrencyIcon type="primary" />
-            </div>
-          </div>
-        </>
-      )}
-    </div>
+        <div className={`${styles.mainContainer}`} >
+        <OrderHistory/>
+        </div>
   );
 };
 
-export const Ingredients = ({ info }: { info: Array<TIngredient> }) => {
+export const Ingredients = ({ info, counts }: { info: Array<TIngredient>, counts: Record<string,number> }) => {
   return (
     <>
       <p className="text text_type_main-medium mb-6">Состав:</p>
       <div className={`${styles.ingredientsContainer} mb-6`}>
-        {info.map((ingredient, i) => (
-          <Ingredient info={ingredient} key={i} />
-        ))}
+        {info
+          .map((ingredient, i) => (
+            ingredient && 
+            <Ingredient info={ingredient} key={i} count={counts[ingredient._id]} />
+          ))}
       </div>
     </>
   );
 };
 
 type IngredientProps = {
-  info: string;
+  info: TIngredient;
+  count: number
 };
 
-export const Ingredient = ({ info }: { info: TIngredient }) => {
+export const Ingredient = ({ info, count }: IngredientProps) => {
   return (
     <div className={`${styles.ingrContainer} mb-4`}>
       <IngredientPic src={info.image} />
@@ -105,6 +54,9 @@ export const Ingredient = ({ info }: { info: TIngredient }) => {
           {info.price}
         </p>
         <CurrencyIcon type="primary" />
+        <p className={"text text_type_digits-default " + styles.text}>
+           x {count}
+        </p>
       </div>
     </div>
   );

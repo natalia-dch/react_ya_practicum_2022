@@ -2,10 +2,11 @@ import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { useAppSelector } from "../../utils/hooks";
+import { TIngredient } from "../../utils/types";
 import styles from "./order-element.module.css";
 
 type OrderElementPropsT = {
-  number: string;
+  number: number;
   createdAt: string;
   name: string;
   status: string;
@@ -20,8 +21,8 @@ export const OrderElement = ({
 }: OrderElementPropsT) => {
   const history = useHistory();
   const ingredientInfo = useAppSelector((state) => state.ingredients.items);
-  const myIngredientInfo = ingredients.map((ingId) =>
-  ingredientInfo.filter((i : any) => i._id === ingId)[0]);
+  const myIngredientInfo = ingredients.filter(i=>i!=undefined).map((ingId) =>
+  ingredientInfo.filter((i : TIngredient) => i._id === ingId)[0]);
   const images = myIngredientInfo.slice(0,10).map((i) => i.image);
   const cost = myIngredientInfo.map(i=>i.price).reduce((sum,i) => sum + i);
 

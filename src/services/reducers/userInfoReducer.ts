@@ -8,17 +8,17 @@ import {
 } from "../actions/userInfo";
 
 type TUser = {
-  user_info_loading: boolean,
-  user_info_error: boolean,
-  user_info_success: boolean,
-  change_user_info_loading: boolean,
-  change_user_info_error: boolean,
-  change_user_info_success: boolean,
-  email: string,
-  name: string,
+  user_info_loading: boolean;
+  user_info_error: boolean;
+  user_info_success: boolean;
+  change_user_info_loading: boolean;
+  change_user_info_error: boolean;
+  change_user_info_success: boolean;
+  email: string;
+  name: string;
 };
 
-const initialState = {
+export const initialState = {
   user_info_loading: false,
   user_info_error: false,
   user_info_success: false,
@@ -28,7 +28,21 @@ const initialState = {
   email: "",
   name: "",
 };
-export const userInfoReducer = (state: TUser = initialState, action : any) => {
+export const userInfoReducer = (
+  state: TUser = initialState,
+  action:
+    | {
+        type:
+          | typeof USER_INFO_REQUEST
+          | typeof USER_INFO_FAILED
+          | typeof CHANGE_USER_INFO_REQUEST
+          | typeof CHANGE_USER_INFO_FAILED;
+      }
+    | {
+        type: typeof USER_INFO_SUCCESS | typeof CHANGE_USER_INFO_SUCCESS;
+        userInfo: { name: string; email: string };
+      }
+) => {
   switch (action.type) {
     case USER_INFO_REQUEST: {
       return {

@@ -1,9 +1,9 @@
 import { Route, Redirect, useLocation } from "react-router-dom";
-import { FC, useEffect, useState } from "react";
+import { FC, FunctionComponent, ReactNode, useEffect, useState } from "react";
 import { getCookie } from "./cookies";
 
 type RouteProps = {
-  children : any,
+  children: ReactNode,
   fromUnauthorized : boolean,
   path : string,
   exact : boolean
@@ -16,7 +16,7 @@ export const ProtectedRoute : FC<RouteProps> = ({
   exact
 }) => {
   const isAuth = getCookie("refreshToken");
-  const location = useLocation<{ from: any }>();
+  const location = useLocation<{ from: string }>();
   return (
     <Route
       render={() => {

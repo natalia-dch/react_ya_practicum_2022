@@ -9,7 +9,6 @@ import {
   RegisterPage,
   ResetPasswordPage,
 } from "../../pages";
-import { useDispatch } from "react-redux";
 import React, { useEffect } from "react";
 import { CHANGE_CURRENT_INGREDIENT } from "../../services/actions/ingredients";
 import AppHeader from "../app-header/AppHeader";
@@ -22,11 +21,12 @@ import { useAppDispatch } from "../../utils/hooks";
 import { OrderHistoryPage } from "../../pages/order-history/order-history";
 import { OrdersPage } from "../../pages/orders-feed/orders-feed";
 import { OrderDetailsPage } from "../../pages/order-details/order-details-page";
+import { OrderHistory } from "../order-history/order-history";
 // import { ProtectedRoute } from './components/protected-route';
 // import { ProvideAuth } from './services/auth';
 
 export default function App() {
-  const location = useLocation<{ background: any, modal: any }>();
+  const location = useLocation<{ background: string, modal: string }>();
   const history = useHistory();
   const background = location.state && location.state.background;
   const modal = location.state && location.state.modal;
@@ -35,9 +35,6 @@ export default function App() {
     dispatch(getIngredients());
   }, []);
 
-  // useEffect(() => {
-  //   console.log(location);
-  // }, [modal]);
 
   const closeModal = () => {
     history.go(-1);
@@ -85,30 +82,30 @@ export default function App() {
         >
           {modal ? (
             <>
-              <OrderDetailsPage />
+              <ProfilePage />
               <Modal close={closeModal} title={"Детали заказа"}>
-                <OrderDetailsPage />
+                <OrderHistory />
               </Modal>
             </>
           ) : (
             <OrderDetailsPage />
           )}
         </ProtectedRoute>
-        <ProtectedRoute fromUnauthorized path="/feed" exact={true}>
+        <Route path="/feed" exact={true}>
           <OrdersPage />
-        </ProtectedRoute>
-        <ProtectedRoute fromUnauthorized path="/feed/:id" exact={true}>
+        </Route>
+        <Route path="/feed/:id" exact={true}>
         {modal ? (
             <>
               <OrdersPage />
               <Modal close={closeModal} title={"Детали заказа"}>
-                <OrderDetailsPage />
+                <OrderHistory />
               </Modal>
             </>
           ) : (
             <OrderDetailsPage />
           )}
-        </ProtectedRoute>
+        </Route>
         <ProtectedRoute
           fromUnauthorized={false}
           path="/reset-password"
