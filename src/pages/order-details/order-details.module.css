@@ -44,3 +44,6 @@ border: 2px solid transparent;
 .centeredText{
     text-align: center;
 }
+.text{
+    white-space: nowrap;
+}

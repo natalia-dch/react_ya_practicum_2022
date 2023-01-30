@@ -10,6 +10,7 @@ import {
   connect as connectOrder,
   disconnect as disconnectOrder,
 } from "../../services/actions/wsActions";
+import { stringify } from "querystring";
 
 export const SERVER_URL = "wss://norma.nomoreparties.space/orders/all";
 
@@ -33,11 +34,14 @@ export const OrderDetailsPage = () => {
   const order = orders?.orders?.filter(
     (o: TOrder) => o.number.toString() === id
   )[0];
-  const orderIngredients = order?.ingredients ? order.ingredients : [];
+  let orderIngredients = order?.ingredients ? order.ingredients : [];
+  const counts: Record<string, number> = {};
+  orderIngredients.forEach((i) => {counts[i] = (counts[i] || 0) + 1;})
+  let newOrderIngredients = [...new Set(orderIngredients)]
   const ingredientInfo: Array<TIngredient> = useAppSelector(
     (state) => state.ingredients.items
   );
-  const myIngredientInfo: Array<TIngredient> = orderIngredients.map(
+  const myIngredientInfo: Array<TIngredient> = newOrderIngredients.map(
     (ingId: string) => ingredientInfo.filter((i) => i._id === ingId)[0]
   );
   const images = myIngredientInfo.map((i) => i.image);
@@ -60,7 +64,7 @@ export const OrderDetailsPage = () => {
           >
             {order.status === "done" ? "Выполнен" : "Выполняется"}
           </p>
-          <Ingredients info={myIngredientInfo} />
+          <Ingredients info={myIngredientInfo} counts={counts}/>
           <div className={styles.lowerContainer}>
             <p className="text text_type_main-default text_color_inactive">
               {new Date(order.createdAt).toLocaleString()}
@@ -78,24 +82,29 @@ export const OrderDetailsPage = () => {
   );
 };
 
-export const Ingredients = ({ info }: { info: Array<TIngredient> }) => {
+export const Ingredients = ({ info, counts }: { info: Array<TIngredient>, counts: Record<string,number> }) => {
+  console.log(counts);
+  console.log(info)
   return (
     <>
       <p className="text text_type_main-medium mb-6">Состав:</p>
       <div className={`${styles.ingredientsContainer} mb-6`}>
-        {info.map((ingredient, i) => (
-          <Ingredient info={ingredient} key={i} />
-        ))}
+        {info
+          .map((ingredient, i) => (
+            ingredient && 
+            <Ingredient info={ingredient} key={i} count={counts[ingredient._id]} />
+          ))}
       </div>
     </>
   );
 };
 
 type IngredientProps = {
-  info: string;
+  info: TIngredient;
+  count: number
 };
 
-export const Ingredient = ({ info }: { info: TIngredient }) => {
+export const Ingredient = ({ info, count }: IngredientProps) => {
   return (
     <div className={`${styles.ingrContainer} mb-4`}>
       <IngredientPic src={info.image} />
@@ -105,6 +114,9 @@ export const Ingredient = ({ info }: { info: TIngredient }) => {
           {info.price}
         </p>
         <CurrencyIcon type="primary" />
+        <p className={"text text_type_digits-default " + styles.text}>
+           x {count}
+        </p>
       </div>
     </div>
   );
