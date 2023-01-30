@@ -93,10 +93,10 @@ export default function App() {
             <OrderDetailsPage />
           )}
         </ProtectedRoute>
-        <ProtectedRoute fromUnauthorized path="/feed" exact={true}>
+        <Route path="/feed" exact={true}>
           <OrdersPage />
-        </ProtectedRoute>
-        <ProtectedRoute fromUnauthorized path="/feed/:id" exact={true}>
+        </Route>
+        <Route path="/feed/:id" exact={true}>
         {modal ? (
             <>
               <OrdersPage />
@@ -107,7 +107,7 @@ export default function App() {
           ) : (
             <OrderDetailsPage />
           )}
-        </ProtectedRoute>
+        </Route>
         <ProtectedRoute
           fromUnauthorized={false}
           path="/reset-password"
