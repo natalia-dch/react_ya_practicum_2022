@@ -9,7 +9,6 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { register } from "../../services/actions/auth/register";
 import ClipLoader from "react-spinners/ClipLoader";
-import { useSelector, useDispatch } from "react-redux";
 import { useAppDispatch, useAppSelector } from "../../utils/hooks";
 
 export const RegisterPage = () => {

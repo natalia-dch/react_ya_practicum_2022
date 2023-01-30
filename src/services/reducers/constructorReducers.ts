@@ -11,7 +11,7 @@ import {
   GET_INGREDIENTS_FAILED,
 } from "../actions/ingredientsAPI";
 import { ORDER_REQUEST, ORDER_SUCCESS, ORDER_FAILED } from "../actions/order";
-import { TIngredient } from "../../utils/types";
+import { TIngredient, TOrder } from "../../utils/types";
 import { type } from "os";
 import { Ingredients } from "../../pages/order-details/order-details-page";
 
@@ -73,11 +73,15 @@ export const constructorInitialState: TConstractorState = {
 
 export const constructorIngredientsReducer = (
   state: TConstractorState = constructorInitialState,
-  action: 
-  {type: typeof ADD_INGREDIENT, item: TIngredient} | 
-  {type: typeof CHANGE_INGREDIENT_POSITION, id: { id: string }, index: number} |
-  {type: typeof REMOVE_INGREDIENT, id: string} |
-  {type: typeof RESET_CONSTRUCTOR}
+  action:
+    | { type: typeof ADD_INGREDIENT; item: TIngredient }
+    | {
+        type: typeof CHANGE_INGREDIENT_POSITION;
+        id: { id: string };
+        index: number;
+      }
+    | { type: typeof REMOVE_INGREDIENT; id: string }
+    | { type: typeof RESET_CONSTRUCTOR }
 ) => {
   switch (action.type) {
     case ADD_INGREDIENT: {
@@ -110,7 +114,13 @@ export const constructorIngredientsReducer = (
     }
   }
 };
-export const currentIngredientReducer = (state = null, action: any) => {
+export const currentIngredientReducer = (
+  state: TIngredient | null = null,
+  action: {
+    type: typeof CHANGE_CURRENT_INGREDIENT;
+    ingredientData: TIngredient;
+  }
+) => {
   switch (action.type) {
     case CHANGE_CURRENT_INGREDIENT: {
       return action.ingredientData;
@@ -126,7 +136,17 @@ export const orderInitialState = {
   orderSucceeded: false,
   orderError: false,
 };
-export const orderReducer = (state = orderInitialState, action: any) => {
+export const orderReducer = (
+  state = orderInitialState,
+  action:
+    | {
+        type: typeof ORDER_REQUEST | typeof ORDER_FAILED;
+      }
+    | {
+        type: typeof ORDER_SUCCESS;
+        order: TOrder;
+      }
+) => {
   switch (action.type) {
     case ORDER_REQUEST: {
       return {

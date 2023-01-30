@@ -8,7 +8,6 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
 import { TIngredient } from "../../utils/types.js";
-import { useSelector, useDispatch } from "react-redux";
 import { CHANGE_CURRENT_INGREDIENT } from "../../services/actions/ingredients";
 import { useHistory, useLocation } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../utils/hooks";

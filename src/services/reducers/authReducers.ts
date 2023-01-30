@@ -28,19 +28,19 @@ import {
 } from "../actions/auth/resetPassword";
 
 type TAuth = {
-  login_loading: boolean,
-  login_error: boolean,
-  login_success: boolean,
-  logout_loading: boolean,
-  logout_error: boolean,
-  logout_success: boolean,
-  register_loading: boolean,
-  register_success: boolean,
-  register_error: boolean,
-  refresh_token_loading: boolean,
-  refresh_token_success: boolean,
-  refresh_token_error: boolean, 
-}
+  login_loading: boolean;
+  login_error: boolean;
+  login_success: boolean;
+  logout_loading: boolean;
+  logout_error: boolean;
+  logout_success: boolean;
+  register_loading: boolean;
+  register_success: boolean;
+  register_error: boolean;
+  refresh_token_loading: boolean;
+  refresh_token_success: boolean;
+  refresh_token_error: boolean;
+};
 export const authInitialState = {
   login_loading: false,
   login_error: false,
@@ -55,7 +55,24 @@ export const authInitialState = {
   refresh_token_success: false,
   refresh_token_error: false,
 };
-export const authReducer = (state : TAuth = authInitialState, action : any) => {
+export const authReducer = (
+  state: TAuth = authInitialState,
+  action: {
+    type:
+      | typeof LOGIN_REQUEST
+      | typeof LOGIN_SUCCESS
+      | typeof LOGIN_FAILED
+      | typeof LOGOUT_REQUEST
+      | typeof LOGOUT_SUCCESS
+      | typeof LOGOUT_FAILED
+      | typeof REGISTER_REQUEST
+      | typeof REGISTER_SUCCESS
+      | typeof REGISTER_FAILED
+      | typeof REFRESH_TOKEN_REQUEST
+      | typeof REFRESH_TOKEN_SUCCESS
+      | typeof REFRESH_TOKEN_FAILED;
+  }
+) => {
   switch (action.type) {
     case LOGIN_REQUEST: {
       return {
@@ -162,7 +179,15 @@ export const resetPasswordInitialState = {
 };
 export const resetPasswordReducer = (
   state = resetPasswordInitialState,
-  action : any
+  action: {
+    type:
+      | typeof RESET_PASSWORD_REQUEST
+      | typeof RESET_PASSWORD_SUCCESS
+      | typeof RESET_PASSWORD_FAILED
+      | typeof CHANGE_PASSWORD_REQUEST
+      | typeof CHANGE_PASSWORD_SUCCESS
+      | typeof CHANGE_PASSWORD_FAILED;
+  }
 ) => {
   switch (action.type) {
     case RESET_PASSWORD_REQUEST: {

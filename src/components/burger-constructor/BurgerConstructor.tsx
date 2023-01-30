@@ -10,7 +10,6 @@ import {
   ConstructorElement,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { TIngredient } from "../../utils/types.js";
-import { useSelector, useDispatch } from "react-redux";
 import {
   ADD_INGREDIENT,
   REMOVE_INGREDIENT,
@@ -128,14 +127,14 @@ type TGapProps = {
 };
 
 const Gap : FC<TGapProps> = ({ index }) => {
-  const dispatch = useDispatch();
-  const onDropHandler = (itemId: any) => {
+  const dispatch = useAppDispatch();
+  const onDropHandler = (itemId: {id: string}) => {
     dispatch({ type: CHANGE_INGREDIENT_POSITION, id: itemId, index });
   };
 
   const [{ isHover }, dropTarget] = useDrop({
     accept: "draggableIngredient",
-    drop(itemId) {
+    drop(itemId: {id: string}) {
       onDropHandler(itemId);
     },
     collect: (monitor) => ({
@@ -152,7 +151,7 @@ const Gap : FC<TGapProps> = ({ index }) => {
 
 type TDraggableElementProps = {
   element: TIngredient,
-  deleteItem: any,
+  deleteItem: Function,
   index: number,
 };
 

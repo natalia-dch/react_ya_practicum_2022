@@ -10,7 +10,6 @@ import {
 import { logout } from "../../services/actions/auth/logout";
 import { changeUserInfo, getUserInfo } from "../../services/actions/userInfo";
 import ClipLoader from "react-spinners/ClipLoader";
-import { useSelector, useDispatch } from "react-redux";
 import { deleteCookie } from "../../utils/cookies";
 import { useAppDispatch, useAppSelector } from "../../utils/hooks";
 import { OrderHistoryPage } from "../order-history/order-history";

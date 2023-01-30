@@ -1,10 +1,10 @@
 import React, { FC, useEffect } from "react";
 import styles from "./ingredient-details.module.css";
-import { useSelector, useDispatch } from "react-redux";
 import { currentIngredientReducer } from "../../services/reducers/constructorReducers";
 import { useParams, useHistory } from "react-router-dom";
 import { CHANGE_CURRENT_INGREDIENT } from "../../services/actions/ingredients";
 import { useAppDispatch, useAppSelector } from "../../utils/hooks";
+import { TIngredient } from "../../utils/types";
 
 function IngredientDetails() {
   const ingredientInfo = useAppSelector((state) => state.currentIngredient);
@@ -15,7 +15,7 @@ function IngredientDetails() {
   useEffect(() => {
     if (!ingredientInfo) {
       if (ingredients.length == 0) return;
-      const item = ingredients.find((i : any) => i._id === id);
+      const item = ingredients.find((i : TIngredient) => i._id === id);
       if (!item) {
         history.push("/notFound");
         return;

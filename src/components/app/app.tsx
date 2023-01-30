@@ -9,7 +9,6 @@ import {
   RegisterPage,
   ResetPasswordPage,
 } from "../../pages";
-import { useDispatch } from "react-redux";
 import React, { useEffect } from "react";
 import { CHANGE_CURRENT_INGREDIENT } from "../../services/actions/ingredients";
 import AppHeader from "../app-header/AppHeader";
@@ -26,7 +25,7 @@ import { OrderDetailsPage } from "../../pages/order-details/order-details-page";
 // import { ProvideAuth } from './services/auth';
 
 export default function App() {
-  const location = useLocation<{ background: any, modal: any }>();
+  const location = useLocation<{ background: string, modal: string }>();
   const history = useHistory();
   const background = location.state && location.state.background;
   const modal = location.state && location.state.modal;

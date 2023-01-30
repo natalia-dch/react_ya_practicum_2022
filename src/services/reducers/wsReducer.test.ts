@@ -47,10 +47,15 @@ describe("websocket reducer", () => {
   });
 
   test("should handle wsMessage", () => {
-    const orders = ["a", "b"];
-    expect(wsReducer(undefined, wsMessage(orders))).toEqual({
+    const info = {
+      success: false,
+      orders: [],
+      total: 2,
+      totalToday: 1,
+    };
+    expect(wsReducer(undefined, wsMessage(info))).toEqual({
       ...initialState,
-      orders: orders,
+      orders: info,
     });
   });
 });

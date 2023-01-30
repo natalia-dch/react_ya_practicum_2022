@@ -16,7 +16,7 @@ export const ProtectedRoute : FC<RouteProps> = ({
   exact
 }) => {
   const isAuth = getCookie("refreshToken");
-  const location = useLocation<{ from: any }>();
+  const location = useLocation<{ from: string }>();
   return (
     <Route
       render={() => {

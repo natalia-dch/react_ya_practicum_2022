@@ -3,7 +3,6 @@ import React, {  } from "react";
 import styles from "./styles.module.css";
 import BurgerConstructor from "../../components/burger-constructor/BurgerConstructor";
 import BurgerIngredients from "../../components/burger-ingredients/BurgerIngredients";
-import { useDispatch, useSelector } from "react-redux";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { useAppSelector } from "../../utils/hooks";
