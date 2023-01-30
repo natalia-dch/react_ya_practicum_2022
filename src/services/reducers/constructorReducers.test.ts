@@ -231,7 +231,7 @@ describe("order reducer", () => {
       name: "order_1",
       createdAt: "",
       updatedAt: "",
-      number: "1",
+      number: 1,
       ingredients: [
         "123","234"
       ],

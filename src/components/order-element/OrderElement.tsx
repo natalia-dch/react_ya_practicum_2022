@@ -21,8 +21,9 @@ export const OrderElement = ({
 }: OrderElementPropsT) => {
   const history = useHistory();
   const ingredientInfo = useAppSelector((state) => state.ingredients.items);
-  const myIngredientInfo = ingredients.map((ingId) =>
+  const myIngredientInfo = ingredients.filter(i=>i!=undefined).map((ingId) =>
   ingredientInfo.filter((i : TIngredient) => i._id === ingId)[0]);
+  console.log(ingredients,myIngredientInfo);
   const images = myIngredientInfo.slice(0,10).map((i) => i.image);
   const cost = myIngredientInfo.map(i=>i.price).reduce((sum,i) => sum + i);
 

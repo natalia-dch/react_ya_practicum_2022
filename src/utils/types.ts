@@ -23,7 +23,7 @@ status:string,
 name:string,
 createdAt:string,
 updatedAt:string,
-number:string,
+number:number,
 ingredients: Array<string>,
 }
 

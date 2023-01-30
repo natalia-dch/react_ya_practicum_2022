@@ -21,6 +21,7 @@ import { useAppDispatch } from "../../utils/hooks";
 import { OrderHistoryPage } from "../../pages/order-history/order-history";
 import { OrdersPage } from "../../pages/orders-feed/orders-feed";
 import { OrderDetailsPage } from "../../pages/order-details/order-details-page";
+import { OrderHistory } from "../order-history/order-history";
 // import { ProtectedRoute } from './components/protected-route';
 // import { ProvideAuth } from './services/auth';
 
@@ -84,9 +85,9 @@ export default function App() {
         >
           {modal ? (
             <>
-              <OrderDetailsPage />
+              <ProfilePage />
               <Modal close={closeModal} title={"Детали заказа"}>
-                <OrderDetailsPage />
+                <OrderHistory />
               </Modal>
             </>
           ) : (
@@ -101,7 +102,7 @@ export default function App() {
             <>
               <OrdersPage />
               <Modal close={closeModal} title={"Детали заказа"}>
-                <OrderDetailsPage />
+                <OrderHistory />
               </Modal>
             </>
           ) : (
