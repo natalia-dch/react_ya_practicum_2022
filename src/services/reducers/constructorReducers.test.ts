@@ -217,7 +217,7 @@ describe("order reducer", () => {
       })
     ).toEqual({
       ...orderInitialState,
-      order: {},
+      order: null,
       orderSucceeded: false,
       orderError: false,
       orderRequest: true,
@@ -256,7 +256,7 @@ describe("order reducer", () => {
       })
     ).toEqual({
       ...orderInitialState,
-      order: {},
+      order: null,
       orderRequest: false,
       orderError: true,
     });
