@@ -1,1 +1,1 @@
-link: http://react.natalia.doskach.nomoredomains.rocks/
+Final project for Yandex Practicum React Course (2022).
